@@ -174,6 +174,39 @@ ParamZ pz = new ParamZ();
 
 你可以想象interface前面都是virtual，如果你不public，怎么override它呢？
 
+#### 5.Linq Select没有返回值的item
+
+假设你有`List<Curve> crvs`，你想对它们整体偏移。那么你可能会：
+
+```c#
+using System.Linq;
+var shiftCrvs = crvs.Select(crv => crv.Translate(100, 0, 0)).ToList();
+```
+
+但是实际上你可能得到的是一系列`boolean`， 因为
+
+```c#
+public bool Translate(
+	double x,
+	double y,
+	double z
+)
+```
+
+因此应该怎么做呢？
+
+```c#
+var shiftCrvs = crvs.Select(crv => {crv.Translate(100,0,0); return crv;}).ToList();
+```
+
+过程其实一目了然，
+
+1.先选择`crv`为crvs里的每一row，
+
+2.然后`{}`是对`crv`的操作。
+
+3.该操作是，先`Translate`，然后`return`该已经位移的crv
+
 
 
 ## Rhino&Grasshopper:rhinoceros:🦗
@@ -249,7 +282,7 @@ AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No intersection is found from
 
 ## C++
 
-#### 1.`fopen`: This function or variable may be unsafe.
+#### 1.C4996, `fopen`: This function or variable may be unsafe.
 
 当你用Visual Studio IDE去编译C++的时候，经常会遇到
 
@@ -278,9 +311,15 @@ Edit the `Disable Specific Warnings property` to add *`4996`*
 
 :warning: 需要注意的是，上面更改Properties的地方是`x64`，但是你Build的时候有可能是`x86`！！！因此，最好properties两个platform都改。
 
+#### 2.C2440, cannot convert from `char *` to `LPWSTR`
 
+`Project`=>`Properties`=>`Configuration Properties`=>`Advanced`=>`Character Set`=>`Use Multi-Byte Character Set`:heavy_check_mark:
 
+#### 3.E0135 namespace "std" has no member "filesystem"
 
+Because `std::filesystem` is a feature of C++17.
+
+`Project`=>`Properties`=>`Configuration Properties`=>`C/C++`=>`Language`=>`C++ Language Standard`=>`ISO C++17 Standard (/std:c++17)`:heavy_check_mark:
 
 ## Shell:shell:
 
