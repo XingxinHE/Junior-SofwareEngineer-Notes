@@ -321,6 +321,20 @@ Because `std::filesystem` is a feature of C++17.
 
 `Project`=>`Properties`=>`Configuration Properties`=>`C/C++`=>`Language`=>`C++ Language Standard`=>`ISO C++17 Standard (/std:c++17)`:heavy_check_mark:
 
+#### 4.How do you know Project Property Inheritance?
+
+On a property page, a property in **bold** is defined in the current context. A property in normal font is inherited.
+
+e.g. The following **bold** label like `C++ Language Standard` is defined by myself.
+
+![image-20210730100007576](README.assets/image-20210730100007576.png)
+
+#### 5.Use `Property Manager` to apply your setting across different projects
+
+If you are tired of setting `Property` manually in VS IDE, you can set up a property sheet(*.props*) to apply the setting.
+
+**View** > **Property Manager** or **View** > **Other Windows** > **Property Manager**
+
 ## Shell:shell:
 
 #### 1.`.\xxx`是什么意思？
