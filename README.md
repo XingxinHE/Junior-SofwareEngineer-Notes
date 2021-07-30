@@ -327,7 +327,7 @@ On a property page, a property in **bold** is defined in the current context. A 
 
 e.g. The following **bold** label like `C++ Language Standard` is defined by myself.
 
-![image-20210730100007576](README.assets/image-20210730100007576.png)
+![image-20210730100007576](img/image-20210730100007576.png)
 
 #### 5.Use `Property Manager` to apply your setting across different projects
 
