@@ -20,7 +20,11 @@ git reset --hard 0d1d7fc32
 
 `0d1d7fc32`是你的git id
 
+#### 3.Software for Git
 
+`SourceTree` is a free software managing Git while it provides GUI to interact with Git. Highly recommend! You can download:
+
+https://www.sourcetreeapp.com/
 
 ## C#
 
