@@ -1,16 +1,41 @@
-# The notebook:open_book: of junior software engineer:keyboard:
+# Overview: The notebook:open_book: of junior software engineer:keyboard:
+
+This notebook is and will be with me in the path of a software engineer working on 3D stuffs. This notebook and is constantly evolving.
+
+The topic ranges from programming language like C#, C++, Python, to 3D Software I mostly use like Rhino, Blender, and even to some Algorithm.
+
+# Table of Content
+
+- [Overview](#Overview: The notebook:open_book: of junior software engineer:keyboard:)
+- [Table of Contents](#table-of-contents)
+- [Getting Started](#getting-started)
+- [C#](#c-#)
+- [C++](#c-+-+)
+- [Algorithm](#algorithm)
+  - [Quick Start: Windows](#quick-start-windows)
+  - [Quick Start: Unix](#quick-start-unix)
+  - [Installing Linux Developer Tools](#installing-linux-developer-tools)
+  - [Installing macOS Developer Tools](#installing-macos-developer-tools)
+    - [Installing GCC for macOS before 10.15](#installing-gcc-for-macos-before-1015)
+  - [Using vcpkg with CMake](#using-vcpkg-with-cmake)
+    - [Visual Studio Code with CMake Tools](#visual-studio-code-with-cmake-tools)
+    - [Vcpkg with Visual Studio CMake Projects](#vcpkg-with-visual-studio-cmake-projects)
+    - [Vcpkg with CLion](#vcpkg-with-clion)
+    - [Vcpkg as a Submodule](#vcpkg-as-a-submodule)
+- [Tab-Completion/Auto-Completion](#tab-completionauto-completion)
+- [Examples](#examples)
 
 
 
 ## Git🕷️
 
-#### 1.删除branch locally and remotely
+### 1.删除branch locally and remotely
 
 del local branch:    `git branch -d {the_local_branch}`
 
 del remote branch:	`git push origin --delete {the_remote_branch}`
 
-#### 2.如何删除你现在做的任何东西回到某一次commit?
+### 2.如何删除你现在做的任何东西回到某一次commit?
 
 ```bash
 # This will destroy any local modifications.
@@ -20,15 +45,15 @@ git reset --hard 0d1d7fc32
 
 `0d1d7fc32`是你的git id
 
-#### 3.Software for Git
+### 3.Software for Git
 
 `SourceTree` is a free software managing Git while it provides GUI to interact with Git. Highly recommend! You can download:
 
 https://www.sourcetreeapp.com/
 
-## C#
+# C#
 
-#### 1.如何像Python一样创建一个List of Booleans in C#
+### 1.如何像Python一样创建一个List of Booleans in C#
 
 ```c#
 using System.Linq;
@@ -37,7 +62,7 @@ List<double> Z;
 var allFalse = Enumerable.Repeat(false, Z.Count);
 ```
 
-#### 2.out如何使用？
+### 2.out如何使用？
 
 ```c#
 public static void Run(out List<Plane> planes, out List<string> commands)
@@ -62,7 +87,7 @@ List<string> ss = new List<string>();
 Run(out ps, out ss);
 ```
 
-#### 3.接口与实例化
+### 3.接口与实例化
 
 例如我定义了
 
@@ -103,7 +128,7 @@ Vector3d IParam.SafeShift
 }
 ```
 
-#### 4.显示实现interface和隐式实现interface的区别
+### 4.显示实现interface和隐式实现interface的区别
 
 首先我定义了接口
 
@@ -115,7 +140,7 @@ interface IParam
 }
 ```
 
-##### 4.1显示实现explicitly
+#### 4.1显示实现explicitly
 
 我显示实现(explicitly)：
 
@@ -149,7 +174,7 @@ IParam p;
 p = flag ? pp as IParam : pz as IParam;
 ```
 
-##### 4.2隐式实现implicitly
+#### 4.2隐式实现implicitly
 
 我隐式实现：
 
@@ -178,7 +203,7 @@ ParamZ pz = new ParamZ();
 
 你可以想象interface前面都是virtual，如果你不public，怎么override它呢？
 
-#### 5.Linq Select没有返回值的item
+### 5.Linq Select没有返回值的item
 
 假设你有`List<Curve> crvs`，你想对它们整体偏移。那么你可能会：
 
@@ -215,7 +240,7 @@ var shiftCrvs = crvs.Select(crv => {crv.Translate(100,0,0); return crv;}).ToList
 
 ## Rhino&Grasshopper:rhinoceros:🦗
 
-#### 1.Point3d和Plane
+### 1.Point3d和Plane
 
 它们都是struct，因此是value type，所以不用Duplicate或者Clone，当它们是double那种值类型就好了。a.k.a. RhinoCommon的doc里面写着`structure`的，都是struct!!
 
@@ -232,7 +257,7 @@ B = pt2;
 
 因为是值类型，那么可以想象得到，A是{10, 0, 0}，B是{100, 0, 0}。
 
-#### 2.如何在`SolveInstance`外调用RuntimeMessage
+### 2.如何在`SolveInstance`外调用RuntimeMessage
 
 之前我加RuntimeMessage都是这样，在
 
@@ -274,7 +299,7 @@ protected override void SolveInstance(IGH_DataAccess DA)
 
 :question:为啥要用`this`? 其实`AddRuntimeMessage`是该类的方法，因此`obj`代指当前的实例，然后在SolveInstance那里，我会把this是当前实例
 
-#### 3. Grasshopper的RuntimeError
+### 3. Grasshopper的RuntimeError
 
 ```C#
 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No intersection is found from two edges.");
@@ -286,7 +311,7 @@ AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No intersection is found from
 
 ## C++
 
-#### 1.C4996, `fopen`: This function or variable may be unsafe.
+### 1.C4996, `fopen`: This function or variable may be unsafe.
 
 当你用Visual Studio IDE去编译C++的时候，经常会遇到
 
@@ -315,17 +340,17 @@ Edit the `Disable Specific Warnings property` to add *`4996`*
 
 :warning: 需要注意的是，上面更改Properties的地方是`x64`，但是你Build的时候有可能是`x86`！！！因此，最好properties两个platform都改。
 
-#### 2.C2440, cannot convert from `char *` to `LPWSTR`
+### 2.C2440, cannot convert from `char *` to `LPWSTR`
 
 `Project`=>`Properties`=>`Configuration Properties`=>`Advanced`=>`Character Set`=>`Use Multi-Byte Character Set`:heavy_check_mark:
 
-#### 3.E0135 namespace "std" has no member "filesystem"
+### 3.E0135 namespace "std" has no member "filesystem"
 
 Because `std::filesystem` is a feature of C++17.
 
 `Project`=>`Properties`=>`Configuration Properties`=>`C/C++`=>`Language`=>`C++ Language Standard`=>`ISO C++17 Standard (/std:c++17)`:heavy_check_mark:
 
-#### 4.How do you know Project Property Inheritance?
+### 4.How do you know Project Property Inheritance?
 
 On a property page, a property in **bold** is defined in the current context. A property in normal font is inherited.
 
@@ -333,7 +358,7 @@ e.g. The following **bold** label like `C++ Language Standard` is defined by mys
 
 ![image-20210730100007576](img/image-20210730100007576.png)
 
-#### 5.Use `Property Manager` to apply your setting across different projects
+### 5.Use `Property Manager` to apply your setting across different projects
 
 If you are tired of setting `Property` manually in VS IDE, you can set up a property sheet(*.props*) to apply the setting.
 
@@ -341,7 +366,7 @@ If you are tired of setting `Property` manually in VS IDE, you can set up a prop
 
 ## Shell:shell:
 
-#### 1.`.\xxx`是什么意思？
+### 1.`.\xxx`是什么意思？
 
 假设我们在`win`运行`dir`(≈Unix的`ls`)，看到如下列表
 
@@ -400,45 +425,90 @@ To conclude, `.\`就是运行当前目录下的某个文件
 
 
 
-## Robotics🦿
 
-#### 1.法兰盘的XYZ和Target的XYZ
-
-关系应该如下图：
-
-<img src="img/image-20210602154028720.png" alt="image-20210602154028720" style="zoom: 67%;" />
-
-X轴-红色
-
-Y轴-绿色
-
-Z轴-蓝色
-
-记住，法兰盘的Z轴是怼出来的。因此右手法则应该向着法兰盘
-
-:warning:但是这个XY轴并不一定如此！！！！！下面举例，三大机器人品牌，ABB, KUKA, FANUC它们末端法兰的区别。
-
-![image-20210708113019760](img/image-20210708113019760.png)
-
-从左到右，KUKA, FANUC, ABB
 
 
 
 ## Visual Studio & Visual Studio Code:computer:
 
-#### 1.IDE或者Editor的行数和光标信息
+### 1.IDE或者Editor的行数和光标信息
 
 ![image-20210721164953723](img/image-20210721164953723.png)
 
 如上图所示，我光标在`2.5;`后面，这里显示`Ln: 697    Ch: 61`代表第697行，第61个字符的位置
 
-#### 2.如何更改Build的output folder？
+### 2.如何更改Build的output folder？
 
 在C#里，可以在`Properties`的**Build** tab修改，那C++呢？在 **General** tab.
 
+### 3.Bookmarks
+
+`Ctrl`+`K,K`,double click K. Then the bookmark will be opened.
+
+<img src="img/image-20210801104617706.png" alt="image-20210801104617706" style="zoom:67%;" />
+
+### 4.Code snippets
+
+I think this can be very handy! `Code snippets` is sort of `alias` of the code. Similar to the alias of Grasshopper component. So, how to invoke code snippets?
+
+`Ctrl`+`K`,`B` open the Code Snippets Manager. You can find all the code snippets here!! For example, if you left
+
+```c#
+tryf
+```
+
+in the code editor, the cursor is right after `tryf`, you **double tab**!!  IDE would generate the following code for you.
+
+```c#
+try 
+{	        
+
+}
+finally
+{
+
+}
+```
+
+### 5.Cycle through the files you opened with keyboard
+
+`Ctrl`+`Tab`  You can loop over the files you opened.
+
+`Ctrl`+`Shift`+`Tab` You can loop over the files you open reversely.
+
+<img src="img/ide-ctrlTab-cycle.gif" alt="ide-ctrlTab-cycle" style="zoom:67%;" />
+
+### 6.Close all the tabs
+
+Managing many opening tabs is bit distraction for me. Sometimes I want to close all the tabs by:
+
+`Alt`+`W,L`
+
+### 7.Find the file and method you need:star:
+
+This is very handy!! When I was working, I only left one file opened. And the fastest way to find the method in which file is to 
+
+`Ctrl`+`,`        It will navigate you to the where the code is exactly!!
+
+<img src="img/ide-navigate.gif" alt="ide-navigate" style="zoom:67%;" />
+
+See above animation, I don't have any files opened until I press `Ctrl`+`,` and navigate to where I am interested it.
+
+### 8.Full screen mode
+
+`Shift`+`Alt`+`Enter`    You can access/quit full screen mode by this shortcut.
+
+### 9.Collapse block of code
+
+`Ctrl`+`M,M`
+
+<img src="img/ide-collapse-block.gif" alt="ide-collapse-block" style="zoom:67%;" />
 
 
-## 2021-07-13
+
+
+
+## Documentation Tool:books:
 
 ### 1.如何设置docfx的template？
 
@@ -476,7 +546,27 @@ Z轴-蓝色
 
 
 
+## Robotics🦿
 
+### 1.法兰盘的XYZ和Target的XYZ
+
+关系应该如下图：
+
+<img src="img/image-20210602154028720.png" alt="image-20210602154028720" style="zoom: 67%;" />
+
+X轴-红色
+
+Y轴-绿色
+
+Z轴-蓝色
+
+记住，法兰盘的Z轴是怼出来的。因此右手法则应该向着法兰盘
+
+:warning:但是这个XY轴并不一定如此！！！！！下面举例，三大机器人品牌，ABB, KUKA, FANUC它们末端法兰的区别。
+
+![image-20210708113019760](img/image-20210708113019760.png)
+
+从左到右，KUKA, FANUC, ABB
 
 
 
@@ -662,7 +752,7 @@ MENU - 6.设置 - 4.坐标系 - F3[编号]找一个空的工具TCP - F2[方法] 
 
 
 
-## 2021-04-23
+## Algorithm
 
 ### 1. 什么是RANSAC？
 
