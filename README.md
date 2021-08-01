@@ -6,24 +6,17 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 
 # Table of Content
 
-- [Overview](#Overview: The notebook:open_book: of junior software engineer:keyboard:)
-- [Table of Contents](#table-of-contents)
-- [Getting Started](#getting-started)
-- [C#](#c-#)
-- [C++](#c-+-+)
+- [Overview](#overview-the-notebookopen_book-of-junior-software-engineerkeyboard)
+- [Table of Contents](#table-of-content)
+- [Git](#git%EF%B8%8F)
+- [Shell](#shellshell)
+- [C#](#c)
+- [C++](#c-1)
+- [Visual Studio IDE & Visual Studio Code](#visual-studio--visual-studio-codecomputer)
+- [Documentation Tool](#documentation-toolbooks)
+- [Rhino & Grasshopper](#rhinograsshopperrhinoceros)
 - [Algorithm](#algorithm)
-  - [Quick Start: Windows](#quick-start-windows)
-  - [Quick Start: Unix](#quick-start-unix)
-  - [Installing Linux Developer Tools](#installing-linux-developer-tools)
-  - [Installing macOS Developer Tools](#installing-macos-developer-tools)
-    - [Installing GCC for macOS before 10.15](#installing-gcc-for-macos-before-1015)
-  - [Using vcpkg with CMake](#using-vcpkg-with-cmake)
-    - [Visual Studio Code with CMake Tools](#visual-studio-code-with-cmake-tools)
-    - [Vcpkg with Visual Studio CMake Projects](#vcpkg-with-visual-studio-cmake-projects)
-    - [Vcpkg with CLion](#vcpkg-with-clion)
-    - [Vcpkg as a Submodule](#vcpkg-as-a-submodule)
-- [Tab-Completion/Auto-Completion](#tab-completionauto-completion)
-- [Examples](#examples)
+- [Robotics](#robotics)
 
 
 
