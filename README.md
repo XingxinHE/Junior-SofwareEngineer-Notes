@@ -18,9 +18,9 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 - [Algorithm](#algorithm)
 - [Robotics](#robotics)
 
+# 1.Computer System:desktop_computer:
 
-
-## Git🕷️
+## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/git.svg" />Git🕷️
 
 ### 1.删除branch locally and remotely
 
@@ -44,7 +44,70 @@ git reset --hard 0d1d7fc32
 
 https://www.sourcetreeapp.com/
 
-# C#
+## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/powershell.svg" />Shell:shell:
+
+### 1.`.\xxx`是什么意思？
+
+假设我们在`win`运行`dir`(≈Unix的`ls`)，看到如下列表
+
+```bash
+2021/07/28  10:20    <DIR>          .
+2021/07/28  10:20    <DIR>          ..
+2021/07/28  09:41               141 .gitattributes
+2021/07/28  09:41    <DIR>          .github
+2021/07/28  09:41             5,559 .gitignore
+2021/07/28  09:41                 0 .vcpkg-root
+2021/07/28  09:41               100 bootstrap-vcpkg.bat
+2021/07/28  09:41               109 bootstrap-vcpkg.sh
+2021/07/28  10:06    <DIR>          buildtrees
+2021/07/28  09:41         1,210,046 CHANGELOG.md
+2021/07/28  10:21                93 CMakeDirectory.txt
+2021/07/28  09:41             2,432 CONTRIBUTING.md
+2021/07/28  09:41    <DIR>          docs
+2021/07/28  10:06    <DIR>          downloads
+2021/07/28  09:58    <DIR>          installed
+2021/07/28  09:41             1,096 LICENSE.txt
+2021/07/28  09:41             2,334 NOTICE.txt
+2021/07/28  10:06    <DIR>          packages
+2021/07/28  09:41    <DIR>          ports
+2021/07/28  09:41            12,381 README.md
+2021/07/28  09:41            15,908 README_es.md
+2021/07/28  09:41            12,459 README_fr.md
+2021/07/28  09:41            13,961 README_ko_KR.md
+2021/07/28  09:41            11,716 README_zh_CN.md
+2021/07/28  09:41    <DIR>          scripts
+2021/07/28  09:41               923 shell.nix
+2021/07/28  09:41    <DIR>          toolsrc
+2021/07/28  09:41    <DIR>          triplets
+2021/07/28  09:44         3,359,624 vcpkg.exe
+2021/07/28  09:41    <DIR>          versions
+```
+
+也就是
+
+<img src="img/image-20210728134121150.png" alt="image-20210728134121150" style="zoom: 67%;" />
+
+因此
+
+```bash
+.\vcpkg 
+```
+
+就是运行当前目录下的`vcpkg.exe`，如果后面有参数
+
+```bash
+.\vcpkg search libigl
+```
+
+​	那就是说明它在build这个`vcpkg.exe.`的时候预留了给你输入参数的代码。
+
+To conclude, `.\`就是运行当前目录下的某个文件
+
+
+
+# 2.Programming Language:speaking_head:
+
+## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/csharp.svg" />C#
 
 ### 1.如何像Python一样创建一个List of Booleans in C#
 
@@ -231,6 +294,8 @@ var shiftCrvs = crvs.Select(crv => {crv.Translate(100,0,0); return crv;}).ToList
 
 
 
+# 4.Geometry Kernel:triangular_ruler:
+
 ## Rhino&Grasshopper:rhinoceros:🦗
 
 ### 1.Point3d和Plane
@@ -302,7 +367,7 @@ AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No intersection is found from
 
 
 
-## C++
+## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/cplusplus.svg" />C++
 
 ### 1.C4996, `fopen`: This function or variable may be unsafe.
 
@@ -357,72 +422,17 @@ If you are tired of setting `Property` manually in VS IDE, you can set up a prop
 
 **View** > **Property Manager** or **View** > **Other Windows** > **Property Manager**
 
-## Shell:shell:
 
-### 1.`.\xxx`是什么意思？
 
-假设我们在`win`运行`dir`(≈Unix的`ls`)，看到如下列表
-
-```bash
-2021/07/28  10:20    <DIR>          .
-2021/07/28  10:20    <DIR>          ..
-2021/07/28  09:41               141 .gitattributes
-2021/07/28  09:41    <DIR>          .github
-2021/07/28  09:41             5,559 .gitignore
-2021/07/28  09:41                 0 .vcpkg-root
-2021/07/28  09:41               100 bootstrap-vcpkg.bat
-2021/07/28  09:41               109 bootstrap-vcpkg.sh
-2021/07/28  10:06    <DIR>          buildtrees
-2021/07/28  09:41         1,210,046 CHANGELOG.md
-2021/07/28  10:21                93 CMakeDirectory.txt
-2021/07/28  09:41             2,432 CONTRIBUTING.md
-2021/07/28  09:41    <DIR>          docs
-2021/07/28  10:06    <DIR>          downloads
-2021/07/28  09:58    <DIR>          installed
-2021/07/28  09:41             1,096 LICENSE.txt
-2021/07/28  09:41             2,334 NOTICE.txt
-2021/07/28  10:06    <DIR>          packages
-2021/07/28  09:41    <DIR>          ports
-2021/07/28  09:41            12,381 README.md
-2021/07/28  09:41            15,908 README_es.md
-2021/07/28  09:41            12,459 README_fr.md
-2021/07/28  09:41            13,961 README_ko_KR.md
-2021/07/28  09:41            11,716 README_zh_CN.md
-2021/07/28  09:41    <DIR>          scripts
-2021/07/28  09:41               923 shell.nix
-2021/07/28  09:41    <DIR>          toolsrc
-2021/07/28  09:41    <DIR>          triplets
-2021/07/28  09:44         3,359,624 vcpkg.exe
-2021/07/28  09:41    <DIR>          versions
-```
-
-也就是
-
-<img src="img/image-20210728134121150.png" alt="image-20210728134121150" style="zoom: 67%;" />
-
-因此
-
-```bash
-.\vcpkg 
-```
-
-就是运行当前目录下的`vcpkg.exe`，如果后面有参数
-
-```bash
-.\vcpkg search libigl
-```
-
-​	那就是说明它在build这个`vcpkg.exe.`的时候预留了给你输入参数的代码。
-
-To conclude, `.\`就是运行当前目录下的某个文件
+## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/python.svg" />Python
 
 
 
+# 3.IDE & Text Editor :memo::computer:
 
 
 
-
-## Visual Studio & Visual Studio Code:computer:
+## Visual Studio IDE<img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/visualstudio.svg" />
 
 ### 1.IDE或者Editor的行数和光标信息
 
@@ -496,6 +506,12 @@ See above animation, I don't have any files opened until I press `Ctrl`+`,` and 
 `Ctrl`+`M,M`
 
 <img src="img/ide-collapse-block.gif" alt="ide-collapse-block" style="zoom:67%;" />
+
+
+
+## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/visualstudiocode.svg" />Visual Studio Code
+
+
 
 
 
@@ -745,9 +761,11 @@ MENU - 6.设置 - 4.坐标系 - F3[编号]找一个空的工具TCP - F2[方法] 
 
 
 
-## Algorithm
+# Algorithm
 
-### 1. 什么是RANSAC？
+## Optimization
+
+### 1.RANSAC？
 
 #### 综述
 
