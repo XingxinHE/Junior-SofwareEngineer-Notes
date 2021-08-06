@@ -1,3 +1,5 @@
+
+
 # Overview: The notebook:open_book: of junior software engineer:keyboard:
 
 This notebook is and will be with me in the path of a software engineer working on 3D stuffs. This notebook and is constantly evolving.
@@ -294,79 +296,6 @@ var shiftCrvs = crvs.Select(crv => {crv.Translate(100,0,0); return crv;}).ToList
 
 
 
-# 4.Geometry Kernel:triangular_ruler:
-
-## Rhino&Grasshopper:rhinoceros:🦗
-
-### 1.Point3d和Plane
-
-它们都是struct，因此是value type，所以不用Duplicate或者Clone，当它们是double那种值类型就好了。a.k.a. RhinoCommon的doc里面写着`structure`的，都是struct!!
-
-```c#
-Point3d pt1 = new Point3d(0, 0, 0);
-Point3d pt2 = new Point3d(1, 0, 0);
-pt2 = pt1;
-pt1.X = 10;
-pt2.Transform(Transform.Translation(new Vector3d(100, 0, 0)));
-
-A = pt1;
-B = pt2;
-```
-
-因为是值类型，那么可以想象得到，A是{10, 0, 0}，B是{100, 0, 0}。
-
-### 2.如何在`SolveInstance`外调用RuntimeMessage
-
-之前我加RuntimeMessage都是这样，在
-
-```c#
-protected override void SolveInstance(IGH_DataAccess DA)
-{
-    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Warning!");
-}
-```
-
-但如果我写了一个Class, 那个class里面有方法想要AddRuntimeMessage怎么办？？
-
-可以这样写那个Class
-
-```c#
-public class ClassName
-{
-    public ClassName()
-    {
-        
-    }
-    public void Run(GH_ActiveObject obj, ref List<Plane> planes, ref List<string> commands)
-    {
-
-        obj.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "xxx");
-    }
-}
-```
-
-那到时候在SolveInstance就可以
-
-```c#
-protected override void SolveInstance(IGH_DataAccess DA)
-{
-    var instance = new ClassName();
-    instance.Run(this, planes, commands);
-}
-```
-
-:question:为啥要用`this`? 其实`AddRuntimeMessage`是该类的方法，因此`obj`代指当前的实例，然后在SolveInstance那里，我会把this是当前实例
-
-### 3. Grasshopper的RuntimeError
-
-```C#
-AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No intersection is found from two edges.");
-```
-
-这个`RuntimeMessageLevel`有4层，Blank(任何信息都没有)，Remark(有信息pop-out，但是没颜色)，Warning(橙色warning)，Error(红色error警告)
-
-
-
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/cplusplus.svg" />C++
 
 ### 1.C4996, `fopen`: This function or variable may be unsafe.
@@ -515,7 +444,7 @@ See above animation, I don't have any files opened until I press `Ctrl`+`,` and 
 
 
 
-
+# 4.Devops
 
 ## Documentation Tool:books:
 
@@ -555,7 +484,126 @@ See above animation, I don't have any files opened until I press `Ctrl`+`,` and 
 
 
 
-## Robotics🦿
+## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/docker.svg" />Docker
+
+# 5.Geometry Kernel:triangular_ruler:
+
+## RhinoCommon&Grasshopper:rhinoceros:🦗
+
+### 1.Point3d和Plane
+
+它们都是struct，因此是value type，所以不用Duplicate或者Clone，当它们是double那种值类型就好了。a.k.a. RhinoCommon的doc里面写着`structure`的，都是struct!!
+
+```c#
+Point3d pt1 = new Point3d(0, 0, 0);
+Point3d pt2 = new Point3d(1, 0, 0);
+pt2 = pt1;
+pt1.X = 10;
+pt2.Transform(Transform.Translation(new Vector3d(100, 0, 0)));
+
+A = pt1;
+B = pt2;
+```
+
+因为是值类型，那么可以想象得到，A是{10, 0, 0}，B是{100, 0, 0}。
+
+### 2.如何在`SolveInstance`外调用RuntimeMessage
+
+之前我加RuntimeMessage都是这样，在
+
+```c#
+protected override void SolveInstance(IGH_DataAccess DA)
+{
+    AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Warning!");
+}
+```
+
+但如果我写了一个Class, 那个class里面有方法想要AddRuntimeMessage怎么办？？
+
+可以这样写那个Class
+
+```c#
+public class ClassName
+{
+    public ClassName()
+    {
+        
+    }
+    public void Run(GH_ActiveObject obj, ref List<Plane> planes, ref List<string> commands)
+    {
+
+        obj.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "xxx");
+    }
+}
+```
+
+那到时候在SolveInstance就可以
+
+```c#
+protected override void SolveInstance(IGH_DataAccess DA)
+{
+    var instance = new ClassName();
+    instance.Run(this, planes, commands);
+}
+```
+
+:question:为啥要用`this`? 其实`AddRuntimeMessage`是该类的方法，因此`obj`代指当前的实例，然后在SolveInstance那里，我会把this是当前实例
+
+### 3. Grasshopper的RuntimeError
+
+```C#
+AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No intersection is found from two edges.");
+```
+
+这个`RuntimeMessageLevel`有4层，Blank(任何信息都没有)，Remark(有信息pop-out，但是没颜色)，Warning(橙色warning)，Error(红色error警告)
+
+
+
+# 6.Algorithm
+
+## Optimization
+
+### 1.RANSAC？
+
+#### 综述
+
+ It can be interpreted as **an outlier detection method**!! Inlier和Outlier很重要，这个算法还有把inlier看作是一个很重要的指标。如下图的Line Fitting问题，如果是用 simple least squares method的话就很容易出问题。因为后者把outlier也当作关键信息，而RANSAC也会process outliers，但是它却会exclude它们。
+
+<img src="img/image-20210423172645420.png" alt="image-20210423172645420" style="zoom: 67%;" />
+
+#### 怎么运作？
+
+大致的思路是
+
+  1. 随机筛选一些subset of data，然后fit model出来
+  2. 找剩余的data来测试这个model，如果能通过，那就称为inlier data
+  3. 不断重复，如果fit的data太少了，这个model就会被reject
+  4. 若良好，那么这个dataset就是consensus set
+  5. 这个model不断完善，这个consensus set越来越大
+
+#### :star:Pros and Cons
+
+这非常重要，一项技术总有trade-off
+
+##### Pros
+
+若含超过50%的inliers，那么RANSAC会非常robust
+
+##### Cons
+
+反之，若只有例如30%的inlier，那么RANSAC没法找出好东西    
+
+RANSAC是model-dataset一一对应的关系，即一个dataset不可能有两个model。比如是一个折线的scatter plot，那就需要两个model，RANSAC不适合这种情况    
+
+no upper bound计算时间，因此需要根据数据集的复杂程度决定iteration大小
+
+:star:RANSAC的threshold是problem-specific thresholds，例如在我找折线的那个电池，是算的threshold是data point的Y值的差异。那么，当我的模型从1mm变成1000mm，threshold就要改变了
+
+
+
+
+
+# 7.Robotics🦿
 
 ### 1.法兰盘的XYZ和Target的XYZ
 
@@ -758,46 +806,4 @@ MENU - 6.设置 - 4.坐标系 - F3[编号]找一个空的工具TCP - F2[方法] 
 ### 2.怎么切换TCP跑FANUC？
 
 按住`SHIFT+COORD`, 右上角出现`Tool, Jog, User`，选择`Tool`然后输入刚刚设好的几号工具就可以了
-
-
-
-# Algorithm
-
-## Optimization
-
-### 1.RANSAC？
-
-#### 综述
-
- It can be interpreted as **an outlier detection method**!! Inlier和Outlier很重要，这个算法还有把inlier看作是一个很重要的指标。如下图的Line Fitting问题，如果是用 simple least squares method的话就很容易出问题。因为后者把outlier也当作关键信息，而RANSAC也会process outliers，但是它却会exclude它们。
-
-<img src="img/image-20210423172645420.png" alt="image-20210423172645420" style="zoom: 67%;" />
-
-#### 怎么运作？
-
-大致的思路是
-
-  1. 随机筛选一些subset of data，然后fit model出来
-  2. 找剩余的data来测试这个model，如果能通过，那就称为inlier data
-  3. 不断重复，如果fit的data太少了，这个model就会被reject
-  4. 若良好，那么这个dataset就是consensus set
-  5. 这个model不断完善，这个consensus set越来越大
-
-#### :star:Pros and Cons
-
-这非常重要，一项技术总有trade-off
-
-##### Pros
-
-若含超过50%的inliers，那么RANSAC会非常robust
-
-##### Cons
-
-反之，若只有例如30%的inlier，那么RANSAC没法找出好东西    
-
-RANSAC是model-dataset一一对应的关系，即一个dataset不可能有两个model。比如是一个折线的scatter plot，那就需要两个model，RANSAC不适合这种情况    
-
-no upper bound计算时间，因此需要根据数据集的复杂程度决定iteration大小
-
-:star:RANSAC的threshold是problem-specific thresholds，例如在我找折线的那个电池，是算的threshold是data point的Y值的差异。那么，当我的模型从1mm变成1000mm，threshold就要改变了
 
