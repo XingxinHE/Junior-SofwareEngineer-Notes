@@ -10,15 +10,22 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 
 - [Overview](#overview-the-notebookopen_book-of-junior-software-engineerkeyboard)
 - [Table of Contents](#table-of-content)
-- [Git](#git%EF%B8%8F)
-- [Shell](#shellshell)
-- [C#](#c)
-- [C++](#c-1)
-- [Visual Studio IDE & Visual Studio Code](#visual-studio--visual-studio-codecomputer)
-- [Documentation Tool](#documentation-toolbooks)
-- [Rhino & Grasshopper](#rhinograsshopperrhinoceros)
-- [Algorithm](#algorithm)
-- [Robotics](#robotics)
+- [1.Computer System](#1computer-systemdesktop_computer)
+  - [Git](#git%EF%B8%8F)
+  - [Shell](#shellshell)
+- [2.Programming Language][#2programming-languagespeaking_head]
+  - [C#](#c)
+  - [C++](#c-1)
+- [3.IDE & Text Editor][#3ide--text-editor-memocomputer]
+  - [Visual Studio IDE](#visual-studio-ide)
+  - [Visual Studio Code](#visual-studio-code)
+- [4.Devops][#4devops]
+  - [Documentation Tool](#documentation-toolbooks)
+  - [Docker][#docker]
+- [5.Geometry Kernel][#5geometry-kerneltriangular_ruler]
+  - [RhinoCommon & Grasshopper](#rhinocommongrasshopperrhinoceros)
+- [6.Algorithm](#6algorithm)
+- [7.Robotics](#7robotics)
 
 # 1.Computer System:desktop_computer:
 
