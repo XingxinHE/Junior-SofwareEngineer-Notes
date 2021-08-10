@@ -47,11 +47,17 @@ git reset --hard 0d1d7fc32
 
 `0d1d7fc32`是你的git id
 
-### 3.Software for Git
+### 3.:+1:Goooood resources of Git
 
-`SourceTree` is a free software managing Git while it provides GUI to interact with Git. Highly recommend! You can download:
+#### `.gitignore` template
 
-https://www.sourcetreeapp.com/
+> ​	https://github.com/github/gitignore
+
+#### Software for Git
+
+> ​	`SourceTree` is a free software managing Git while it provides GUI to interact with Git. Highly recommend! You can download:
+>
+> ​	https://www.sourcetreeapp.com/
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/powershell.svg" />Shell:shell:
 
@@ -446,6 +452,16 @@ See above animation, I don't have any files opened until I press `Ctrl`+`,` and 
 
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/visualstudiocode.svg" />Visual Studio Code
+
+### 1.Shortcut
+
+| Function    | Keyboard        | Notes |
+| ----------- | --------------- | ----- |
+| Auto-format | **Alt+Shift+F** |       |
+|             |                 |       |
+|             |                 |       |
+
+
 
 
 
