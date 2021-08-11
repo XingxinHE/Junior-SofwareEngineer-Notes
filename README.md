@@ -274,16 +274,18 @@ ParamZ pz = new ParamZ();
 
 你可以想象interface前面都是virtual，如果你不public，怎么override它呢？
 
-### 5.Linq Select没有返回值的item
+### 5.Linq  commands collection
 
-假设你有`List<Curve> crvs`，你想对它们整体偏移。那么你可能会：
+#### Select没有返回值的item
+
+> ​	假设你有`List<Curve> crvs`，你想对它们整体偏移。那么你可能会：
 
 ```c#
 using System.Linq;
 var shiftCrvs = crvs.Select(crv => crv.Translate(100, 0, 0)).ToList();
 ```
 
-但是实际上你可能得到的是一系列`boolean`， 因为
+> ​	但是实际上你可能得到的是一系列`boolean`， 因为
 
 ```c#
 public bool Translate(
@@ -293,19 +295,45 @@ public bool Translate(
 )
 ```
 
-因此应该怎么做呢？
+> ​	因此应该怎么做呢？
 
 ```c#
 var shiftCrvs = crvs.Select(crv => {crv.Translate(100,0,0); return crv;}).ToList();
 ```
 
-过程其实一目了然，
+> 过程其实一目了然，
+>
+> 1.先选择`crv`为crvs里的每一row，
+>
+> 2.然后`{}`是对`crv`的操作。
+>
+> 3.该操作是，先`Translate`，然后`return`该已经位移的crv
 
-1.先选择`crv`为crvs里的每一row，
 
-2.然后`{}`是对`crv`的操作。
 
-3.该操作是，先`Translate`，然后`return`该已经位移的crv
+#### use `Take` to split a list
+
+> ​	imagine you have a list of 10 `double`, and you want to split the list into two chunks
+
+```c#
+List<double> doubleList = new List<double> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+var firstFour = doubleList.Take(4).ToList();  //now you have the first four item
+```
+
+
+
+#### use `Skip` to bypass items 
+
+> ​	it is sort of dual method of `Take` which bypass certain amount of elements
+
+```c#
+List<double> doubleList = new List<double> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+var lastSix = doubleList.Skip(4).ToList();  //now you have the last six item
+```
+
+
+
+
 
 
 
@@ -375,6 +403,21 @@ If you are tired of setting `Property` manually in VS IDE, you can set up a prop
 
 
 ## Visual Studio IDE<img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/visualstudio.svg" />
+
+### Property Tab
+
+#### Post-build Event
+
+> ​	Use this relative path instead which can run on anyone's PC
+>
+> ​	1st line means: `copy` anything in your `TargetDir`(usually `\bin`) to the path you defined
+>
+> ​	2nd line means: `copy` the `***.dll` file to the location and rename it to `***.gha`
+
+```
+XCOPY "$(TargetDir)*" "$(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName)\" /S /Y
+Copy "$(TargetPath)" "$(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName)\$(ProjectName).gha"
+```
 
 ### 1.IDE或者Editor的行数和光标信息
 
