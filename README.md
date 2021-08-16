@@ -124,41 +124,15 @@ To conclude, `.\`就是运行当前目录下的某个文件
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/csharp.svg" />C#
 
-### 1.如何像Python一样创建一个List of Booleans in C#
+### 1.Types
 
-```c#
-using System.Linq;
+#### 1.1Value Types
 
-List<double> Z;
-var allFalse = Enumerable.Repeat(false, Z.Count);
-```
+#### 1.2Reference Types
 
-### 2.out如何使用？
+##### interface
 
-```c#
-public static void Run(out List<Plane> planes, out List<string> commands)
-{
-    //用out的话，一定要在最前面赋值！！
-    planes = new List<Plane>();
-    commands = new List<string>();
-    //然后对这些List进行操作
-    planes.Add(Plane.WorldXY);
-    planes.Add(Plane.WorldYZ);
-    planes.Add(Plane.WorldZX);
-    commands.Add("Hello!");
-    commands.Add("My name is John!");
-}
-```
-
-在调用的时候是这样：
-
-```c#
-List<Plane> ps = new List<Plane>();
-List<string> ss = new List<string>();
-Run(out ps, out ss);
-```
-
-### 3.接口与实例化
+:pushpin:**define an interface and implement it**
 
 例如我定义了
 
@@ -199,7 +173,7 @@ Vector3d IParam.SafeShift
 }
 ```
 
-### 4.显示实现interface和隐式实现interface的区别
+:pushpin:**difference between explicit and implicit implementation**
 
 首先我定义了接口
 
@@ -211,7 +185,7 @@ interface IParam
 }
 ```
 
-#### 4.1显示实现explicitly
+> explicitly implement an interface
 
 我显示实现(explicitly)：
 
@@ -245,7 +219,7 @@ IParam p;
 p = flag ? pp as IParam : pz as IParam;
 ```
 
-#### 4.2隐式实现implicitly
+> ​	implicitly implement an interface
 
 我隐式实现：
 
@@ -274,9 +248,64 @@ ParamZ pz = new ParamZ();
 
 你可以想象interface前面都是virtual，如果你不public，怎么override它呢？
 
-### 5.Linq  commands collection
 
-#### Select没有返回值的item
+
+### 2.Keywords
+
+#### 2.1Modifiers
+
+##### Access Modifiers
+
+:pushpin:`private` vs `internal`
+
+> **internal** is for assembly scope (i.e. only accessible from code in the same .exe or .dll)
+>
+> **private** is for class scope (i.e. accessible only from code in the same class).
+
+#### 2.2Statement
+
+#### 2.3Method Parameters
+
+:pushpin: **how to use `out`？**
+
+```c#
+public static void Run(out List<Plane> planes, out List<string> commands)
+{
+    //用out的话，一定要在最前面赋值！！
+    planes = new List<Plane>();
+    commands = new List<string>();
+    //然后对这些List进行操作
+    planes.Add(Plane.WorldXY);
+    planes.Add(Plane.WorldYZ);
+    planes.Add(Plane.WorldZX);
+    commands.Add("Hello!");
+    commands.Add("My name is John!");
+}
+```
+
+在调用的时候是这样：
+
+```c#
+List<Plane> ps = new List<Plane>();
+List<string> ss = new List<string>();
+Run(out ps, out ss);
+```
+
+
+
+#### 2.4Namespace
+
+#### 2.5Generic Type Constraint
+
+#### 2.6Access
+
+#### 2.7Literal
+
+#### 2.8Contextual
+
+#### 2.9Queries
+
+:pushpin:**Select没有返回值的item**
 
 > ​	假设你有`List<Curve> crvs`，你想对它们整体偏移。那么你可能会：
 
@@ -311,7 +340,7 @@ var shiftCrvs = crvs.Select(crv => {crv.Translate(100,0,0); return crv;}).ToList
 
 
 
-#### use `Take` to split a list
+:pushpin:**use `Take` to split a list**
 
 > ​	imagine you have a list of 10 `double`, and you want to split the list into two chunks
 
@@ -322,7 +351,7 @@ var firstFour = doubleList.Take(4).ToList();  //now you have the first four item
 
 
 
-#### use `Skip` to bypass items 
+:pushpin:**use `Skip` to bypass items** 
 
 > ​	it is sort of dual method of `Take` which bypass certain amount of elements
 
@@ -333,7 +362,34 @@ var lastSix = doubleList.Skip(4).ToList();  //now you have the last six item
 
 
 
+:pushpin:**Create a list of booleans like in Python**
 
+```c#
+using System.Linq;
+
+List<double> Z;
+var allFalse = Enumerable.Repeat(false, Z.Count);
+```
+
+
+
+### 3.Operators and expressions
+
+### 4.Statements
+
+### 5.Special Character
+
+### 6.Attributes
+
+### 7.Unsafe code and pointers
+
+### 8.Preprocessor directives
+
+### 9.Compiler Error
+
+### 10.XML documentations comments
+
+### 11.Specifications
 
 
 
