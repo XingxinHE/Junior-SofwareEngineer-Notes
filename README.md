@@ -373,6 +373,31 @@ var allFalse = Enumerable.Repeat(false, Z.Count);
 
 
 
+:pushpin: **Combine two list and return a new list**
+
+```c#
+var z = x.Concat(y).ToList();  //the `concat` would not affect either x or y
+```
+
+
+
+:pushpin: **Sort a list by list value**
+
+```c#
+using System.Linq;
+
+//sorts in acending order {1,2,3,4,5}
+myList.Sort();
+
+//Sorts in decending order {5,4,3,2,1}
+myList.Sort();
+myList.Reverse();
+```
+
+
+
+
+
 ### 3.Operators and expressions
 
 ### 4.Statements
