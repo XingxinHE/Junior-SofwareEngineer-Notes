@@ -262,7 +262,30 @@ ParamZ pz = new ParamZ();
 >
 > **private** is for class scope (i.e. accessible only from code in the same class).
 
-#### 2.2Statement
+#### 2.2.Statement
+
+**2.2.1.Iteration Statement**
+
+**:pushpin: How to loop backward in `foreach`?**
+
+```c#
+//use `.Reverse()`
+int[] arr = new int[]{1,2,3,4,5,6};
+foreach(int i in arr.Reverse())
+{
+    Console.WriteLine(i.ToString());
+}
+//Reverse list return void, so first cast to array
+List<int> list = new List<int>{1,2,3,4,5,6};
+foreach(int i in list.ToArray().Reverse())
+{
+    Console.WriteLine(i.ToString());
+}
+```
+
+
+
+**2.2.2.Selection Statement**
 
 #### 2.3Method Parameters
 
@@ -293,17 +316,17 @@ Run(out ps, out ss);
 
 
 
-#### 2.4Namespace
+#### 2.4.Namespace
 
-#### 2.5Generic Type Constraint
+#### 2.5.Generic Type Constraint
 
-#### 2.6Access
+#### 2.6.Access
 
-#### 2.7Literal
+#### 2.7.Literal
 
-#### 2.8Contextual
+#### 2.8.Contextual
 
-#### 2.9Queries
+#### 2.9.Queries
 
 :pushpin:**Select没有返回值的item**
 
@@ -395,6 +418,28 @@ myList.Reverse();
 ```
 
 
+
+:pushpin: **Set operation**
+
+| **Method Name** | **Description**              |
+| --------------- | ---------------------------- |
+| Distinct        | Removes duplicates           |
+| Except          | Returns the set difference   |
+| Intersect       | Returns the set intersection |
+| Union           | Returns the set union        |
+
+```c#
+using System.Linq;
+
+List<int> LA = new List<int>() { 1, 2, 2, 3 };
+List<int> LB = new List<int>() { 3, 4, 5, 6 };
+var LC = LA.Distinct().ToList();  //{1, 2, 3}
+var LC = LA.Except(LB).ToList();  //{1, 2}
+var LC = LA.Intersect(LB).ToList();  //{3}
+var LC = LA.Union(LB).ToList();  //{1, 2, 3, 4, 5, 6}
+```
+
+:bangbang: If you notice, the result are all `set` no matter if it `.Distinct()`. That is due to the `Set` operation literally.
 
 
 
@@ -954,3 +999,4 @@ MENU - 6.设置 - 4.坐标系 - F3[编号]找一个空的工具TCP - F2[方法] 
 
 按住`SHIFT+COORD`, 右上角出现`Tool, Jog, User`，选择`Tool`然后输入刚刚设好的几号工具就可以了
 
+​	
