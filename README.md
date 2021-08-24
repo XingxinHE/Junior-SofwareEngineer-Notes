@@ -31,6 +31,22 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/git.svg" />Git🕷️
 
+| command                  | objective                                                  | example                        | notes |
+| ------------------------ | ---------------------------------------------------------- | ------------------------------ | ----- |
+|                          |                                                            |                                |       |
+| `git rm --cached <file>` | To **stop tracking files** which have already been tracked | `git rm --cached main.3dm.bak` |       |
+|                          |                                                            |                                |       |
+|                          |                                                            |                                |       |
+|                          |                                                            |                                |       |
+|                          |                                                            |                                |       |
+|                          |                                                            |                                |       |
+|                          |                                                            |                                |       |
+|                          |                                                            |                                |       |
+|                          |                                                            |                                |       |
+|                          |                                                            |                                |       |
+
+
+
 ### 1.删除branch locally and remotely
 
 del local branch:    `git branch -d {the_local_branch}`
