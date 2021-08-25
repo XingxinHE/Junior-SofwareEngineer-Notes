@@ -31,39 +31,23 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/git.svg" />Git🕷️
 
-| command                  | objective                                                  | example                        | notes |
-| ------------------------ | ---------------------------------------------------------- | ------------------------------ | ----- |
-|                          |                                                            |                                |       |
-| `git rm --cached <file>` | To **stop tracking files** which have already been tracked | `git rm --cached main.3dm.bak` |       |
-|                          |                                                            |                                |       |
-|                          |                                                            |                                |       |
-|                          |                                                            |                                |       |
-|                          |                                                            |                                |       |
-|                          |                                                            |                                |       |
-|                          |                                                            |                                |       |
-|                          |                                                            |                                |       |
-|                          |                                                            |                                |       |
-|                          |                                                            |                                |       |
+### 1.Frequently Used Commands
 
+| command                                        | objective                                                  | example                               |
+| ---------------------------------------------- | ---------------------------------------------------------- | ------------------------------------- |
+|                                                |                                                            |                                       |
+| `git rm --cached <file>`                       | To **stop tracking files** which have already been tracked | `git rm --cached main.3dm.bak`        |
+| `git reset --hard <commitGuid>`                | Destroy any local modification and reset to such commit    | `git reset --hard 0d1d7fc32`          |
+| `git branch -d <the_local_branch>`             | Delete local branch                                        | `git branch -d PointDebug`            |
+| `git push origin --delete <the_remote_branch>` | Delete remote branch                                       | `git push origin --delete PointDebug` |
+|                                                |                                                            |                                       |
+|                                                |                                                            |                                       |
+|                                                |                                                            |                                       |
+|                                                |                                                            |                                       |
+|                                                |                                                            |                                       |
+|                                                |                                                            |                                       |
 
-
-### 1.删除branch locally and remotely
-
-del local branch:    `git branch -d {the_local_branch}`
-
-del remote branch:	`git push origin --delete {the_remote_branch}`
-
-### 2.如何删除你现在做的任何东西回到某一次commit?
-
-```bash
-# This will destroy any local modifications.
-# Don't do it if you have uncommitted work you want to keep.
-git reset --hard 0d1d7fc32
-```
-
-`0d1d7fc32`是你的git id
-
-### 3.:+1:Goooood resources of Git
+### 2.:+1:Goooood resources of Git
 
 #### `.gitignore` template
 
@@ -74,6 +58,10 @@ git reset --hard 0d1d7fc32
 > ​	`SourceTree` is a free software managing Git while it provides GUI to interact with Git. Highly recommend! You can download:
 >
 > ​	https://www.sourcetreeapp.com/
+
+
+
+
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/powershell.svg" />Shell:shell:
 
@@ -477,6 +465,10 @@ var LC = LA.Union(LB).ToList();  //{1, 2, 3, 4, 5, 6}
 
 ### 11.Specifications
 
+### 12.<img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/nuget.svg" />C# Nuget Package
+
+
+
 
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/cplusplus.svg" />C++
@@ -533,6 +525,42 @@ e.g. The following **bold** label like `C++ Language Standard` is defined by mys
 If you are tired of setting `Property` manually in VS IDE, you can set up a property sheet(*.props*) to apply the setting.
 
 **View** > **Property Manager** or **View** > **Other Windows** > **Property Manager**
+
+### C++ Libraries:books:
+
+#### <img align="left" height="25" src="https://gitlab.com/libeigen/eigen/-/raw/master/doc/Eigen_Silly_Professor_64x64.png?inline=false" />Eigen
+
+:pushpin: **Initialization before operation is a must**
+
+```c++
+#include <Eigen/Dense>
+
+Eigen::Vector3d rhs;
+{
+    //operations on `rhs`
+}
+```
+
+In this situation, the `rhs` will be super super big like $e^{23} $. Therefore, a good practice is to **initialize** before using it.
+
+```c++
+#include <Eigen/Dense>
+#include <Eigen/Core>
+
+//you may have some specific size
+int numRow = 10;
+int numColumn = 10;
+
+//declare
+Eigen::MatrixXd matrix;
+Eigen::VectorXd rhs;
+matrix.resize(numRow, numColumn);
+rhs.resize(numRow);
+
+//init with zero
+matrix.setZero();
+rhs.setZero();
+```
 
 
 
