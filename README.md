@@ -33,19 +33,30 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 
 ### 1.Frequently Used Commands
 
-| command                                        | objective                                                  | example                               |
-| ---------------------------------------------- | ---------------------------------------------------------- | ------------------------------------- |
-|                                                |                                                            |                                       |
-| `git rm --cached <file>`                       | To **stop tracking files** which have already been tracked | `git rm --cached main.3dm.bak`        |
-| `git reset --hard <commitGuid>`                | Destroy any local modification and reset to such commit    | `git reset --hard 0d1d7fc32`          |
-| `git branch -d <the_local_branch>`             | Delete local branch                                        | `git branch -d PointDebug`            |
-| `git push origin --delete <the_remote_branch>` | Delete remote branch                                       | `git push origin --delete PointDebug` |
-|                                                |                                                            |                                       |
-|                                                |                                                            |                                       |
-|                                                |                                                            |                                       |
-|                                                |                                                            |                                       |
-|                                                |                                                            |                                       |
-|                                                |                                                            |                                       |
+| command                                        | objective                                                    | example                                |
+| ---------------------------------------------- | ------------------------------------------------------------ | -------------------------------------- |
+| `git init`                                     | Initialize a git repo                                        |                                        |
+| `git config -l`                                | `-l` stands for looking the detail of config, e.g. user name |                                        |
+| `git add <file_name>`                          | Add file to staging area                                     | `git add README.md`                    |
+| `git add .`                                    | Add any unstaged files to staging area                       |                                        |
+| `git commit`                                   | "Archive and confirm" the changes to the directory           |                                        |
+| `git commit -m"<message>"`                     | Same with 👆, but with a short message                        | `git commit -m"Update README.md"  `    |
+| `git commit -a -m"<message>"`                  | `-a` stands for add; combine add and commit                  | `git commit -a -m"Update README.md"  ` |
+| `git show <guid>`                              | check specific commit by guid                                | `git show 721d6bd`                     |
+|                                                |                                                              |                                        |
+|                                                |                                                              |                                        |
+|                                                |                                                              |                                        |
+|                                                |                                                              |                                        |
+| `git rm --cached <file>`                       | To **stop tracking files** which have already been tracked   | `git rm --cached main.3dm.bak`         |
+| `git reset --hard <commitGuid>`                | Destroy any local modification and reset to such commit      | `git reset --hard 0d1d7fc32`           |
+| `git branch -d <the_local_branch>`             | Delete local branch                                          | `git branch -d PointDebug`             |
+| `git push origin --delete <the_remote_branch>` | Delete remote branch                                         | `git push origin --delete PointDebug`  |
+|                                                |                                                              |                                        |
+|                                                |                                                              |                                        |
+|                                                |                                                              |                                        |
+|                                                |                                                              |                                        |
+|                                                |                                                              |                                        |
+|                                                |                                                              |                                        |
 
 ### 2.:+1:Goooood resources of Git
 
@@ -123,6 +134,34 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 To conclude, `.\`就是运行当前目录下的某个文件
 
 
+
+## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/latex.svg" />LaTex
+
+### Symbol and Letters
+
+
+
+### Vectors and Matrix
+
+:pushpin:  **vertical dashed lines inside a matrix**
+
+> ​	The `c` in `{c:c}` represents the column while `:` represents the dashed line.
+>
+> ​	Therefore, `{c:c}` means the dashed line start from *1* column from the left.
+
+```latex
+\begin{array}{c:c}
+1 &  2 \\ 
+3 & 4 \\
+5 & 6 \\ 
+\end{array}
+```
+
+$\begin{array}{c:c}
+1 &  2 \\ 
+3 & 4 \\
+5 & 6 \\ 
+\end{array}$
 
 # 2.Programming Language:speaking_head:
 
