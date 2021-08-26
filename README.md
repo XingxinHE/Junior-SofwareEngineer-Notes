@@ -139,6 +139,12 @@ To conclude, `.\`就是运行当前目录下的某个文件
 
 ### Symbol and Letters
 
+| Appearance                       | Code         |
+| -------------------------------- | ------------ |
+| $\tilde{M}$                      | `\tilde{}`   |
+| $\equiv$ , equivalent to         | `\equiv`     |
+| $\not\equiv$ , not equivalent to | `\not\equiv` |
+
 
 
 ### Vectors and Matrix
@@ -162,6 +168,62 @@ $\begin{array}{c:c}
 3 & 4 \\
 5 & 6 \\ 
 \end{array}$
+
+:pushpin: **Matrix Template**
+
+```latex
+\begin{bmatrix}
+1&0&0\\
+0&1&0\\
+0&0&1\\
+\end{bmatrix}
+```
+
+$\begin{bmatrix}
+1&0&0\\
+0&1&0\\
+0&0&1\\
+\end{bmatrix}$
+
+**:pushpin:Determinant Template**
+
+```latex
+\begin{vmatrix}
+1 & 4 & 1 \\ 
+0 & -2 & 1 \\ 
+0 & 2 & 1
+\end{vmatrix}
+```
+
+$\begin{vmatrix}
+1 & 4 & 1 \\ 
+0 & -2 & 1 \\ 
+0 & 2 & 1
+\end{vmatrix}$
+
+
+
+
+
+### Documentation
+
+:pushpin: **Reference equation by tag**
+
+> ​	You create the equation with `label` and `tag`.
+
+```latex
+$ a = b \tag{a}\label{a} $
+```
+
+> ​	Then you can reference the equation:
+
+```latex
+$ \eqref{a} $
+```
+
+
+
+
 
 # 2.Programming Language:speaking_head:
 
