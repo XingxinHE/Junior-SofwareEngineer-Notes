@@ -2,9 +2,11 @@
 
 # Overview: The notebook:open_book: of junior software engineer:keyboard:
 
-This notebook is and will be with me in the path of a software engineer working on 3D stuffs. This notebook and is constantly evolving.
+This notebook is and will be with me in the path of a software engineer working on 3D stuffs. This notebook and is **constantly evolving**.
 
 The topic ranges from programming language like C#, C++, Python, to 3D Software I mostly use like Rhino, Blender, and even to some Algorithm.
+
+
 
 # Table of Content
 
@@ -13,9 +15,11 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 - [1.Computer System](#1computer-systemdesktop_computer)
   - [Git](#git%EF%B8%8F)
   - [Shell](#shellshell)
+  - [LaTex](#latex)
 - [2.Programming Language](#2programming-languagespeaking_head)
   - [C#](#c)
   - [C++](#c-1)
+  - [Python](#python)
 - [3.IDE & Text Editor](#3ide--text-editor-memocomputer)
   - [Visual Studio IDE](#visual-studio-ide)
   - [Visual Studio Code](#visual-studio-code)
@@ -76,9 +80,286 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/powershell.svg" />Shell:shell:
 
-### 1.`.\xxx`是什么意思？
+> ​	In short, **shell** is a type of user interface. It is either **command-line interface (CLI)** or **graphical user interface (GUI)**. This section will mainly on (*CLI*) especially on Bourne Again SHell, or “**bash**” for short.
 
-假设我们在`win`运行`dir`(≈Unix的`ls`)，看到如下列表
+### 0.Basic Concept
+
+**:pushpin: environment variable(PATH)**
+
+All the commands you run in the shell has already been added to the `environment variable` in your PC. In Windows, you can search `edit the system environment variable` => `environment variable..` => Edit the `PATH`.
+
+
+
+**:pushpin: `/` and `\`**
+
+A path on the shell is a **delimited** list of directories; 
+
+on Linux and macOS: 
+
+> ​	path separated by `/` 
+>
+> ​	`/` means the "root"
+
+on Windows: 
+
+> ​	path separated by `\` 
+>
+> ​	`C:\` means the "root"
+
+
+
+**:pushpin: absolute path and relative path**
+
+> ​	a.**Absolute path** is with full path (literally). e.g.
+
+> > ​	In windows, 
+
+```bash
+C:\Users\Xingxin\AppData\Local\Temp
+```
+
+> > ​	In Linux and macOS:
+>
+> > > ​	path starts with `/` is *absolute*
+
+```bash
+/home/tutorial
+```
+
+> ​	b.**Relative path** *takes the advantage of environment variable* to form an absolute path.  e.g.
+
+```bash
+ %USERPROFILE%\AppData\Local\Temp
+```
+
+
+
+**:pushpin: `.` , `..` , `~` , `-`   used in path**
+
+It is a must to know these 3 symbols for they appear a lot.
+
+`.` means current directory, e.g. `cd ./tutorial` change dir to the tutorial folder which under **current** dir.
+
+`..` means the parent directory, e.g. `cd ..` change dir to its parent dir.
+
+`~` means the **home** directory. e.g. `ssh-add ~/.ssh/id_rsa` add the ssh key in the "*HOME* folder/.ssh/"
+
+`-` means the previous directory in the prompt
+
+
+
+**:pushpin: `-` , `--`  used in command**
+
+`-` indicates a flag which **modify** their behavior
+
+`--` indicates an options
+
+*example*:
+
+```bash
+ls -l
+```
+
+The `-l` flag asks the `ls` command to list the files in a *a long listing format*.
+
+*example*:
+
+```bash
+git log --stat
+```
+
+The `--stat` option indicates the `git` command to show the *statistics* from `git log`.
+
+
+
+**:pushpin: ` ` , `""` , `\` used in file name and folder name**
+
+The space ` ` is used to separate the arguments in the command line. e.g.
+
+```bash
+mkdir my photo
+```
+
+This will create **2** folders which are "my" and "photo". If you want to create a folder with "my photo". You either use `""` to concatenate or use `\` to escape the space.
+
+```bash
+mkdir "my photo"
+mkdir my\ photo
+```
+
+
+
+**:pushpin: `<`, `>` , `>>` in data stream**
+
+`<` take the data stream out...
+
+`>` take the data stream in...
+
+`>>` take the data stream *append* in...
+
+e.g. 
+
+```bash
+cat <hello.txt >README.txt
+```
+
+It means stream out whatever inside `hello.txt` and stream in `README.txt`
+
+```bash
+cat <hello.txt >>README.txt
+```
+
+It means stream out content of `hello.txt` and append them at the end of `README.txt`
+
+
+
+**:pushpin: `|` pipe**
+
+It means take the output from the left as the input of the right.          `<A=output>  |  <A'=input>`
+
+e.g.
+
+```bash
+ls -l | tail -n3
+```
+
+`ls -l` prints out all the files. This will be treated as the input of `tail`
+
+`tail -n3` receives the print by `ls -l` and filter the last 3 lines. 
+
+
+
+**:pushpin: `r`, `w`, `x` file/folder permissions**
+
+`r` , read
+
+> ​	file: read
+>
+> ​	dir: allow? to see files in this dir
+
+`w`, write
+
+> ​	file: write
+>
+> ​	dir: allow? to rename/remove files in this dir
+
+`x`, execute
+
+> ​	file: execute
+>
+> ​	dir: allow? to enter this dir
+
+`d`, directory
+
+`-`, nope
+
+In the beginning, there are **10** characters.
+
+`0`: indicates if this a directory. `d`: directory; `-`: a file
+
+`1 to 3`: the permission of **file owner**
+
+`4 to 6`: the permission of **the owner group**
+
+`7 to 9`: the permission of **other users**
+
+e.g.
+
+```bash
+drwxr-xr-x 1 Xingxin 197121      0 Aug  5 01:15  Autodesk/
+-rwxr-xr-x 1 Xingxin 197121   2475 Jul 28 20:01 'Unreal Engine.lnk'*
+-rw-r--r-- 1 Xingxin 197121    282 Jul  1 01:43  desktop.ini
+```
+
+For `Autodesk/` folder, `drwxr-xr-x`
+
+> ​	`0=d`, this is a directory:heavy_check_mark:, file:x:
+>
+> ​	`123=rwx`, *owner* can **read**:heavy_check_mark: , **write**:heavy_check_mark: and **execute**:heavy_check_mark: .
+>
+> ​	`456=r-x`, *owner group* can **read**:heavy_check_mark: , **write**:x: and **execute**:heavy_check_mark: .
+>
+> ​	`789=r-x`, *other users* can **read**:heavy_check_mark: , **write**:x: and **execute**:heavy_check_mark: .
+
+For `desktop.ini` file, `-rwxr-xr-x`
+
+> ​	`0=-`, this is a directory:x:, file:heavy_check_mark:
+>
+> ​	`123=rw-`, *owner* can **read**:heavy_check_mark: , **write**:heavy_check_mark: and **execute**:x: .
+>
+> ​	`456=r--`, *owner group* can **read**:heavy_check_mark: , **write**:x: and **execute**:x: .
+>
+> ​	`789=r--`, *other users* can **read**:heavy_check_mark: , **write**:x: and **execute**:x: .
+
+
+
+**:pushpin: `$` ,  `#`, `sudo` in prompt**
+
+`$` indicates this is a *normal* user permission to this shell
+
+`#` indicates this is a **super** user permission to this shell
+
+`sudo` means **super** user **do**
+
+> ​	running `echo` in *normal* user mode
+
+```bash
+$ echo hello
+```
+
+> ​	update the `apt-get`
+
+```bash
+$ sudo apt-get update
+```
+
+> ​	enter super user mode(in this mode, you don't need to add `sudo` anymore). `su` means shift user
+
+```bash
+$ sudo su
+# echo "I am in the super user mode"
+# exit
+```
+
+
+
+
+
+
+### 1.Frequently Used Commands
+
+| Command            | Objective                                       | Example          |
+| ------------------ | ----------------------------------------------- | ---------------- |
+| `cat`              | catch whatever inside a file                    | `cat hello.txt`  |
+| `cd`               | change directory                                |                  |
+| `cp`               | copy a file                                     |                  |
+| `echo`             | like "echo", it simply prints out its arguments |                  |
+|                    |                                                 |                  |
+| `ls`               | list all the files in current directory         |                  |
+| `mkdir`            | make a directory/folder                         |                  |
+| `mv`               | rename/move a file                              | `mv xx.md yy.md` |
+| `pwd`              | present working directory                       |                  |
+| `rm`               | remove a file                                   |                  |
+| `rm -r`            | remove all the files recursively                | `rm -r ./img`    |
+| `rmdir`            | remove **EMPTY** folder                         | `rm ./.vscode`   |
+| `tail`             | print the last *n* lines                        | `tail -n3`       |
+|                    |                                                 |                  |
+| `<command> --help` | see the function of this command                | `git --help`     |
+| `man <command>`    | open the menu of this command                   | `man ls`         |
+|                    |                                                 |                  |
+| `Ctrl+L`           | clean out the shell                             |                  |
+|                    |                                                 |                  |
+|                    |                                                 |                  |
+|                    |                                                 |                  |
+|                    |                                                 |                  |
+
+
+
+### 2.Others
+
+**:pushpin: what is `.\xxx`？**
+
+Suppose we run `dir` in windows(≈`ls` in Unix).  Then you will see:
 
 ```bash
 2021/07/28  10:20    <DIR>          .
@@ -113,25 +394,23 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 2021/07/28  09:41    <DIR>          versions
 ```
 
-也就是
-
 <img src="img/image-20210728134121150.png" alt="image-20210728134121150" style="zoom: 67%;" />
 
-因此
+Therefore, running the following
 
 ```bash
 .\vcpkg 
 ```
 
-就是运行当前目录下的`vcpkg.exe`，如果后面有参数
+means run the `vcpkg.exe` in current directory. You can even specify the params:
 
 ```bash
 .\vcpkg search libigl
 ```
 
-​	那就是说明它在build这个`vcpkg.exe.`的时候预留了给你输入参数的代码。
+In this case, it means the author of `vcpkg` leave the argument for you to enter when they build this app.
 
-To conclude, `.\`就是运行当前目录下的某个文件
+To conclude, `.\xxx` means execute the `xxx` in current directroy.
 
 
 
@@ -626,6 +905,16 @@ e.g. The following **bold** label like `C++ Language Standard` is defined by mys
 If you are tired of setting `Property` manually in VS IDE, you can set up a property sheet(*.props*) to apply the setting.
 
 **View** > **Property Manager** or **View** > **Other Windows** > **Property Manager**
+
+
+
+### Compile
+
+#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/cmake.svg" />CMake
+
+#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/gnu.svg" />GCC
+
+
 
 ### C++ Libraries:books:
 
