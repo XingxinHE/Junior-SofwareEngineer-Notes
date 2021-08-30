@@ -35,46 +35,233 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/git.svg" />Git🕷️
 
+### 0.Basic Concepts
+
+:pushpin:**VCSs, Git, Github/Gitlab**
+
+VCSs = Version control systems (VCSs)
+
+Git = **Git** is the de facto standard for version control
+
+Github/Gitlab/Gitee = the host of Git Repository
+
+
+
+:pushpin: **Snapshots咔嚓**
+
+Git models the history of a collection of files and folders within some top-level directory as a series of snapshots.
+
+```
+<root> (tree)
+|
++- foo (tree)
+|  |
+|  + bar.txt (blob, contents = "hello world")
+|
++- baz.txt (blob, contents = "git is wonderful")
+```
+
+
+
+**:pushpin:Modeling history: relating snapshots**
+
+In pro words: a history is a **directed acyclic graph (DAG)** of snapshots
+
+ In human words: each snapshot in Git refers to a set of “parents”, the snapshots that preceded it.
+
+```
+			this is a commit
+			↑
+o <-- o <-- o <-- o
+            ^
+             \
+              --- o <-- o
+```
+
+```
+             new_feature	 new_feature + bug_fix
+				  ↑		   ↗
+o <-- o <-- o <-- o <---- o
+            ^            /
+             \          v
+              --- o <-- o
+              			↓
+              		 bug_fix
+```
+
+
+
+**:pushpin: Fast-forward and three-way merge**
+
+Fast-forward: the commit all points to a same parent commit
+
+```
+o <-- o <-- o <-- o <-- o
+```
+
+Three-way merge:
+
+- master and sub no conflicts:heavy_check_mark:, different file
+- master and sub no conflicts:heavy_check_mark:, different modification in the same file
+- master and sub conflicts:x:
+
+```
+o <-- o <-- o <-- o <---- o
+            ^            /
+             \          v
+              --- o <-- o
+```
+
+
+
+**:pushpin: Data model**
+
+The following mimics the data model in Git in pseudocode.
+
+**File**: it is a bunch of bytes
+
+```
+type blob = array<byte>
+```
+
+**Directory**: It contains named files and directories
+
+```
+type tree = map<string, tree | blob>
+```
+
+**Commit**: It has parents, metadata, and the top-level tree
+
+```
+type commit = struct 
+{
+    parents: array<commit>
+    author: string
+    message: string
+    snapshot: tree
+}
+```
+
+**Object**: It could be a blob, tree, or commit.
+
+```
+type object = blob | tree | commit
+```
+
+**Data Storage**: In Git data store, all objects are **content-addressed** by their [SHA-1 hash](https://en.wikipedia.org/wiki/SHA-1).
+
+```
+objects = map<string, object>
+
+def store(object):
+    id = sha1(object)
+    objects[id] = object
+
+def load(id):
+    return objects[id]
+```
+
+**References**: They are pointers to commits. Convert *SHA-1 hash* to *human-readable names*.
+
+```
+references = map<string, string>
+
+def update_reference(name, id):
+    references[name] = id
+
+def read_reference(name):
+    return references[name]
+
+def load_reference(name_or_id):
+    if name_or_id in references:
+        return load(references[name_or_id])
+    else:
+        return load(name_or_id)
+```
+
+e.g.
+
+`HEAD` is the latest "where we currently are"
+
+`master` refers to a particular snapshot instead of a bunch of hexadecimal string.
+
+
+
+:pushpin: **Repositories**
+
+In short, a Git *repository*: it is the data `objects` and `references`.
+
+
+
+**:pushpin: A diagram for Git**
+
+![image-20210830144146878](img/image-20210830144146878.png)
+
+
+
 ### 1.Frequently Used Commands
 
-| command                                        | objective                                                    | example                                |
-| ---------------------------------------------- | ------------------------------------------------------------ | -------------------------------------- |
-| `git init`                                     | Initialize a git repo                                        |                                        |
-| `git config -l`                                | `-l` stands for looking the detail of config, e.g. user name |                                        |
-| `git add <file_name>`                          | Add file to staging area                                     | `git add README.md`                    |
-| `git add .`                                    | Add any unstaged files to staging area                       |                                        |
-| `git commit`                                   | "Archive and confirm" the changes to the directory           |                                        |
-| `git commit -m"<message>"`                     | Same with 👆, but with a short message                        | `git commit -m"Update README.md"  `    |
-| `git commit -a -m"<message>"`                  | `-a` stands for add; combine add and commit                  | `git commit -a -m"Update README.md"  ` |
-| `git show <guid>`                              | check specific commit by guid                                | `git show 721d6bd`                     |
-|                                                |                                                              |                                        |
-|                                                |                                                              |                                        |
-|                                                |                                                              |                                        |
-|                                                |                                                              |                                        |
-| `git rm --cached <file>`                       | To **stop tracking files** which have already been tracked   | `git rm --cached main.3dm.bak`         |
-| `git reset --hard <commitGuid>`                | Destroy any local modification and reset to such commit      | `git reset --hard 0d1d7fc32`           |
-| `git branch -d <the_local_branch>`             | Delete local branch                                          | `git branch -d PointDebug`             |
-| `git push origin --delete <the_remote_branch>` | Delete remote branch                                         | `git push origin --delete PointDebug`  |
-|                                                |                                                              |                                        |
-|                                                |                                                              |                                        |
-|                                                |                                                              |                                        |
-|                                                |                                                              |                                        |
-|                                                |                                                              |                                        |
-|                                                |                                                              |                                        |
+| command                                          | objective                                                    | example                                |
+| ------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------- |
+| `git add <file_name>`                            | Add file to staging area                                     | `git add README.md`                    |
+| `git add .`                                      | Add any unstaged files to staging area                       |                                        |
+| `git add -p <file>`                              | Interactively choose hunks of patch                          |                                        |
+| `git blame`                                      | see each commit with authors                                 |                                        |
+| `git branch`                                     | see all the branches                                         |                                        |
+| `git branch <branch_name>`                       | create a new branch                                          | `git branch dev`                       |
+| `git branch -d <the_local_branch>`               | Delete local branch                                          | `git branch -d PointDebug`             |
+| `git cat-file -p <SHA-1 hash>`                   | Visualize data by SHA-1 hash                                 |                                        |
+| `git checkout <file>`                            | remove the unstaged changes and back to current stage        |                                        |
+| `git checkout <branch>`                          | change HEAD to such branch                                   | `git checkout dev`                     |
+| `git checkout <commit_guid>`                     | change HEAD to such commit                                   |                                        |
+| `git checkout -b <branch>`                       | create a new branch and checkout to it                       | `git checkout -b dev`                  |
+| `git clone <url>`                                | clone the repo from url                                      |                                        |
+| `git clone --shallow`                            | clone the repo without any history                           |                                        |
+| `git commit`                                     | "Archive and confirm" the changes to the directory           |                                        |
+| `git commit -m"<message>"`                       | Same with 👆, but with a short message                        | `git commit -m"Update README.md"  `    |
+| `git commit -a -m"<message>"`                    | `-a` stands for add; combine add and commit                  | `git commit -a -m"Update README.md"  ` |
+| `git commit --amend`                             | append current commit with previous commit                   |                                        |
+| `git config -l`                                  | `-l` stands for listing the detail of config, e.g. user name |                                        |
+| `git diff`                                       |                                                              |                                        |
+| `git diff --staged`                              | compare the un-commit changes with HEAD                      |                                        |
+| `git diff <file>`                                | see diff of file with HEAD                                   |                                        |
+| `git diff <guid> <file>`                         | see diff of file between current HEAD and guid               |                                        |
+| `git diff <prev_guid> <now_guid> <file>`         | see diff of file between `previous` and `now`                |                                        |
+| `git fetch <remote>`                             | fetch the commits from remote to local                       |                                        |
+| `git help <command>`                             | help menu of such command                                    | `git help commit`                      |
+| `git init`                                       | Initialize a git repo                                        |                                        |
+| `git log`                                        | the log of git history                                       |                                        |
+| `git log --stat`                                 | the log of git history statistically                         |                                        |
+| `git log --all --graph --decorate`               | nice diagram of git log                                      |                                        |
+| `git merge <branchX>`                            | merge `branchX` into current branch                          | `git merge origin/master`              |
+| `git mv <old_name> <new_name>`                   | rename specific file (this has to be commited)               |                                        |
+| `git push`                                       | push commits to remote(already configured remote)            |                                        |
+| `git push <remote> <branch>:<branch>`            | push commits to remote                                       | `git push origin main:main`            |
+| `git push <remote> --delete <the_remote_branch>` | Delete remote branch                                         | `git push origin --delete PointDebug`  |
+| `git pull`                                       | `git pull` = {`git fetch; git merge <remote>/<branch>`}      |                                        |
+| `git rm --cached <file>`                         | To **stop tracking files** which have already been tracked   | `git rm --cached main.3dm.bak`         |
+| `git reset`                                      | remove all the staged changes, green=>red                    |                                        |
+| `git reset --hard <commitGuid>`                  | Destroy any local modification and reset to such commit      | `git reset --hard 0d1d7fc32`           |
+| `git revert <commit_guid>`                       | Reverting undoes a commit by creating a new commit.          |                                        |
+| `git show <guid>`                                | check specific commit by guid                                | `git show 721d6bd`                     |
+| `git stash`                                      | hide current untracked changes                               |                                        |
+| `git stash pop`                                  | pop out the hidden untracked changes                         |                                        |
 
 ### 2.:+1:Goooood resources of Git
 
-#### `.gitignore` template
+**`.gitignore` template**
 
 > ​	https://github.com/github/gitignore
 
-#### Software for Git
+**Software for Git**
 
 > ​	`SourceTree` is a free software managing Git while it provides GUI to interact with Git. Highly recommend! You can download:
 >
 > ​	https://www.sourcetreeapp.com/
 
+**Book for git**
 
+> ​	https://git-scm.com/book/en/v2
 
 
 
@@ -334,7 +521,6 @@ $ sudo su
 | `cd`               | change directory                                |                  |
 | `cp`               | copy a file                                     |                  |
 | `echo`             | like "echo", it simply prints out its arguments |                  |
-|                    |                                                 |                  |
 | `ls`               | list all the files in current directory         |                  |
 | `mkdir`            | make a directory/folder                         |                  |
 | `mv`               | rename/move a file                              | `mv xx.md yy.md` |
@@ -348,10 +534,6 @@ $ sudo su
 | `man <command>`    | open the menu of this command                   | `man ls`         |
 |                    |                                                 |                  |
 | `Ctrl+L`           | clean out the shell                             |                  |
-|                    |                                                 |                  |
-|                    |                                                 |                  |
-|                    |                                                 |                  |
-|                    |                                                 |                  |
 
 
 
@@ -1183,7 +1365,11 @@ AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No intersection is found from
 
 这个`RuntimeMessageLevel`有4层，Blank(任何信息都没有)，Remark(有信息pop-out，但是没颜色)，Warning(橙色warning)，Error(红色error警告)
 
+### 4.:thumbsup: Resources for Rhino/Grasshopper developer
 
+:pushpin: **Template to share a common library with both a C++ and a C# plug-in**
+
+> ​	https://github.com/dalefugier/Moose
 
 # 6.Algorithm
 
