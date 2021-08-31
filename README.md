@@ -70,8 +70,8 @@ In pro words: a history is a **directed acyclic graph (DAG)** of snapshots
  In human words: each snapshot in Git refers to a set of “parents”, the snapshots that preceded it.
 
 ```
-			this is a commit
-			↑
+      this is a commit
+            ↑
 o <-- o <-- o <-- o
             ^
              \
@@ -79,8 +79,8 @@ o <-- o <-- o <-- o
 ```
 
 ```
-             new_feature	 new_feature + bug_fix
-				  ↑		   ↗
+      new_feature      new_feature + bug_fix
+            ↑               ↗
 o <-- o <-- o <-- o <---- o
             ^            /
              \          v
