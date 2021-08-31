@@ -85,8 +85,8 @@ o <-- o <-- o <-- o <---- o
             ^            /
              \          v
               --- o <-- o
-              			↓
-              		 bug_fix
+                        ↓
+                     bug_fix
 ```
 
 
@@ -1133,6 +1133,10 @@ rhs.resize(numRow);
 matrix.setZero();
 rhs.setZero();
 ```
+
+
+
+
 
 
 
