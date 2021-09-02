@@ -19,6 +19,11 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 - [2.Programming Language](#2programming-languagespeaking_head)
   - [C#](#c)
   - [C++](#c-1)
+    - [Compile](#compile)
+      - [CMake](#cmake)
+      - [GCC](#gcc)
+    - [C++ Libraries](#c-1-libraries)
+      - [Eigen](#eigen)
   - [Python](#python)
 - [3.IDE & Text Editor](#3ide--text-editor-memocomputer)
   - [Visual Studio IDE](#visual-studio-ide)
@@ -600,11 +605,14 @@ To conclude, `.\xxx` means execute the `xxx` in current directroy.
 
 ### Symbol and Letters
 
-| Appearance                       | Code         |
-| -------------------------------- | ------------ |
-| $\tilde{M}$                      | `\tilde{}`   |
-| $\equiv$ , equivalent to         | `\equiv`     |
-| $\not\equiv$ , not equivalent to | `\not\equiv` |
+| Appearance                       | Code          |
+| -------------------------------- | ------------- |
+| $\tilde{M}$                      | `\tilde{}`    |
+| $\equiv$ , equivalent to         | `\equiv`      |
+| $\not\equiv$ , not equivalent to | `\not\equiv`  |
+| $\bar{A}$                        | `$\bar{A}$`   |
+| $\hat{A}$                        | `$\hat{A}$`   |
+| $\tilde{A}$                      | `$\tilde{A}$` |
 
 
 
@@ -1133,6 +1141,609 @@ rhs.resize(numRow);
 matrix.setZero();
 rhs.setZero();
 ```
+
+##### Matrix Class
+
+**:pushpin: Class Overview**
+
+The concept of `vector` and `matrix` are all in this class since `vector` can be see as a $n\cross 1$ `matrix`.
+
+:pushpin: **Tricks to Know the Type**
+
+> ​	`MatrixXd` ,  `X=dynamic` the dimension can be define later, `d=double` this is a double type matrix.   
+
+> ​	`Vector3f` , `3=3rows`, `f=float`.
+
+:pushpin: **Mandatory Variable**
+
+There are **3** mandatory variables in `Matrix` class.
+
+```c++
+Matrix<typename Scalar, int RowsAtCompileTime, int ColsAtCompileTime>
+```
+
+> ​	`Scalar` is the scalar type, i.e. the type of the coefficients.
+
+> ​	`RowsAtCompileTime`  and `ColsAtCompileTime` are the dimension of matrix.
+
+Therefore you can define as follow:
+
+```c++
+typedef Matrix<float, 4, 4> Matrix4f;
+typedef Matrix<double, 3, 1> Vector3d;
+```
+
+:pushpin: **Vector as a matrix**
+
+In Eigen, `vector` can be seen as a special case of `matrix`, with **either 1 row or 1 column**.
+
+> ​	column vector (default)
+
+```c++
+typedef Matrix<float, 3, 1> Vector3f;
+```
+
+> ​	row vector
+
+```c++
+typedef Matrix<int, 1, 2> RowVector2i;
+```
+
+:pushpin: **Dynamic as X**
+
+Use `Dynamic` to indicate that **the size is unknown at compile time**.
+
+> ​	Fixed size
+
+```c++
+typedef Matrix<double, 3, 3> Matrix3d;
+```
+
+> ​	Dynamic size
+
+```c++
+typedef Matrix<double, Dynamic, Dynamic> MatrixXd;
+typedef Matrix<int, Dynamic, 1> VectorXi;
+```
+
+:pushpin:**Constructor**
+
+> ​	Matrix Init:heavy_check_mark: , Size Init:heavy_check_mark:, Coefficients Init:x:
+
+```c++
+Matrix3f a;
+```
+
+> ​	Matrix Init:heavy_check_mark: , Size Init:x:, Coefficients Init:x:
+
+```c++
+MatrixXf b;
+```
+
+> ​	Matrix Init:heavy_check_mark: , Size Init:heavy_check_mark:, Coefficients Init:x:
+
+```c++
+MatrixXf a(10,15);
+VectorXf b(30);
+```
+
+> ​	Matrix Init:heavy_check_mark: , Size Init:heavy_check_mark:, Coefficients Init:heavy_check_mark:
+
+```c++
+//Vector
+Vector2i a(1, 2);
+Vector3d b(5.0, 6.0, 7.0);
+Vector4d c(5.0, 6.0, 7.0, 8.0);
+Matrix<int, 5, 1> b {1, 2, 3, 4, 5};  //column vector
+Matrix<int, 1, 5> c = {1, 2, 3, 4, 5};  //row vector
+
+//Matrix
+MatrixXi a {      // construct a 2x2 matrix
+      {1, 2},     // first row
+      {3, 4}      // second row
+};
+Matrix<double, 2, 3> b {
+      {2, 3, 4},
+      {5, 6, 7},
+};
+```
+
+:pushpin:**Coefficient accessors**
+
+The accessor and constructor are the same... which is the *overloaded* bracket `( )`.
+
+```c++
+#include <iostream>
+#include <Eigen/Dense>
+ 
+using namespace Eigen;
+ 
+int main()
+{
+  MatrixXd m(2,2);
+  m(0,0) = 3;
+  m(1,0) = 2.5;
+  m(0,1) = -1;
+  m(1,1) = m(1,0) + m(0,1);
+  std::cout << "Here is the matrix m:\n" << m << std::endl;
+  VectorXd v(2);
+  v(0) = 4;
+  v(1) = v(0) - 1;
+  std::cout << "Here is the vector v:\n" << v << std::endl;
+}
+```
+
+`m(1,0) = 2.5`  is  $M_{1,0}=2.5$
+
+:pushpin: **Comma-initialization**
+
+```c++
+//Fixed size
+Matrix3f m;
+m << 1, 2, 3,
+     4, 5, 6,
+     7, 8, 9;
+cout << m;
+
+//Dynamic size
+MatrixXd M(3,3);
+M << 1, 0, 0,
+     0, 1, 0,
+     0, 0, 1;
+cout << M << endl;
+```
+
+:pushpin: **Size, Resize, and conservativeResize**
+
+`rows()` gets numbers of rows in this matrix.
+
+`cols()` gets numbers of columns in this matrix.
+
+`size()` gets numbers of coefficients in this matrix.
+
+```c++
+int main()
+{
+  Matrix4d m;
+  std::cout << "The matrix m is of size "
+            << m.rows() << "x" << m.cols() << std::endl;
+  std::cout << "It has "
+      		<< m.size() << "elements." << std::endl;
+}
+```
+
+> ​	:warning: Only dynamic-size matrix can use `resize()` to change its dimension.
+
+```c++
+int main()
+{
+  //Matrix resize
+  MatrixXd m(2,5);
+  m.resize(4,3);
+  //Vector resize
+  VectorXd v(2);
+  v.resize(5);
+}
+```
+
+> ​	:warning:`resize()` may change the coefficients but `conservativeResize()` preserve its original value
+
+ ```c++
+ int main()
+ {
+ 	MatrixXd m = MatrixXd::Random(3, 3);
+ 	cout << "m =" << endl << m << endl;
+ 
+ 	m.conservativeResize(4, 4);  //the value of coefficients in the row 4 and col4 are not init
+ 	cout << m << endl;
+ }
+ ```
+
+:pushpin: **Assignment are reference type**
+
+```c++
+MatrixXf a(2,2);
+MatrixXf b(3,3);
+a = b;
+std::cout << "a is now of size " << a.rows() << "x" << a.cols() << std::endl;
+```
+
+:pushpin: **When should use Fixed or Dynamic?**
+
+|        | Fixed                                  | Dynamic                                   |
+| ------ | -------------------------------------- | ----------------------------------------- |
+| Choice | for very small sizes **where you can** | for larger sizes or **where you have to** |
+| Memory | Stack                                  | Heap                                      |
+
+:checkered_flag: The *fixed-sized* matrix is nothing but a plain array.
+
+```c++
+//the followings are equivalent
+MatrixXf mymatrix(rows,columns); 
+float *mymatrix = new float[rows*columns]; 
+```
+
+:warning: When the dimension is extremely big, performance has no difference between two choice.
+
+:bangbang: When you try to use *fixed-size* for an extremely big data like a Mesh(e.g. $V=1500;F=600$), it could result a **stackoverflow**.
+
+:pushpin: **Complete Variables**
+
+> ​	The first 3 has been discussed above. The following will focus on the last 3.
+
+```c++
+Matrix<typename Scalar,
+       int RowsAtCompileTime,
+       int ColsAtCompileTime,
+       int Options = 0,
+       int MaxRowsAtCompileTime = RowsAtCompileTime,
+       int MaxColsAtCompileTime = ColsAtCompileTime>
+```
+
+> ​	`Options` indicate how we iterate the element in a matrix.
+
+For example a $3\cross 4$ Matrix.
+$$
+\begin{bmatrix}
+8& 2& 2& 9\\
+9& 1& 4& 4\\
+3& 5& 4& 5\\
+\end{bmatrix}
+$$
+
+> > ​	Iterate in column-major(**default**):
+
+```c++
+Matrix<int, 3, 4, ColMajor> A;
+A << 8, 2, 2, 9,
+	 9, 1, 4, 4,
+	 3, 5, 4, 5;
+cout << "In memory (column-major):" << endl;
+for (int i = 0; i < A.size(); i++)
+  cout << *(A.data() + i) << "  ";
+```
+
+It will print: `8  9  3  2  1  5  2  4  4  9  4  5`.
+
+> > ​	Iterate in row-major:
+
+```c++
+Matrix<int, 3, 4, RowMajor> A;
+A << 8, 2, 2, 9,
+	 9, 1, 4, 4,
+	 3, 5, 4, 5;
+cout << "In memory (row-major):" << endl;
+for (int i = 0; i < A.size(); i++)
+  cout << *(A.data() + i) << "  ";
+```
+
+It will print: `8  2  2  9  9  1  4  4  3  5  4  5`.
+
+> ​	`MaxRowsAtCompileTime` and `MaxColsAtCompileTime` are fixed upper bound known at compile time. Which is very handy to avoid dynamic memory allocation
+
+```c++
+Matrix<float, Dynamic, Dynamic, 0, 3, 4>
+```
+
+
+
+##### Matrix and vector arithmetic
+
+:pushpin: **Addition, subtraction, multiplication, and division**
+
+Nothing special, since the `+,-,*,/` have been overloaded by Eigen.
+
+The compound version is also fine: `+=, -=, *=, /=`
+
+:pushpin:**Transposition and conjugation** , (possible aliasing effect)
+
+The transpose $A^T$, conjugate $\bar{A}$, and adjoint (i.e., conjugate transpose) $A^*$ of a matrix $A$ or vector $A$ are obtained by the member functions
+
+- `transpose()`
+- `conjugate()`
+- `adjoint()`
+
+:warning:WARNING!! `transpose()` and `adjoint()` simply return a **proxy** object without doing the actual transposition. If you want to assign its transpose, you need to use `transposeInPlace()`.
+
+> ​	:x: WRONG EXAMPLE, so called [aliasing effect](https://eigen.tuxfamily.org/dox/group__TopicAliasing.html)
+
+```c++
+Matrix2i a; a << 1, 2, 3, 4;
+cout << "Here is the matrix a:\n" << a << endl;
+ 
+a = a.transpose(); // !!! do NOT do this !!!
+cout << "and the result of the aliasing effect:\n" << a << endl;
+```
+
+> ​	:heavy_check_mark:CORRECT EXAMPLE
+
+```c++
+MatrixXf a(2,3); a << 1, 2, 3, 4, 5, 6;
+cout << "Here is the initial matrix a:\n" << a << endl;
+
+a.transposeInPlace();
+cout << "and after being transposed:\n" << a << endl;
+```
+
+:pushpin: **Matrix-matrix and matrix-vector multiplication** , (no aliasing effect)
+
+> ​	nothing special, just use `*` and `*=`.
+
+There are matrix $M=\begin{bmatrix}1&2\\3&4\end{bmatrix}$ , and vector $u=\begin{bmatrix}-1\\1\end{bmatrix}, v=\begin{bmatrix}2\\0\end{bmatrix}$ 
+
+```c++
+Matrix2d M;
+M << 1, 2,
+3, 4;
+Vector2d u(-1,1), v(2,0);
+```
+
+> ​	$MM$, matrix * matrix
+
+```c++
+std::cout << "matrix * matrix:\n" << M*M << std::endl;
+```
+
+> ​	$Mu$ , matrix * vector
+
+```c++
+std::cout << "matrix * vector:\n" << M*u << std::endl;
+```
+
+> ​	$u^TM$ , column-vector * matrix
+
+```c++
+std::cout << "column-vector * matrix:\n" << u.transpose()*M << std::endl;
+```
+
+> ​	$uv^T$ , column-vector * row-vector
+
+```c++
+std::cout << "column-vector * row-vector:\n" << u*v.transpose() << std::endl;
+```
+
+:pushpin: **dot product and cross product**
+
+> ​	just use `.dot()` , `.cross()` , and `.adjoint()`
+
+```c++
+#include <iostream>
+#include <Eigen/Dense>
+ 
+using namespace Eigen;
+using namespace std;
+int main()
+{
+  Vector3d v(1,2,3);
+  Vector3d w(0,1,2);
+ 
+  cout << "Dot product: " << v.dot(w) << endl;
+  double dp = v.adjoint()*w; // automatic conversion of the inner product to a scalar
+  cout << "Dot product via a matrix product: " << dp << endl;
+  cout << "Cross product:\n" << v.cross(w) << endl;
+}
+```
+
+:pushpin: **arithmetic reduction operations**
+
+`.sum()` , the sum of all coefficients
+
+`.prod()` , the product of matrix
+
+`.maxCoeff()` , the maximum of all coefficients
+
+`.minCoeff()` ,  the minimum of all coefficients
+
+`.trace()` , the sum of diagonal , equivalent to `.diagonal().sum()`
+
+```c++
+#include <iostream>
+#include <Eigen/Dense>
+ 
+using namespace std;
+int main()
+{
+  Eigen::Matrix2d M;
+  M << 1, 2,
+         3, 4;
+  cout << "M.sum():       " << mat.sum()       << endl;
+  cout << "M.prod():      " << mat.prod()      << endl;
+  cout << "M.mean():      " << mat.mean()      << endl;
+  cout << "M.minCoeff():  " << mat.minCoeff()  << endl;
+  cout << "M.maxCoeff():  " << mat.maxCoeff()  << endl;
+  cout << "M.trace():     " << mat.trace()     << endl;
+}
+```
+
+And we have `10, 24, 2.5, 1, 4, 5`
+
+:star: You can also get back the index of row and column by using `&<index>`
+
+```c++
+#include <iostream>
+#include <Eigen/Dense>
+ 
+using namespace std;
+int main()
+{
+  Eigen::Matrix2d M;
+  M << 1, 2,
+         3, 4;
+  Eigen::RowVector3i V;
+  V << 9, 8, 7;
+    
+  std::ptrdiff_t i, j;
+  
+  //Get the min and its index of a matrix
+  float minOfM = M.minCoeff(&i,&j);
+  cout << minOfM << i << j << endl;
+
+  //Get the max index of a vector
+  int maxOfv = V.maxCoeff(&i);
+  cout << maxOfv << i << endl;
+}
+```
+
+
+
+##### Array class and coefficient-wise operations
+
+:star: Big picture before diving in. The design of `Array` class aims to conduct *coefficient-wise*(**element-wise**) operation.
+
+:pushpin: **Array types**
+
+The types of `Array` class is very similar to `Matrix` in addition to its *element-wise* operation. You can define it in the way of  `Matrix` class.
+
+```c++
+Array<typename Scalar, int RowsAtCompileTime, int ColsAtCompileTime>
+```
+
+There are also some common types already defined in Eigen.
+
+| Type                             | Typedef     |
+| -------------------------------- | ----------- |
+| `Array<float,Dynamic,1> `        | `ArrayXf `  |
+| `Array<float,3,1> `              | `Array3f `  |
+| `Array<double,Dynamic,Dynamic> ` | `ArrayXXd ` |
+| `Array<double,3,3> `             | `Array33d`  |
+
+:pushpin: **Accessing values inside an array**
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
+
+
+
+:pushpin: ****
 
 
 
