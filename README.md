@@ -1609,9 +1609,62 @@ There are also some common types already defined in Eigen.
 
 :pushpin: **Accessing values inside an array**
 
+access and assign values are no difference with `Matrix` class.
 
+```c++
+#include <Eigen/Dense>
+#include <iostream>
+ 
+using namespace Eigen;
+using namespace std;
+ 
+int main()
+{
+  ArrayXXf  m(2,2);
+  
+  // assign values by row-col
+  m(0,0) = 1.0; m(0,1) = 2.0;
+  m(1,0) = 3.0; m(1,1) = m(0,1) + m(1,0);
+  
+  // print
+  cout << m << endl << endl;
+ 
+  // using the comma-initializer
+  m << 1.0,2.0,
+       3.0,4.0;
+     
+  // print
+  cout << m << endl;
+}
+```
 
-:pushpin: ****
+:pushpin: **Element-wise arithmetic operation**
+
+> ​	Array + Array is no difference.
+
+\
+
+> ​	Array-scalar operation
+
+```c++
+#include <Eigen/Dense>
+#include <iostream>
+ 
+using namespace Eigen;
+using namespace std;
+ 
+int main()
+{
+  ArrayXXf a(3,3);
+  a << 1,2,3,
+       4,5,6,
+       7,8,9;
+
+  // Subtracting a scalar from an array
+  cout << "a - 2 = " << endl << a - 2 << endl;
+    
+}
+```
 
 
 
