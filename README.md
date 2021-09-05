@@ -268,6 +268,36 @@ In short, a Git *repository*: it is the data `objects` and `references`.
 
 > ​	https://git-scm.com/book/en/v2
 
+### 3.Some Regular Procedure
+
+:pushpin: **How to solve conflicts?**
+
+Suppose you are on `master`, and you want to merge `new_feature` branch, the conflict is on `main.cpp`. Then you can do:
+
+```bash
+git merge new_feature
+```
+
+You will see the feedback from the prompt saying there are conflicts. You open the `main.cpp` which was decorated with some notation from `git` . Here I use VS Code, you can also use Vim.
+
+```bash
+code main.cpp
+```
+
+You manually fix the conflicts. Then you should **add it to the staging area**!(because you literally fix it)
+
+```bash
+git add main.cpp
+```
+
+Finally you ask `git` to continue the merging job.
+
+```bash
+git merge --continue
+```
+
+
+
 
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/powershell.svg" />Shell:shell:
