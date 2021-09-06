@@ -1670,10 +1670,6 @@ int main()
 
 :pushpin: **Element-wise arithmetic operation**
 
-> ​	Array + Array is no difference.
-
-\
-
 > ​	Array-scalar operation
 
 ```c++
@@ -1692,25 +1688,134 @@ int main()
 
   // Subtracting a scalar from an array
   cout << "a - 2 = " << endl << a - 2 << endl;
+  //
+  //  -1  0  1
+  //   2  3  4
+  //   5  6  7
+}
+```
+
+> ​	Array-Array operation
+
+```c++
+#include <Eigen/Dense>
+#include <iostream>
+ 
+using namespace Eigen;
+using namespace std;
+ 
+int main()
+{
+  ArrayXXf a(2,2);
+  ArrayXXf b(2,2);
+  a << 1,2,
+       3,4;
+  b << 5,6,
+       7,8;
+  cout << "a * b = " << endl << a * b << endl;
+  // 5 12
+  // 21 32
+}
+```
+
+:pushpin: **Other coefficient-wise operations**
+
+`.abs()`
+
+`.sqrt()`
+
+`.min()`
+
+
+
+:pushpin: **Converting between array and matrix expressions**
+
+`.array()`  , `Matrix` => `Array`
+
+`.matrix()` , `Array` => `Matrix`
+
+
+
+:pushpin: **Type-safe function in Eigen**
+
+:heavy_check_mark: These are legal. 
+
+> ​	temporarily *convert to matrix* before *matrix-operation* , store in *matrix*.
+
+`Eigen::Matrix = Eigen::Array.matrix() * Eigen::Array.matrix()`   
+
+> ​	temporarily *convert to array* before *array-operation(element-wise)* , store in *matrix*.
+
+`Eigen::Matrix = Eigen::Matrix.array() * Eigen::Matrix.array()`  
+
+> ​	temporarily *convert to array* before *array-operation(element-wise)*, store in *array*
+
+`Eigen:Array = Eigen::Matrix.array() * Eigen::Matrix.array()` 
+
+:x: This is illegal.
+
+`Eigen::Matrix = Eigen::Matrix * Eigen::Array`
+
+
+
+:pushpin: **TWO Example to explain Array-Matrix operation**
+
+There is `const .cwiseProduct(.) ` method for element-wise operation in matrix directly, since the matrix may always require element-wise operation but store its result in matrix. The following two are equivalent.
+
+`Eigen::Matrix = Eigen::Matrix.array() * Eigen::Matrix.array()`
+
+`Eigen::Matrix = Eigen::Matrix.cwiseProduct(Eigen::Matrix)`
+
+```c++
+int main()
+{
+  MatrixXf m(2,2);
+  MatrixXf n(2,2);
+  MatrixXf result(2,2);
+ 
+  m << 1,2,
+       3,4;
+  n << 5,6,
+       7,8;
+  //M-M
+  result = m * n;
+  cout << "-- Matrix m*n: --" << endl << result << endl << endl;
     
+  //(M->A) - (M->A)
+  result = m.array() * n.array();
+  cout << "-- Array m*n: --" << endl << result << endl << endl;
+  
+  //no explicitly cast, direct element-wise operation
+  result = m.cwiseProduct(n);
+  cout << "-- With cwiseProduct: --" << endl << result << endl << endl;
+
+  //(M->A), then do element-wise operation
+  result = m.array() + 4;
+  cout << "-- Array m + 4: --" << endl << result << endl << endl;
+}
+```
+
+```c++
+int main()
+{
+  MatrixXf m(2,2);
+  MatrixXf n(2,2);
+  MatrixXf result(2,2);
+ 
+  m << 1,2,
+       3,4;
+  n << 5,6,
+       7,8;
+  //(M->A), do element-wise, (A->M), do matrix product; case 1
+  result = (m.array() + 4).matrix() * m;
+  cout << "-- Combination 1: --" << endl << result << endl << endl;
+  //(M->A), do element-wise, (A->M), do matrix product; case 2
+  result = (m.array() * n.array()).matrix() * m;
+  cout << "-- Combination 2: --" << endl << result << endl << endl;
 }
 ```
 
 
-
-:pushpin: ****
-
-
-
-:pushpin: ****
-
-
-
-:pushpin: ****
-
-
-
-:pushpin: ****
 
 
 
