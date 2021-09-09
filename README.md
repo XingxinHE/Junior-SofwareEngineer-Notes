@@ -411,6 +411,14 @@ mkdir my\ photo
 
 
 
+:pushpin:`' '` and `" "`
+
+Things inside single quote `' '` are literal string. Meaning what is inside is what is inside.
+
+Things inside double quote `" "` are strings. They can be substituted. 
+
+
+
 **:pushpin: `<`, `>` , `>>` in data stream**
 
 `<` take the data stream out...
@@ -570,9 +578,84 @@ $ sudo su
 |                    |                                                 |                  |
 | `Ctrl+L`           | clean out the shell                             |                  |
 
+### 2.Shell Scripting
+
+:star:Big Picture: What is shell scripting for? Creating command pipelines, saving results into files, and reading from standard input.
+
+:pushpin:**Scripting 101**
+
+```bash
+foo=bar
+echo "$foo"
+# prints bar
+echo '$foo'
+# prints $foo
+```
+
+> ​	1.No space should insert when assigning value
+
+`foo=bar` :heavy_check_mark: , `foo = bar`:x: . Because space ` ` acts as delimer.
+
+> ​	2.double quote and single quote have been explained.
+
+\
+
+> 	3. `$` for **interpolation**.
+
+It is very similar to C#. But `$` in shell scripting has way more powerful functionalities.
+
+```c#
+int day = 28;
+string word = $"Today is {day}-th days of this month.";
+```
 
 
-### 2.Others
+
+:pushpin:****
+
+
+
+
+
+:pushpin:****
+
+
+
+
+
+:pushpin:****
+
+
+
+
+
+:pushpin:****
+
+
+
+
+
+:pushpin:****
+
+
+
+
+
+:pushpin:****
+
+
+
+
+
+:pushpin:****
+
+
+
+
+
+
+
+### 3.Others
 
 **:pushpin: what is `.\xxx`？**
 
