@@ -1134,6 +1134,82 @@ If you are tired of setting `Property` manually in VS IDE, you can set up a prop
 
 #### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/gnu.svg" />GCC
 
+:pushpin:**What is GCC and G++?**
+
+gcc: GNU Compiler Collections(for **compile C and C++**)
+
+g++: GNU c++ compiler(for **compile C++**)
+
+:pushpin:**Simplest Compile**
+
+`g++ <fileName.cpp>`  . The default build is `a.out` in Linux and `a.exe` in Windows
+
+```bash
+$ g++ helloworld.cpp
+$ ./a.exe
+Hello, world!
+```
+
+:pushpin:**Use `-o` to specify output name** 
+
+```bash
+g++ helloworld.cpp -o helloworld
+```
+
+
+
+:pushpin:**Compile in C++11 standard**
+
+Use `-std=c++11`
+
+```bash
+g++ -g -Wall -std=c++11 main.cpp
+```
+
+
+
+:pushpin:**Frequently Used Commands**
+
+https://www.runoob.com/cplusplus/cpp-environment-setup.html
+
+| Flag or Option | Notes                   |
+| -------------- | ----------------------- |
+| `-Wall`        | Generate all the errors |
+|                |                         |
+|                |                         |
+
+:pushpin:****
+
+
+
+:pushpin:****
+
+
+
+:pushpin:****
+
+
+
+:pushpin:****
+
+
+
+:pushpin:****
+
+
+
+:pushpin:****
+
+
+
+:pushpin:****
+
+
+
+:pushpin:****
+
+
+
 
 
 ### C++ Libraries:books:
