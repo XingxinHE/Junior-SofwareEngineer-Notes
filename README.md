@@ -222,6 +222,7 @@ In short, a Git *repository*: it is the data `objects` and `references`.
 | `git checkout -b <branch>`                       | create a new branch and checkout to it                       | `git checkout -b dev`                  |
 | `git clone <url>`                                | clone the repo from url                                      |                                        |
 | `git clone --shallow`                            | clone the repo without any history                           |                                        |
+| `git clone --recursive <url>`                    | clone the repo recursively                                   |                                        |
 | `git commit`                                     | "Archive and confirm" the changes to the directory           |                                        |
 | `git commit -m"<message>"`                       | Same with 👆, but with a short message                        | `git commit -m"Update README.md"  `    |
 | `git commit -a -m"<message>"`                    | `-a` stands for add; combine add and commit                  | `git commit -a -m"Update README.md"  ` |
@@ -296,7 +297,26 @@ Finally you ask `git` to continue the merging job.
 git merge --continue
 ```
 
+:pushpin: **Setup for recursive clone**
 
+You want to combine several dependencies into one project when you work on a macro project.
+
+1. create a `.gitmodules` in the root of your `git` folder.
+2. define **what** `git` repo will be in which **location** of your main folder.
+
+```
+[submodule "<name_of_this_repo"]
+	path = <location_of_this_submodule>
+	url = <url_of_this_repo>
+
+//e.g.
+[submodule "deps/polyscope"]
+	path = deps/polyscope
+	url = https://github.com/nzfeng/polyscope.git
+[submodule "deps/googletest"]
+	path = deps/googletest
+	url = https://github.com/google/googletest.git
+```
 
 
 
@@ -553,30 +573,137 @@ $ sudo su
 
 
 
+:pushpin:**Wildcards matching by `?` and `*`**
+
+ `?` substitute with **1** character.
+
+`*` substitute with **following** characters.
+
+e.g. Suppose you have `main.py main1.py main2.py main3.py`
+
+```bash
+$ ls main?.py
+main1.py  main2.py  main3.py  #It will substitute anything in `?` position
+
+$ ls ma*
+main.py main1.py main2.py main3.py  #It will match all the characters after *
+```
+
+
+
+:pushpin: **Use `{  }` as a set**
+
+:bulb:(It works very similar to the philosophy of list matching in Grasshopper.)
+
+:star:You can see it as the command will **iterate** what is inside `{ }`
+
+```bash
+$ mkdir {dev,src,master}  #create 3 folder at 1 time
+
+$ mv *{.py,.sh} folder  # Will move all *.py and *.sh files
+
+$ convert image.{png,jpg}  #This is equal to `convert image.png image.jpg`
+
+$ touch main{1..28}.py  #It will create main1.py, main2.py ... all the way to main28.py
+```
+
+
+
+:pushpin:**Use `find` to do recursive search**
+
+> ​	1. Find folders in current dir
+
+- `.` means current dir
+- `d` means the search target is directory
+
+```bash
+$ find . -name dev -type d
+```
+
+> ​	2. :star:Find files in depth!!
+
+- `**/bin/*.dll` means no matter what is the front, the most important pattern is `**/bin/*.dll`
+- `f` means the search target is file
+
+```bash
+$ find . -path '**/bin/*.dll' -type f
+```
+
+> ​	3. Find the files been modified
+
+- `-mtime` means modified time
+- `-1` means last day
+
+```bash
+$ find . -mtime -1
+```
+
+> ​	4. Find the files and delete them
+
+- `*.tmp` all the temporary files
+- `-exec rm` execute them with remove command
+
+```bash
+$ find . -name "*.tmp" -exec rm {} \;
+```
+
+> ​	5. Find files by sizes
+
+```bash
+$ find . -size +500k -size -10M -name '*.tar.gz'  # Find all zip files with size in range 500k to 10M
+```
+
+
+
+:pushpin:**What is shebang?**
+
+> ​	Different names: 
+
+It is also called `hashbang, pound-bang, or hash-pling.`
+
+> ​	Typical Looking:
+
+Always starts with `#!` at the beginning of a file.
+
+> ​	Objective:
+
+Increase the portability of the script. It will make use of the `PATH` environment and resolve to wherever the command lives in the system.
+
+> ​	Example:
+
+`#!/usr/bin/env python3`  ,  Execute with a Python interpreter, using the `env` program search path to find it.
+
 
 
 
 ### 1.Frequently Used Commands
 
-| Command            | Objective                                       | Example          |
-| ------------------ | ----------------------------------------------- | ---------------- |
-| `cat`              | catch whatever inside a file                    | `cat hello.txt`  |
-| `cd`               | change directory                                |                  |
-| `cp`               | copy a file                                     |                  |
-| `echo`             | like "echo", it simply prints out its arguments |                  |
-| `ls`               | list all the files in current directory         |                  |
-| `mkdir`            | make a directory/folder                         |                  |
-| `mv`               | rename/move a file                              | `mv xx.md yy.md` |
-| `pwd`              | present working directory                       |                  |
-| `rm`               | remove a file                                   |                  |
-| `rm -r`            | remove all the files recursively                | `rm -r ./img`    |
-| `rmdir`            | remove **EMPTY** folder                         | `rm ./.vscode`   |
-| `tail`             | print the last *n* lines                        | `tail -n3`       |
-|                    |                                                 |                  |
-| `<command> --help` | see the function of this command                | `git --help`     |
-| `man <command>`    | open the menu of this command                   | `man ls`         |
-|                    |                                                 |                  |
-| `Ctrl+L`           | clean out the shell                             |                  |
+| Command            | Objective                                       | Example                     |
+| ------------------ | ----------------------------------------------- | --------------------------- |
+| `cat`              | catch whatever inside a file                    | `cat hello.txt`             |
+| `cd`               | change directory                                |                             |
+| `cp`               | copy a file                                     |                             |
+| `echo`             | like "echo", it simply prints out its arguments |                             |
+| `find`             | `find <folder> -name <name> -type <type>`       | `find . -name main -type f` |
+| `fd`               | shortcut for find(not installed yet)            | `fd "*.py"`                 |
+| `history`          | list the history of your typed bash commands    |                             |
+| `ls`               | list all the files in current directory         |                             |
+| `man`              | manual of something                             | `man rm`                    |
+| `mkdir`            | make a directory/folder                         |                             |
+| `mv`               | rename/move a file                              | `mv xx.md yy.md`            |
+| `pwd`              | present working directory                       |                             |
+| `rm`               | remove a file                                   |                             |
+| `rm -r`            | remove all the files recursively                | `rm -r ./img`               |
+| `rmdir`            | remove **EMPTY** folder                         | `rm ./.vscode`              |
+| `rg`               | R.I.P. grep....:laughing: recursively `grep`    | `rg "import" -t py ~/dev`   |
+| `tail`             | print the last *n* lines                        | `tail -n3`                  |
+| `touch`            | create a file                                   | `touch main.cpp`            |
+| `shellcheck`       | Debug bash file                                 | `shellcheck mcd.sh`         |
+|                    |                                                 |                             |
+| `<command> --help` | see the function of this command                | `git --help`                |
+| `man <command>`    | open the menu of this command                   | `man ls`                    |
+|                    |                                                 |                             |
+| `Ctrl+L`           | clean out the shell                             |                             |
 
 ### 2.Shell Scripting
 
@@ -594,13 +721,13 @@ echo '$foo'
 
 > ​	1.No space should insert when assigning value
 
-`foo=bar` :heavy_check_mark: , `foo = bar`:x: . Because space ` ` acts as delimer.
+`foo=bar` :heavy_check_mark: , `foo = bar`:x: . Because space ` ` acts as delimiter.
 
 > ​	2.double quote and single quote have been explained.
 
 \
 
-> 	3. `$` for **interpolation**.
+> ​	3. `$` for **interpolation**.
 
 It is very similar to C#. But `$` in shell scripting has way more powerful functionalities.
 
@@ -611,39 +738,258 @@ string word = $"Today is {day}-th days of this month.";
 
 
 
-:pushpin:****
+:pushpin:**Make and store a shell script**
+
+> ​	The shell script is ended with `.sh`
+
+```bash
+$ vim mcd.sh
+```
+
+> ​	Make a script for 1.`mkdir`  and 2.  `cd` to it
+>
+> ​	Here `$1` means the 1st argument the user put
+
+```bash
+mcd()
+{
+	mkdir -p "$1"
+	cd "$1"
+}
+```
+
+> ​	After complete the script, store it into the shell
+
+```bash
+$ source mcd.sh
+```
+
+> ​	Now you can use this command in shell
+
+```bash
+$ mcd dev
+```
+
+
+
+:pushpin:**Arguments**
+
+As you see the above case, there are other definitions of arguments in bash.
+
+- `$0` - Name of the script
+- `$1` to `$9` - Arguments to the script. `$1` is the first argument and so on.
+- `$@` - All the arguments
+- `$#` - Number of arguments
+- `$?` - Return code of the previous command. Similar to `return 0` in C++
+- `$$` - Process identification number (PID) for the current script
+- `!!` - Entire last command, including arguments. A common pattern is to execute a command only for it to fail due to missing permissions; you can quickly re-execute the command with sudo by doing `sudo !!`
+- `$_` - Last argument from the last command. If you are in an interactive shell, you can also quickly get this value by typing `Esc` followed by `.`
+
+
+
+> ​	Example of using `!!`
+
+Suppose you are at `~`
+
+```bash
+$ mkdir /mnt/new  #the prompt will say you don't have permission
+$ sudo !!  #Here means `sudo mkdir /mnt/new`
+```
+
+
+
+> ​	Example of using `$_`
+
+In case you are in `~/Desktop/Dev`
+
+```bash
+$ cd ..  #Now you are at ~/Desktop
+$ cd $_  #Now you are at ~
+```
+
+
+
+> ​	Example of taking the variable
+
+```bash
+$ foo=$(pwd)
+$ echo foo
+~/Desktop
+```
+
+
+
+:pushpin::star:**Use `grep` to find codes** 
+
+> ​	1. `grep` basic
+
+This is a super useful command! It simply check **if A(string/text)** is in **B(file)**.
+
+```bash
+$ grep "import" main.py
+import numpy as np
+import sympy as sp
+import pandas as pd
+```
+
+Btw, you can check if the return value of the last command
+
+```bash
+$ echo $?
+0
+```
+
+`0` means successfully executed.
+
+> ​	2. `grep`  recursively with `-R`
+
+You can recursively `grep` such pattern
+
+```bash
+$ grep -R "numpy" .  #it will find all the files contained "numpy"
+```
+
+> 	3.`grep` the history
+
+The following is a pipe. Take the output from `history` command and `grep` if there is `find` in that history
+
+```bash
+$ history | grep find
+```
+
+
+
+:pushpin: **rg (R.I.P. grep)**
+
+
+> ​	Recursive grep by `rg`
+
+`rg <grep_pattern> -t <type_of-file> <search_location>`
+
+```bash
+$ rg "import numpy as np" -t py ./dev
+```
+
+> ​	Find files does not match **Regex** pattern
+
+e.g. find files not a shebang
+
+```bash
+$ rg -u --files-without-match "^#\!" -t sh
+```
+
+>  Find with stats
+
+- `-C 5` means search the surrounding 5 lines
+
+```bash
+$ rg "import requests" -t py -C 5 --stats ~/dev
+```
 
 
 
 
 
-:pushpin:****
+:pushpin:**`    ||    ` and `    &&    `**
+
+> ​	`A  ||  B`
+
+First check `A=True`:heavy_check_mark: , runs `A` only. 
+
+First check `B=False`:x:, run `B`
+
+> ​	`A  &&  B`
+
+First check `A=True`:heavy_check_mark:, runs `B`
+
+First check `A=False`:x:, does not run anything.
+
+```bash
+$ true || echo "This will not be printed"
+
+$ false || echo "This will be printed"
+This will be printed
+
+$ true && "This will be printed"
+This will be printed
+
+$ false && "This will not be printed"
+
+```
 
 
 
+:pushpin:**Use `<` to take the output as input**
 
+As mentioned before, the `<` means taking the data out. We can take advantage of this syntax.
 
-:pushpin:****
+```bash
+$ diff <(ls dev) <(ls main)
+```
 
-
-
-
-
-:pushpin:****
-
-
-
-
-
-:pushpin:****
+The difference between the content of `dev` folder and `main` folder will be printed.
 
 
 
+:pushpin:**Scripting 102**
 
+Suppose you have `dev.py  main.py  main1.py` 
 
-:pushpin:****
+**Objective**:
 
+1. Find `import numpy as np` in all the files
+2. If not, add it
 
+Make a new bash file
+
+```bash
+$ vim check_numpy.sh
+```
+
+Script it
+
+```bash
+echo "Starting program at $(date)" # Date will be substituted
+
+echo "Running program $0 with $# arguments with pid $$"
+
+for file in "$@"; do
+    grep "import numpy as np" "$file" > /dev/null 2> /dev/null
+    if [[ $? -ne 0 ]]; then
+        echo "File $file does not import numpy package, adding one"
+        echo "import numpy as np" >> "$file"
+    fi
+done
+```
+
+Use it
+
+```bash
+$ ./check_numpy.sh main.py main1.py dev.py
+```
+
+Output
+
+```
+Starting program at Sun Sep 12 14:12:49     2021
+Running program ./check_numpy.sh with 3 arguments with pid 431
+File main.py does not import numpy package, now adding one
+File main1.py does not import numpy package, now adding one
+File dev.py does not import numpy package, now adding one
+```
+
+**Explanation**:
+
+1.  `$(date)` , take the output from command `date` and turn into string
+2.  `$0` , the current bash script name
+3.  `$#` , num of arguments
+4.  `$$` , current pid
+5.  `for file in "$@"` , loop over the all the arguments(the file names)
+6. `"$file"` , turn file into plain text for comparing in `grep`
+7.  `/dev/null 2> /dev/null` , normally there are **2** output from `grep` which are **STDOUT** and **STDERR**. So this code means to store the OUT/ERR to the location.
+8.  `[ [ ] ]` , when comparing, use double brackets as recommended. 
+9.  `-ne` , means *not equal to* , therefore if `grep` can't find `numpy` which is not **0**, then it will execute the following.
+10.  `echo XXX >> "$file"` ,  append text into file
 
 
 
@@ -713,6 +1059,20 @@ In this case, it means the author of `vcpkg` leave the argument for you to enter
 To conclude, `.\xxx` means execute the `xxx` in current directroy.
 
 
+
+### 4.Resources of Shell
+
+**ShellCheck - A shell script static analysis tool**
+
+> ​	https://github.com/koalaman/shellcheck
+
+**Unix `env`**
+
+> ​	https://www.man7.org/linux/man-pages/man1/env.1.html
+
+**`tldr` package**
+
+> ​	https://tldr.sh/
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/latex.svg" />LaTex
 
