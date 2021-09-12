@@ -676,101 +676,6 @@ Increase the portability of the script. It will make use of the `PATH` environme
 
 
 
-### 1.Frequently Used Commands
-
-| Command            | Objective                                       | Example                     |
-| ------------------ | ----------------------------------------------- | --------------------------- |
-| `cat`              | catch whatever inside a file                    | `cat hello.txt`             |
-| `cd`               | change directory                                |                             |
-| `cp`               | copy a file                                     |                             |
-| `echo`             | like "echo", it simply prints out its arguments |                             |
-| `find`             | `find <folder> -name <name> -type <type>`       | `find . -name main -type f` |
-| `fd`               | shortcut for find(not installed yet)            | `fd "*.py"`                 |
-| `history`          | list the history of your typed bash commands    |                             |
-| `ls`               | list all the files in current directory         |                             |
-| `man`              | manual of something                             | `man rm`                    |
-| `mkdir`            | make a directory/folder                         |                             |
-| `mv`               | rename/move a file                              | `mv xx.md yy.md`            |
-| `pwd`              | present working directory                       |                             |
-| `rm`               | remove a file                                   |                             |
-| `rm -r`            | remove all the files recursively                | `rm -r ./img`               |
-| `rmdir`            | remove **EMPTY** folder                         | `rm ./.vscode`              |
-| `rg`               | R.I.P. grep....:laughing: recursively `grep`    | `rg "import" -t py ~/dev`   |
-| `tail`             | print the last *n* lines                        | `tail -n3`                  |
-| `touch`            | create a file                                   | `touch main.cpp`            |
-| `shellcheck`       | Debug bash file                                 | `shellcheck mcd.sh`         |
-|                    |                                                 |                             |
-| `<command> --help` | see the function of this command                | `git --help`                |
-| `man <command>`    | open the menu of this command                   | `man ls`                    |
-|                    |                                                 |                             |
-| `Ctrl+L`           | clean out the shell                             |                             |
-
-### 2.Shell Scripting
-
-:star:Big Picture: What is shell scripting for? Creating command pipelines, saving results into files, and reading from standard input.
-
-:pushpin:**Scripting 101**
-
-```bash
-foo=bar
-echo "$foo"
-# prints bar
-echo '$foo'
-# prints $foo
-```
-
-> ​	1.No space should insert when assigning value
-
-`foo=bar` :heavy_check_mark: , `foo = bar`:x: . Because space ` ` acts as delimiter.
-
-> ​	2.double quote and single quote have been explained.
-
-\
-
-> ​	3. `$` for **interpolation**.
-
-It is very similar to C#. But `$` in shell scripting has way more powerful functionalities.
-
-```c#
-int day = 28;
-string word = $"Today is {day}-th days of this month.";
-```
-
-
-
-:pushpin:**Make and store a shell script**
-
-> ​	The shell script is ended with `.sh`
-
-```bash
-$ vim mcd.sh
-```
-
-> ​	Make a script for 1.`mkdir`  and 2.  `cd` to it
->
-> ​	Here `$1` means the 1st argument the user put
-
-```bash
-mcd()
-{
-	mkdir -p "$1"
-	cd "$1"
-}
-```
-
-> ​	After complete the script, store it into the shell
-
-```bash
-$ source mcd.sh
-```
-
-> ​	Now you can use this command in shell
-
-```bash
-$ mcd dev
-```
-
-
 
 :pushpin:**Arguments**
 
@@ -849,7 +754,7 @@ You can recursively `grep` such pattern
 $ grep -R "numpy" .  #it will find all the files contained "numpy"
 ```
 
-> 	3.`grep` the history
+> 		3.`grep` the history
 
 The following is a pipe. Take the output from `history` command and `grep` if there is `find` in that history
 
@@ -931,7 +836,106 @@ The difference between the content of `dev` folder and `main` folder will be pri
 
 
 
+
+
+
+### 1.Frequently Used Commands
+
+| Command            | Objective                                       | Example                     |
+| ------------------ | ----------------------------------------------- | --------------------------- |
+| `cat`              | catch whatever inside a file                    | `cat hello.txt`             |
+| `cd`               | change directory                                |                             |
+| `cp`               | copy a file                                     |                             |
+| `echo`             | like "echo", it simply prints out its arguments |                             |
+| `find`             | `find <folder> -name <name> -type <type>`       | `find . -name main -type f` |
+| `fd`               | shortcut for find(not installed yet)            | `fd "*.py"`                 |
+| `history`          | list the history of your typed bash commands    |                             |
+| `ls`               | list all the files in current directory         |                             |
+| `man`              | manual of something                             | `man rm`                    |
+| `mkdir`            | make a directory/folder                         |                             |
+| `mv`               | rename/move a file                              | `mv xx.md yy.md`            |
+| `pwd`              | present working directory                       |                             |
+| `rm`               | remove a file                                   |                             |
+| `rm -r`            | remove all the files recursively                | `rm -r ./img`               |
+| `rmdir`            | remove **EMPTY** folder                         | `rm ./.vscode`              |
+| `rg`               | R.I.P. grep....:laughing: recursively `grep`    | `rg "import" -t py ~/dev`   |
+| `tail`             | print the last *n* lines                        | `tail -n3`                  |
+| `touch`            | create a file                                   | `touch main.cpp`            |
+| `shellcheck`       | Debug bash file                                 | `shellcheck mcd.sh`         |
+|                    |                                                 |                             |
+| `<command> --help` | see the function of this command                | `git --help`                |
+| `man <command>`    | open the menu of this command                   | `man ls`                    |
+|                    |                                                 |                             |
+| `Ctrl+L`           | clean out the shell                             |                             |
+
+### 2.Shell Scripting
+
+:star:Big Picture: What is shell scripting for? Creating command pipelines, saving results into files, and reading from standard input.
+
+:pushpin:**Scripting 101**
+
+```bash
+foo=bar
+echo "$foo"
+# prints bar
+echo '$foo'
+# prints $foo
+```
+
+> ​	1.No space should insert when assigning value
+
+`foo=bar` :heavy_check_mark: , `foo = bar`:x: . Because space ` ` acts as delimiter.
+
+> ​	2.double quote and single quote have been explained.
+
+\
+
+> ​	3. `$` for **interpolation**.
+
+It is very similar to C#. But `$` in shell scripting has way more powerful functionalities.
+
+```c#
+int day = 28;
+string word = $"Today is {day}-th days of this month.";
+```
+
+
+
 :pushpin:**Scripting 102**
+
+> ​	The shell script is ended with `.sh`
+
+```bash
+$ vim mcd.sh
+```
+
+> ​	Make a script for 1.`mkdir`  and 2.  `cd` to it
+>
+> ​	Here `$1` means the 1st argument the user put
+
+```bash
+mcd()
+{
+	mkdir -p "$1"
+	cd "$1"
+}
+```
+
+> ​	After complete the script, store it into the shell
+
+```bash
+$ source mcd.sh
+```
+
+> ​	Now you can use this command in shell
+
+```bash
+$ mcd dev
+```
+
+
+
+:pushpin:**Scripting 103**
 
 Suppose you have `dev.py  main.py  main1.py` 
 
@@ -940,13 +944,13 @@ Suppose you have `dev.py  main.py  main1.py`
 1. Find `import numpy as np` in all the files
 2. If not, add it
 
-Make a new bash file
+**Make a new bash file**:
 
 ```bash
 $ vim check_numpy.sh
 ```
 
-Script it
+**Script it**:
 
 ```bash
 echo "Starting program at $(date)" # Date will be substituted
@@ -962,13 +966,13 @@ for file in "$@"; do
 done
 ```
 
-Use it
+**Use it**:
 
 ```bash
 $ ./check_numpy.sh main.py main1.py dev.py
 ```
 
-Output
+**Output**:
 
 ```
 Starting program at Sun Sep 12 14:12:49     2021
@@ -990,14 +994,6 @@ File dev.py does not import numpy package, now adding one
 8.  `[ [ ] ]` , when comparing, use double brackets as recommended. 
 9.  `-ne` , means *not equal to* , therefore if `grep` can't find `numpy` which is not **0**, then it will execute the following.
 10.  `echo XXX >> "$file"` ,  append text into file
-
-
-
-:pushpin:****
-
-
-
-
 
 
 
@@ -1060,6 +1056,24 @@ To conclude, `.\xxx` means execute the `xxx` in current directroy.
 
 
 
+:pushpin:**How to install oh-my-zsh**
+
+1. Close VPN and install `Windows Terminal` and `Ubuntu` from Microsoft Store
+2. `sudo apt-get update`
+3. `sudo apt-get upgrade`
+4. `sudo apt install zsh`
+5. `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+   1. If it failed. Go to `Internet Properties` , find out the `Proxy` and `Port`
+   2. `export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890`
+6. `git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k`
+7. `vim ~/.zshrc`
+8. Set `ZSH_THEME="powerlevel10k/powerlevel10k"`
+9. Open the `Setting.json` of Windows Terminal, and paste the guid of Ubuntu to the default terminal.
+
+
+
+
+
 ### 4.Resources of Shell
 
 **ShellCheck - A shell script static analysis tool**
@@ -1073,6 +1087,12 @@ To conclude, `.\xxx` means execute the `xxx` in current directroy.
 **`tldr` package**
 
 > ​	https://tldr.sh/
+
+
+
+
+
+
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/latex.svg" />LaTex
 
