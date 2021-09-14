@@ -1595,7 +1595,36 @@ If you are tired of setting `Property` manually in VS IDE, you can set up a prop
 
 #### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/cmake.svg" />CMake
 
+:pushpin:**Install from Ubuntu**
+
+1. First you have to make sure you have already `gcc` which contains `make` command for C binaries.
+2. Make sure you installed `OpenSSL` package
+
+```bash
+$ sudo apt-get install libssl-dev
+$ wget http://www.cmake.org/files/v3.21/cmake-3.21.2.tar.gz
+$ tar xzf cmake-3.21.2.tar.gz
+$ cd cmake-3.21.2
+$ ./configure --prefix=/opt/cmake
+$ make  #for compilation
+$ sudo make install  
+$ /opt/cmake/bin/cmake -version  #check if installed
+```
+
+
+
 #### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/gnu.svg" />GCC
+
+:pushpin:**Install from Ubuntu**
+
+```bash
+$ sudo apt update
+$ sudo apt install build-essential
+$ sudo apt-get install manpages-dev
+$ gcc --version  #verified you have already installed
+```
+
+
 
 :pushpin:**What is GCC and G++?**
 
@@ -2589,6 +2618,8 @@ See above animation, I don't have any files opened until I press `Ctrl`+`,` and 
 |             |                 |       |
 
 
+
+## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/vim.svg" />Vim
 
 
 
