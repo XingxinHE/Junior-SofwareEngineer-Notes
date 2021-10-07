@@ -12,6 +12,7 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 
 - [Overview](#overview-the-notebookopen_book-of-junior-software-engineerkeyboard)
 - [Table of Contents](#table-of-content)
+- [0.Installation](#0installation_gear)
 - [1.Computer System](#1computer-systemdesktop_computer)
   - [Git](#git%EF%B8%8F)
   - [Shell](#shellshell)
@@ -35,6 +36,71 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
   - [RhinoCommon & Grasshopper](#rhinocommongrasshopperrhinoceros)
 - [6.Algorithm](#6algorithm)
 - [7.Robotics](#7robotics)
+
+
+
+# 0.Installation:gear:
+
+#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/vulkan.svg" />Vulkan
+
+> ​	1.Install Vulkan SDK
+
+https://vulkan.lunarg.com/sdk/home#windows
+
+> ​	2.Vulkan Driver
+
+It is already inside Nvidia Driver.
+
+https://www.nvidia.com/Download/index.aspx?lang=en-us
+
+
+
+#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/nvidia.svg" />CUDA, cudnn
+
+> ​	1.Install CUDA
+
+https://developer.nvidia.com/cuda-downloads
+
+> ​	2.Download cudnn
+
+https://developer.nvidia.com/cudnn-download-survey
+
+(follow the instruction and you should be good)
+
+
+
+#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/gnu.svg" />GCC
+
+> ​	Install from Ubuntu
+
+```bash
+$ sudo apt update
+$ sudo apt install build-essential
+$ sudo apt-get install manpages-dev
+$ gcc --version  #verified you have already installed
+```
+
+
+
+#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/cmake.svg" />CMake
+
+> ​	Install from Ubuntu
+
+1. First you have to make sure you have already `gcc` which contains `make` command for C binaries.
+2. Make sure you installed `OpenSSL` package
+
+```bash
+$ sudo apt-get install libssl-dev
+$ wget http://www.cmake.org/files/v3.21/cmake-3.21.2.tar.gz
+$ tar xzf cmake-3.21.2.tar.gz
+$ cd cmake-3.21.2
+$ ./configure --prefix=/opt/cmake
+$ make  #for compilation
+$ sudo make install  
+$ /opt/cmake/bin/cmake -version  #check if installed
+```
+
+
 
 # 1.Computer System:desktop_computer:
 
