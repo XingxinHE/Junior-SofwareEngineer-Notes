@@ -1580,6 +1580,28 @@ var LC = LA.Union(LB).ToList();  //{1, 2, 3, 4, 5, 6}
 
 ### 4.Statements
 
+#### Selection statements
+
+:pushpin:  **Multiple condition in ONE `case`**
+
+`case [data_type] [data_name] when [condition]`
+
+```c#
+switch (this.diameter)
+{
+    case 6:
+        return 35.0;
+    case 8:
+        return 20.0;
+    case int n when (n >= 16 && n <= 28):
+        return 20;
+    default:
+        throw new Exception($"No data for {this.diameter}mm steel.");
+}
+```
+
+
+
 ### 5.Special Character
 
 ### 6.Attributes
@@ -2598,23 +2620,31 @@ XCOPY "$(TargetDir)*" "$(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(Pr
 Copy "$(TargetPath)" "$(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(ProjectName)\$(ProjectName).gha"
 ```
 
-### 1.IDE或者Editor的行数和光标信息
+### Common Tricks
+
+:pushpin:**Info on Lines and Cursor**
 
 ![image-20210721164953723](img/image-20210721164953723.png)
 
 如上图所示，我光标在`2.5;`后面，这里显示`Ln: 697    Ch: 61`代表第697行，第61个字符的位置
 
-### 2.如何更改Build的output folder？
+
+
+:pushpin:**How to modify output folder of `Build`?**
 
 在C#里，可以在`Properties`的**Build** tab修改，那C++呢？在 **General** tab.
 
-### 3.Bookmarks
+
+
+:pushpin:**Shortcut of Bookmarks**
 
 `Ctrl`+`K,K`,double click K. Then the bookmark will be opened.
 
 <img src="img/image-20210801104617706.png" alt="image-20210801104617706" style="zoom:67%;" />
 
-### 4.Code snippets
+
+
+:pushpin:**Code Snippets**
 
 I think this can be very handy! `Code snippets` is sort of `alias` of the code. Similar to the alias of Grasshopper component. So, how to invoke code snippets?
 
@@ -2637,7 +2667,9 @@ finally
 }
 ```
 
-### 5.Cycle through the files you opened with keyboard
+
+
+:pushpin:**Ctrl+`Tab` to change tab**
 
 `Ctrl`+`Tab`  You can loop over the files you opened.
 
@@ -2645,13 +2677,17 @@ finally
 
 <img src="img/ide-ctrlTab-cycle.gif" alt="ide-ctrlTab-cycle" style="zoom:67%;" />
 
-### 6.Close all the tabs
+
+
+:pushpin:**Close all the tabs**
 
 Managing many opening tabs is bit distraction for me. Sometimes I want to close all the tabs by:
 
 `Alt`+`W,L`
 
-### 7.Find the file and method you need:star:
+
+
+:pushpin: **Ctrl+`,` for quick search** :star:
 
 This is very handy!! When I was working, I only left one file opened. And the fastest way to find the method in which file is to 
 
@@ -2661,15 +2697,25 @@ This is very handy!! When I was working, I only left one file opened. And the fa
 
 See above animation, I don't have any files opened until I press `Ctrl`+`,` and navigate to where I am interested it.
 
-### 8.Full screen mode
+
+
+:pushpin:**Full screen mode**
 
 `Shift`+`Alt`+`Enter`    You can access/quit full screen mode by this shortcut.
 
-### 9.Collapse block of code
+
+
+:pushpin:**Collapse code**
 
 `Ctrl`+`M,M`
 
 <img src="img/ide-collapse-block.gif" alt="ide-collapse-block" style="zoom:67%;" />
+
+
+
+:pushpin:**Separate Windows on a same file**
+
+If on `Class.cs`, click `Window` > `New Window` to split a file into 2 windows.
 
 
 
@@ -2809,6 +2855,16 @@ AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No intersection is found from
 :pushpin: **Template to share a common library with both a C++ and a C# plug-in**
 
 > ​	https://github.com/dalefugier/Moose
+
+### 5.Frequent Used Methods
+
+:pushpin: **Get .3dm file path**
+
+```C#
+string path = Rhino.RhinoDoc.ActiveDoc.Path;
+```
+
+
 
 # 6.Algorithm
 
@@ -3059,3 +3115,11 @@ MENU - 6.设置 - 4.坐标系 - F3[编号]找一个空的工具TCP - F2[方法] 
 按住`SHIFT+COORD`, 右上角出现`Tool, Jog, User`，选择`Tool`然后输入刚刚设好的几号工具就可以了
 
 ​	
+
+
+
+MENU-下页-系统-MasterEnable-0变成1
+
+
+
+系统-简易
