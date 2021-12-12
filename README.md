@@ -286,6 +286,7 @@ In short, a Git *repository*: it is the data `objects` and `references`.
 | `git checkout <branch>`                          | change HEAD to such branch                                   | `git checkout dev`                     |
 | `git checkout <commit_guid>`                     | change HEAD to such commit                                   |                                        |
 | `git checkout -b <branch>`                       | create a new branch and checkout to it                       | `git checkout -b dev`                  |
+| `git clean -f -d`                                | clean all the untracked files and folders                    |                                        |
 | `git clone <url>`                                | clone the repo from url                                      |                                        |
 | `git clone --shallow`                            | clone the repo without any history                           |                                        |
 | `git clone --recursive <url>`                    | clone the repo recursively                                   |                                        |
@@ -314,6 +315,7 @@ In short, a Git *repository*: it is the data `objects` and `references`.
 | `git rm --cached <file>`                         | To **stop tracking files** which have already been tracked   | `git rm --cached main.3dm.bak`         |
 | `git reset`                                      | remove all the staged changes, green=>red                    |                                        |
 | `git reset --hard <commitGuid>`                  | Destroy any local modification and reset to such commit      | `git reset --hard 0d1d7fc32`           |
+| `git reset HEAD --hard`                          | Reset the modified files back to the HEAD                    |                                        |
 | `git revert <commit_guid>`                       | Reverting undoes a commit by creating a new commit.          |                                        |
 | `git show <guid>`                                | check specific commit by guid                                | `git show 721d6bd`                     |
 | `git stash`                                      | hide current untracked changes                               |                                        |
