@@ -102,6 +102,33 @@ $ /opt/cmake/bin/cmake -version  #check if installed
 
 
 
+#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/qt.svg" />Qt
+
+> ​	Download and Install
+
+1. https://www.qt.io/
+2. Click option 'Downloads for open sources users'
+3. When select download package, MSVC 2019 64-bit
+4. After install Add `YOUR_PATH_TO\Qt\6.2.2\msvc2019_64\bin` to Environment Variable
+
+> ​	Configure in Visual Studio
+
+1.  In Visual Studio, 'Extension' - 'Manage Extension' , search and install 'Qt Visual Studio Tools'
+2. Reboot Visual Studio
+3. In Visual Studio, 'Extension' - 'Qt VS Tool'
+   1. In 'Version' tab, add the `C:\Qt\6.2.2\msvc2019_64\bin` to the path where it is also the location of `qmake.exe`
+   2. In 'Legacy Project Format' tab, change 'Ask before checking out files' from `True` to `False`
+
+
+
+#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/sqlite.svg" />SQLite
+
+> ​	Download
+
+1. https://sqlitebrowser.org/
+
+
+
 # 1.Computer System:desktop_computer:
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/git.svg" />Git🕷️
@@ -1620,11 +1647,54 @@ switch (this.diameter)
 
 ### 12.<img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/nuget.svg" />C# Nuget Package
 
+| Name             | Link                                       | Function              |
+| ---------------- | ------------------------------------------ | --------------------- |
+| Super Simple TCP | https://github.com/jchristn/SuperSimpleTcp | TCP client and server |
+|                  |                                            |                       |
+|                  |                                            |                       |
+
+
+
+### 13.未整理
+
+
+
 
 
 
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/cplusplus.svg" />C++
+
+### C++ header template
+
+```c++
+/************************************************************************\
+
+
+Copyright (c) 2021 HE, Xingxin
+
+
+Module Name:
+
+	xxx.
+
+
+Notes:
+	[Optional]
+
+
+History:
+	Created on mm/dd/yyyy xingxin.he@mail.polimi.it
+
+
+\************************************************************************/
+```
+
+
+
+
+
+
 
 ### 1.C4996, `fopen`: This function or variable may be unsafe.
 
@@ -1700,6 +1770,74 @@ $ make  #for compilation
 $ sudo make install  
 $ /opt/cmake/bin/cmake -version  #check if installed
 ```
+
+:pushpin:**CMake 101**
+
+Suppose you have the following file structure:
+
+```
+├── StaticArray
+│   ├── CMakeLists.txt
+│   ├── main.cpp
+│   ├── StaticArray.h
+│   ├── StaticArray.cpp
+```
+
+The CMake file looks like this:
+
+```cmake
+#specify the minimum CMake version
+cmake_minimum_required(VERSION 3.10)
+
+#get the directory name as the project name, stored in the variable ProjectId
+get_filename_component(ProjectId ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+#    this REPLACE means replacing the space to "_" in case the project including white space
+string(REPLACE " " "_" ProjectId ${ProjectId})
+
+#set the project
+project(${ProjectId})
+
+# add the executable, cmake will automatically find the header files
+add_executable(${ProjectId} main.cpp StaticArray.cpp)
+```
+
+When you are in the folder `StaticArray`, open the shell. Do the following commands:
+
+```shell
+$ cmake -B build
+```
+
+After this command, CMake will create a subfolder called `build` in this folder with `makefile`. The structure becomes:
+
+```
+├── StaticArray
+│   ├── CMakeLists.txt
+│   ├── main.cpp
+│   ├── StaticArray.h
+│   ├── StaticArray.cpp
+│   ├── build
+```
+
+After you modify the codes, and you really want to **build** it. You can:
+
+```shell
+$ cmake --build build
+```
+
+If you are using MSVC compiler, then the structure becomes:
+
+```
+├── StaticArray
+│   ├── CMakeLists.txt
+│   ├── main.cpp
+│   ├── StaticArray.h
+│   ├── StaticArray.cpp
+│   ├── build
+│   │   ├── Debug
+│   │   │   ├── StaticArray.exe
+```
+
+
 
 
 
@@ -2605,6 +2743,16 @@ int main()
 
 
 
+
+
+
+
+
+
+
+
+
+
 ## Visual Studio IDE<img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/visualstudio.svg" />
 
 ### Property Tab
@@ -2721,6 +2869,21 @@ If on `Class.cs`, click `Window` > `New Window` to split a file into 2 windows.
 
 
 
+:pushpin:**Relative Path when compile**
+
+The syntax is following:
+
+`@"pack://application:,,,/{PROJECT_NAME};component`  This is the root path.
+
+```c#
+public Uri imagePath = new Uri(@"D:\slowbrow\pocket_slowbro\src\UiVersion_1\_UCComponents\Icons\Vector.png");
+public Uri imagePath = new Uri(@"pack://application:,,,/UiVersion_1;component\_UCComponents\Icons\Vector.png",UriKind.Absolute);
+```
+
+
+
+
+
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/visualstudiocode.svg" />Visual Studio Code
 
 ### 1.Shortcut
@@ -2734,6 +2897,156 @@ If on `Class.cs`, click `Window` > `New Window` to split a file into 2 windows.
 
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/vim.svg" />Vim
+
+
+
+# 4.Database
+
+## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/sqlite.svg" />SQLite
+
+### 📌**SQLite C# 101**
+
+> ​	Solution Overview
+
+Suppose you have 2 projects in Visual Studio.
+
+- `DemoLibrary`, the project with data structure
+- `WinFormUI`, the project with UI
+
+
+
+> ​	Define Data Structure in `DemoLibrary`
+
+The following is a simple data structure for a person.
+
+```c#
+public class PersonModel
+{
+    public int Id { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    public string FullName
+    {
+        get
+        {
+            return $"{ FirstName } { LastName }";
+        }
+    }
+}
+```
+
+
+
+> ​	Setup in DB Browser
+
+1️⃣ Init `.db` file for the project
+
+In DB Browser for SQLite, click <u>File</u> > <u>New Database</u> > {<u>Location of Executable Project</u>} > <u>Name`.db`</u>
+
+Normally, the `.db` file should be in the executable project. e.g. The <u>**root path**</u> of WinForm / WPF / UWP, etc.
+
+2️⃣Include `.db` file in your porject
+
+In Visual Studio > Solution Explorer > Show All Files > Right Click the `.db` File > Include in Project
+
+3️⃣Create table matching data structure
+
+In DB Browser for SQLite, click <u>Database Structure</u> > <u>Create Table</u>
+
+<img src="img/image-20220208115831626.png" alt="image-20220208115831626" style="zoom:80%;" />
+
+The field is the **Property** you defined in C# class. The preceding image is the table matching the data structure you defined.
+
+The options of `Type` are:
+
+- `INTEGER`
+- `TEXT`
+- `BLOB`, files
+- `REAL`, floating number
+- `NUMERICAL`
+
+The flags are:
+
+- `NN` = `Not Null`
+- `PK` = `Primary Key`
+- `AI` = `Auto Increment`
+- `U` = `Unique`
+
+
+
+> ​	Add References
+
+1️⃣Nuget Packages
+
+- `System.Data.SQLite.Core`  , installed in <u>project with data structure</u> and <u>UI executable</u>, e.g. `DemoLibrary`&`WinFormUI`
+- `Dapper` , installed in <u>project with data structure</u>, e.g. `DemoLibrary`
+
+2️⃣Search in Assemblies
+
+- `System.Configuration` , <u>project with data structure</u> installed in `DemoLibrary`
+
+
+
+> ​	Set-up Configuration in UI Executable
+
+In `WinFormUI`, locate at `App.Config`. Add `connectionStrings` tab into the `configuration`.  `Data Source` points to where `.db` locates.
+
+```xaml
+<configuration>
+	<connectionStrings>
+		<add name="Default" 
+			 connectionString="Data Source=./DemoDB.db;Version=3;" 
+			 providerName="System.Data.SqlClient"/>
+	</connectionStrings>
+</configuration>
+```
+
+
+
+> ​	Create methods load and save data
+
+```c#
+public class SqliteDataAccess
+{
+    //this is the method loading data from database
+    public static List<PersonModel> LoadPeople()
+    {
+        using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        {
+            //query database
+            var output = cnn.Query<PersonModel>(
+                "select * from Person",
+                new DynamicParameters());
+            return output.ToList();
+        }
+    }
+
+    //this is the method saving data from database
+    public static void SavePerson(PersonModel person)
+    {
+        using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+        {
+            //match the input with the data structure
+            cnn.Execute(
+                "insert into Person (FirstName, LastName) values (@FirstName, @LastName)", 
+                person);
+        }
+    }
+
+    //private function for init connection to database
+    private static string LoadConnectionString(string id = "Default")//the default here is in `App.Config`
+    {
+        return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+    }
+}
+```
+
+
+
+
+
+
 
 
 
