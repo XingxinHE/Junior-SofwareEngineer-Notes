@@ -1605,6 +1605,12 @@ var LC = LA.Union(LB).ToList();  //{1, 2, 3, 4, 5, 6}
 
 
 
+📌**专业的索引方式**
+
+不要用List[0]，而用FirstOrDefault()
+
+
+
 ### 3.Operators and expressions
 
 ### 4.Statements
@@ -1647,11 +1653,11 @@ switch (this.diameter)
 
 ### 12.<img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/nuget.svg" />C# Nuget Package
 
-| Name             | Link                                       | Function              |
-| ---------------- | ------------------------------------------ | --------------------- |
-| Super Simple TCP | https://github.com/jchristn/SuperSimpleTcp | TCP client and server |
-|                  |                                            |                       |
-|                  |                                            |                       |
+| Name             | Link                                                         | Function                |
+| ---------------- | ------------------------------------------------------------ | ----------------------- |
+| Super Simple TCP | https://github.com/jchristn/SuperSimpleTcp                   | TCP client and server   |
+| MVVM Tooklit     | https://docs.microsoft.com/en-us/windows/communitytoolkit/mvvm/introduction | Successor of MVVM Light |
+|                  |                                                              |                         |
 
 
 
@@ -3055,6 +3061,15 @@ public class SqliteDataAccess
 # 4.Devops
 
 ## Documentation Tool:books:
+
+### <img align="left" height="25" src="https://raw.githubusercontent.com/EWSoftware/SHFB/master/Documentation/SandcastleBuilder/icons/Sandcastle.jpg" />Sandcastle
+
+- Configure Visual Studio:
+  - **Build** > **Output** tab of your project's properties.
+  - XML documentation file ✔
+- 
+
+
 
 ### 1.如何设置docfx的template？
 
