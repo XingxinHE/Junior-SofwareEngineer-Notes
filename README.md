@@ -297,6 +297,10 @@ In short, a Git *repository*: it is the data `objects` and `references`.
 
 
 
+
+
+
+
 ### 1.Frequently Used Commands
 
 | command                                          | objective                                                    | example                                |
@@ -1605,9 +1609,22 @@ var LC = LA.Union(LB).ToList();  //{1, 2, 3, 4, 5, 6}
 
 
 
-📌**专业的索引方式**
+📌**Pro Way to Query a List**
 
-不要用List[0]，而用FirstOrDefault()
+Don't use `List[0]`, rather than `FirstOrDefault()`
+
+
+
+**📌Find a Single element from a List**
+
+Suppose you have an id, you have to query an object from a list which matches the id.
+
+```c#
+string plateId  = "5ca99c57-2cc2-4f65-b5db-83afca088264";
+var plate = PlateDtoList.SingleOrDefault(dto => dto.Id == plateId);
+```
+
+
 
 
 
