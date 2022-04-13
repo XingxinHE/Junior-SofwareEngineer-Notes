@@ -148,6 +148,36 @@ $ /opt/cmake/bin/cmake -version  #check if installed
 C:\vcpkg> .\vcpkg remove --outdated --recurse
 ```
 
+> ​	Build Dependency Visual Studio Can Find
+
+```cmd
+C:\vcpkg> .\vcpkg integrate install
+```
+
+> ​	When Something is terribly slow
+
+e.g. powershell core, download by yourself, put it in the download folder.
+
+> ​	Install Default Architecture
+
+e.g. Install only `x64`. Make a system variable <u>named:</u> `VCPKG_DEFAULT_TRIPLET`, <u>value</u>: `x64-windows`
+
+> ​	Install like a Nuget Package
+
+```cmd
+C:\vcpkg> .\vcpkg integrate remove
+```
+
+Then you can see something like:
+
+```
+Install-Package vcpkg..........
+```
+
+Copy the command and run it in Nuget Package Manager Command in Visual Studio.
+
+
+
 
 
 
