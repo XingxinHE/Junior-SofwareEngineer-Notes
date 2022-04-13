@@ -129,6 +129,29 @@ $ /opt/cmake/bin/cmake -version  #check if installed
 
 
 
+#### vcpkg
+
+> ​	Download and Install
+
+1. Navigate to `C:\\`
+2. Recommend PowerShell for the following procedure
+3. `git clone` the repo
+
+```cmd
+> git clone https://github.com/microsoft/vcpkg
+> .\vcpkg\bootstrap-vcpkg.bat
+```
+
+> ​	 Remove Outdated Packages
+
+```cmd
+C:\vcpkg> .\vcpkg remove --outdated --recurse
+```
+
+
+
+
+
 # 1.Computer System:desktop_computer:
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/git.svg" />Git🕷️
