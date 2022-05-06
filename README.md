@@ -470,6 +470,37 @@ You want to combine several dependencies into one project when you work on a mac
 	url = https://github.com/google/googletest.git
 ```
 
+**📌Git submodules**
+
+```cmd
+git submodule add --depth 1 git@gitee.com:shanghai-dajie-robot/pocket_raichu.git submodules/pocket_raichu
+git config -f .gitmodules submodule.pocket_raichu.shallow true
+```
+
+
+
+```
+git config -f .gitmodules submodule.submodules/pocket_raichu.shallow false
+```
+
+
+
+
+
+git submodule foreach git pull origin master
+
+
+
+```
+git clone <repo_url>
+git submodule init
+git submodule update --depth 10
+```
+
+
+
+![image-20220506121509773](img/image-20220506121509773.png)
+
 
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/powershell.svg" />Shell:shell:
