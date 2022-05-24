@@ -472,6 +472,24 @@ You want to combine several dependencies into one project when you work on a mac
 
 
 
+**📌Setup a Github Access Token**
+
+1. Go to the Github account - Developer Setting - Generate Token
+2. Git clone an arbitrary repo from your page
+3. When the computer request credential, just close it until it appears on the command line for the following info
+   1. `user_name`: the name of your Github account
+   2. `password`: paste your token here
+
+
+
+
+
+
+
+
+
+
+
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/powershell.svg" />Shell:shell:
 
 > ​	In short, **shell** is a type of user interface. It is either **command-line interface (CLI)** or **graphical user interface (GUI)**. This section will mainly on (*CLI*) especially on Bourne Again SHell, or “**bash**” for short.
@@ -1849,14 +1867,14 @@ $ /opt/cmake/bin/cmake -version  #check if installed
 
 :pushpin:**CMake 101**
 
+> ​	Setup⚙
+
 Suppose you have the following file structure:
 
 ```
-├── StaticArray
+├── CMake101
 │   ├── CMakeLists.txt
 │   ├── main.cpp
-│   ├── StaticArray.h
-│   ├── StaticArray.cpp
 ```
 
 The CMake file looks like this:
@@ -1874,43 +1892,94 @@ string(REPLACE " " "_" ProjectId ${ProjectId})
 project(${ProjectId})
 
 # add the executable, cmake will automatically find the header files
-add_executable(${ProjectId} main.cpp StaticArray.cpp)
+add_executable(${ProjectId} main.cpp)
 ```
 
-When you are in the folder `StaticArray`, open the shell. Do the following commands:
+
+
+> ​	Build🔨 - option1 (recommend✌)
+
+When you are in the folder `CMake101`, open the shell. Do the following commands:
 
 ```shell
-$ cmake -B build
+$ cmake -B build -G "Visual Studio 17 2022"
 ```
+
+The `-G` stands for generator. You can search `cmake generator` on explorer to find out more options.
 
 After this command, CMake will create a subfolder called `build` in this folder with `makefile`. The structure becomes:
 
 ```
-├── StaticArray
-│   ├── CMakeLists.txt
-│   ├── main.cpp
-│   ├── StaticArray.h
-│   ├── StaticArray.cpp
-│   ├── build
+.
+└── 📁CMake101
+    ├── 📃CMakeLists.txt
+    ├── 📁build
+    │   ├── ALL_BUILD.vcxproj
+    │   ├── ALL_BUILD.vcxproj.filters
+    │   ├── CMake101.dir
+    │   ├── CMake101.sln
+    │   ├── CMake101.vcxproj
+    │   ├── CMake101.vcxproj.filters
+    │   ├── CMakeCache.txt
+    │   ├── CMakeFiles
+    │   ├── Debug
+    │   ├── ZERO_CHECK.vcxproj
+    │   ├── ZERO_CHECK.vcxproj.filters
+    │   └── cmake_install.cmake
+    └── 📃main.cpp
 ```
 
-After you modify the codes, and you really want to **build** it. You can:
+After you modify the codes, and you really want to **build** it(this is equivalent to press the `Build` button in VS IDE). You can:
 
 ```shell
 $ cmake --build build
 ```
 
-If you are using MSVC compiler, then the structure becomes:
+The structure becomes:
 
 ```
-├── StaticArray
-│   ├── CMakeLists.txt
-│   ├── main.cpp
-│   ├── StaticArray.h
-│   ├── StaticArray.cpp
-│   ├── build
-│   │   ├── Debug
-│   │   │   ├── StaticArray.exe
+.
+└── 📁CMake101
+    ├── 📃CMakeLists.txt
+    ├── 📁build
+    │   ├── ALL_BUILD.vcxproj
+    │   ├── ALL_BUILD.vcxproj.filters
+    │   ├── CMake101.dir
+    │   ├── CMake101.sln
+    │   ├── CMake101.vcxproj
+    │   ├── CMake101.vcxproj.filters
+    │   ├── CMakeCache.txt
+    │   ├── CMakeFiles
+    │   ├── Debug
+    │   │   ├── CMake101.exe  👈
+    │   │   └── CMake101.pdb  👈
+    │   ├── ZERO_CHECK.vcxproj
+    │   ├── ZERO_CHECK.vcxproj.filters
+    │   └── cmake_install.cmake
+    └── 📃main.cpp
+```
+
+
+
+> ​	Build🔨 - option2
+
+When you are in the `CMake101` folder, you type:
+
+```bash
+$ mkdir build
+$ cd build
+$ cmake ..
+```
+
+The preceding operation is equivalent to the previous one. This is common but in-and-out a folder seems complicate to me.
+
+```
+.
+└── 📁CMake101
+    ├── 📃CMakeLists.txt
+    ├── 📁build
+    │   └── ... 👈(you are here)
+    └── 📃main.cpp
 ```
 
 
