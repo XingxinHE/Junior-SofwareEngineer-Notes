@@ -499,8 +499,6 @@ git submodule update --depth 10
 
 
 
-![image-20220506121509773](img/image-20220506121509773.png)
-
 
 
 **📌Setup a Github Access Token**
@@ -1058,6 +1056,7 @@ The difference between the content of `dev` folder and `main` folder will be pri
 | `pwd`              | present working directory                       |                             |
 | `rm`               | remove a file                                   |                             |
 | `rm -r`            | remove all the files recursively                | `rm -r ./img`               |
+| `rm -rf *`         | remove all the files at the current folder      |                             |
 | `rmdir`            | remove **EMPTY** folder                         | `rm ./.vscode`              |
 | `rg`               | R.I.P. grep....:laughing: recursively `grep`    | `rg "import" -t py ~/dev`   |
 | `tail`             | print the last *n* lines                        | `tail -n3`                  |
@@ -1896,6 +1895,8 @@ $ sudo make install
 $ /opt/cmake/bin/cmake -version  #check if installed
 ```
 
+
+
 :pushpin:**CMake 101**
 
 > ​	Setup⚙
@@ -2011,6 +2012,187 @@ The preceding operation is equivalent to the previous one. This is common but in
     ├── 📁build
     │   └── ... 👈(you are here)
     └── 📃main.cpp
+```
+
+
+
+**📌CMake102**
+
+In this section, we will demonstrate how to add a library in CMake. ([code](./code/CMake/CMake102))
+
+> ​	Setup⚙
+
+Suppose you have the following files:
+
+```
+.
+└── 📁CMake102
+    ├── 📃CMakeLists.txt
+    ├── 📃main.cpp      👈#include "math.h" in the top
+    ├── 📃math.cpp      👈suppose this is the library
+    └── 📃math.h        👈suppose this is the library
+```
+
+
+
+> ​	CMake
+
+```cmake
+cmake_minimum_required(VERSION 3.10)
+project(cmake102)
+
+#🤚 add library here.
+#                     1st argument is the library name
+#                     The STATIC means static library, in Windows is `.lib`
+#                     The SHARED means dynamic link library, in Windows is `.dll`
+#                     3rd argument is the compile source of the library
+add_library(math_lib STATIC math.cpp)
+
+add_executable(cmake102 main.cpp)
+
+#add linker to the project
+#                      1st argument is the project
+#                      3rd argument is the library
+target_link_libraries(cmake102 PUBLIC math_lib)
+```
+
+
+
+> ​	Build🔨 - (MinGW and make)
+
+```bash
+$ cmake -B build -G "MinGW Makefiles"
+```
+
+After that, you would have
+
+```
+.
+└── 📁CMake102
+    ├── 📃CMakeLists.txt
+    ├── 📁build
+    │   ├── CMakeCache.txt
+    │   ├── CMakeFiles
+    │   ├── Makefile             👈this is the Makefile
+    │   └── cmake_install.cmake
+    ├── 📃main.cpp
+    ├── 📃math.cpp
+    └── 📃math.h
+```
+
+Change to `build` folder then simply type `make`:
+
+```bash
+$ cd build
+$ make
+```
+
+> ​	Build with `STATIC` in CMake
+
+You will have:
+
+```
+.
+└── 📁CMake102
+    ├── 📃CMakeLists.txt
+    ├── 📁build
+    │   ├── CMakeCache.txt
+    │   ├── CMakeFiles
+    │   ├── Makefile             
+    │   ├── cmake102.exe          👈this is the executable
+    │   ├── cmake_install.cmake   
+    │   └── libmath_lib.a         👈this is the static library, since I use gnu, so it is `.a`
+    ├── 📃main.cpp
+    ├── 📃math.cpp
+    └── 📃math.h
+```
+
+> ​	Build with `SHARED` in CMake
+
+You will have:
+
+```
+.
+└── 📁CMake102
+    ├── 📃CMakeLists.txt
+    ├── 📁build
+    │   ├── CMakeCache.txt
+    │   ├── CMakeFiles
+    │   ├── Makefile
+    │   ├── cmake102.exe         👈this is the executable
+    │   ├── cmake_install.cmake
+    │   ├── libmath_lib.dll      👈this is the shared library
+    │   └── libmath_lib.dll.a  
+    ├── 📃main.cpp
+    ├── 📃math.cpp
+    └── 📃math.h
+```
+
+
+
+**📌Key Difference between `SHARED` and `STATIC` library🌟**
+
+For `SHARED` library, the library should be with executable.
+
+✔
+
+```
+│   ├── cmake102.exe
+│   ├── libmath_lib.dll  
+```
+
+❌
+
+```
+│   ├── cmake102.exe
+│   ├── libmath_lib.dll  
+```
+
+
+
+For `STATIC` library, you can delete the `.lib` or `.a` file. Since everything in the library has been written into the executable.
+
+✔
+
+```
+│   ├── cmake102.exe
+```
+
+✔
+
+```
+│   ├── cmake102.exe
+│   ├── libmath_lib.a   
+```
+
+
+
+**📌Choose `SHARED` or `STATIC` when you press CMake**
+
+You can modify the following line in `CMakeLists.txt`:
+
+```cmake
+add_library(math_lib STATIC math.cpp)
+```
+
+to
+
+```cmake
+add_library(math_lib math.cpp)
+```
+
+You can rather do it like this:
+
+> ​	`SHARED`
+
+```bash
+$ cmake -B build -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=ON
+```
+
+> ​	`STATIC`
+
+```bash
+$ cmake -B build -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=OFF
 ```
 
 
