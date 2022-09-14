@@ -39,147 +39,6 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 
 
 
-# 0.Installation:gear:
-
-#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/vulkan.svg" />Vulkan
-
-> ​	1.Install Vulkan SDK
-
-https://vulkan.lunarg.com/sdk/home#windows
-
-> ​	2.Vulkan Driver
-
-It is already inside Nvidia Driver.
-
-https://www.nvidia.com/Download/index.aspx?lang=en-us
-
-
-
-#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/nvidia.svg" />CUDA, cudnn
-
-> ​	1.Install CUDA
-
-https://developer.nvidia.com/cuda-downloads
-
-> ​	2.Download cudnn
-
-https://developer.nvidia.com/cudnn-download-survey
-
-(follow the instruction and you should be good)
-
-
-
-#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/gnu.svg" />GCC
-
-> ​	Install from Ubuntu
-
-```bash
-$ sudo apt update
-$ sudo apt install build-essential
-$ sudo apt-get install manpages-dev
-$ gcc --version  #verified you have already installed
-```
-
-
-
-#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/cmake.svg" />CMake
-
-> ​	Install from Ubuntu
-
-1. First you have to make sure you have already `gcc` which contains `make` command for C binaries.
-2. Make sure you installed `OpenSSL` package
-
-```bash
-$ sudo apt-get install libssl-dev
-$ wget http://www.cmake.org/files/v3.21/cmake-3.21.2.tar.gz
-$ tar xzf cmake-3.21.2.tar.gz
-$ cd cmake-3.21.2
-$ ./configure --prefix=/opt/cmake
-$ make  #for compilation
-$ sudo make install  
-$ /opt/cmake/bin/cmake -version  #check if installed
-```
-
-
-
-#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/qt.svg" />Qt
-
-> ​	Download and Install
-
-1. https://www.qt.io/
-2. Click option 'Downloads for open sources users'
-3. When select download package, MSVC 2019 64-bit
-4. After install Add `YOUR_PATH_TO\Qt\6.2.2\msvc2019_64\bin` to Environment Variable
-
-> ​	Configure in Visual Studio
-
-1.  In Visual Studio, 'Extension' - 'Manage Extension' , search and install 'Qt Visual Studio Tools'
-2. Reboot Visual Studio
-3. In Visual Studio, 'Extension' - 'Qt VS Tool'
-   1. In 'Version' tab, add the `C:\Qt\6.2.2\msvc2019_64\bin` to the path where it is also the location of `qmake.exe`
-   2. In 'Legacy Project Format' tab, change 'Ask before checking out files' from `True` to `False`
-
-
-
-#### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/sqlite.svg" />SQLite
-
-> ​	Download
-
-1. https://sqlitebrowser.org/
-
-
-
-#### vcpkg
-
-> ​	Download and Install
-
-1. Navigate to `C:\\`
-2. Recommend PowerShell for the following procedure
-3. `git clone` the repo
-
-```cmd
-> git clone https://github.com/microsoft/vcpkg
-> .\vcpkg\bootstrap-vcpkg.bat
-```
-
-> ​	 Remove Outdated Packages
-
-```cmd
-C:\vcpkg> .\vcpkg remove --outdated --recurse
-```
-
-> ​	Build Dependency Visual Studio Can Find
-
-```cmd
-C:\vcpkg> .\vcpkg integrate install
-```
-
-> ​	When Something is terribly slow
-
-e.g. powershell core, download by yourself, put it in the download folder.
-
-> ​	Install Default Architecture
-
-e.g. Install only `x64`. Make a system variable <u>named:</u> `VCPKG_DEFAULT_TRIPLET`, <u>value</u>: `x64-windows`
-
-> ​	Install like a Nuget Package
-
-```cmd
-C:\vcpkg> .\vcpkg integrate remove
-```
-
-Then you can see something like:
-
-```
-Install-Package vcpkg..........
-```
-
-Copy the command and run it in Nuget Package Manager Command in Visual Studio.
-
-
-
-
-
 
 
 # 1.Computer System:desktop_computer:
@@ -188,7 +47,7 @@ Copy the command and run it in Nuget Package Manager Command in Visual Studio.
 
 ### 0.Basic Concepts
 
-:pushpin:**VCSs, Git, Github/Gitlab**
+📌**VCSs, Git, Github/Gitlab**
 
 VCSs = Version control systems (VCSs)
 
@@ -198,7 +57,7 @@ Github/Gitlab/Gitee = the host of Git Repository
 
 
 
-:pushpin: **Snapshots咔嚓**
+📌 **Snapshots咔嚓**
 
 Git models the history of a collection of files and folders within some top-level directory as a series of snapshots.
 
@@ -214,7 +73,7 @@ Git models the history of a collection of files and folders within some top-leve
 
 
 
-**:pushpin:Modeling history: relating snapshots**
+**📌Modeling history: relating snapshots**
 
 In pro words: a history is a **directed acyclic graph (DAG)** of snapshots
 
@@ -242,7 +101,7 @@ o <-- o <-- o <-- o <---- o
 
 
 
-**:pushpin: Fast-forward and three-way merge**
+**📌 Fast-forward and three-way merge**
 
 Fast-forward: the commit all points to a same parent commit
 
@@ -265,7 +124,7 @@ o <-- o <-- o <-- o <---- o
 
 
 
-**:pushpin: Data model**
+**📌 Data model**
 
 The following mimics the data model in Git in pseudocode.
 
@@ -338,13 +197,13 @@ e.g.
 
 
 
-:pushpin: **Repositories**
+📌 **Repositories**
 
 In short, a Git *repository*: it is the data `objects` and `references`.
 
 
 
-**:pushpin: A diagram for Git**
+**📌 A diagram for Git**
 
 ![image-20210830144146878](img/image-20210830144146878.png)
 
@@ -353,57 +212,6 @@ In short, a Git *repository*: it is the data `objects` and `references`.
 
 
 
-
-### 1.Frequently Used Commands
-
-| command                                          | objective                                                    | example                                |
-| ------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------- |
-| `git add <file_name>`                            | Add file to staging area                                     | `git add README.md`                    |
-| `git add .`                                      | Add any unstaged files to staging area                       |                                        |
-| `git add -p <file>`                              | Interactively choose hunks of patch                          |                                        |
-| `git blame`                                      | see each commit with authors                                 |                                        |
-| `git branch`                                     | see all the branches                                         |                                        |
-| `git branch <branch_name>`                       | create a new branch                                          | `git branch dev`                       |
-| `git branch -d <the_local_branch>`               | Delete local branch                                          | `git branch -d PointDebug`             |
-| `git cat-file -p <SHA-1 hash>`                   | Visualize data by SHA-1 hash                                 |                                        |
-| `git checkout <file>`                            | remove the unstaged changes and back to current stage        |                                        |
-| `git checkout <branch>`                          | change HEAD to such branch                                   | `git checkout dev`                     |
-| `git checkout <commit_guid>`                     | change HEAD to such commit                                   |                                        |
-| `git checkout -b <branch>`                       | create a new branch and checkout to it                       | `git checkout -b dev`                  |
-| `git clean -f -d`                                | clean all the untracked files and folders                    |                                        |
-| `git clone <url>`                                | clone the repo from url                                      |                                        |
-| `git clone --shallow`                            | clone the repo without any history                           |                                        |
-| `git clone --recursive <url>`                    | clone the repo recursively                                   |                                        |
-| `git commit`                                     | "Archive and confirm" the changes to the directory           |                                        |
-| `git commit -m"<message>"`                       | Same with 👆, but with a short message                        | `git commit -m"Update README.md"  `    |
-| `git commit -a -m"<message>"`                    | `-a` stands for add; combine add and commit                  | `git commit -a -m"Update README.md"  ` |
-| `git commit --amend`                             | append current commit with previous commit                   |                                        |
-| `git config -l`                                  | `-l` stands for listing the detail of config, e.g. user name |                                        |
-| `git diff`                                       |                                                              |                                        |
-| `git diff --staged`                              | compare the un-commit changes with HEAD                      |                                        |
-| `git diff <file>`                                | see diff of file with HEAD                                   |                                        |
-| `git diff <guid> <file>`                         | see diff of file between current HEAD and guid               |                                        |
-| `git diff <prev_guid> <now_guid> <file>`         | see diff of file between `previous` and `now`                |                                        |
-| `git fetch <remote>`                             | fetch the commits from remote to local                       |                                        |
-| `git help <command>`                             | help menu of such command                                    | `git help commit`                      |
-| `git init`                                       | Initialize a git repo                                        |                                        |
-| `git log`                                        | the log of git history                                       |                                        |
-| `git log --stat`                                 | the log of git history statistically                         |                                        |
-| `git log --all --graph --decorate`               | nice diagram of git log                                      |                                        |
-| `git merge <branchX>`                            | merge `branchX` into current branch                          | `git merge origin/master`              |
-| `git mv <old_name> <new_name>`                   | rename specific file (this has to be commited)               |                                        |
-| `git push`                                       | push commits to remote(already configured remote)            |                                        |
-| `git push <remote> <branch>:<branch>`            | push commits to remote                                       | `git push origin main:main`            |
-| `git push <remote> --delete <the_remote_branch>` | Delete remote branch                                         | `git push origin --delete PointDebug`  |
-| `git pull`                                       | `git pull` = {`git fetch; git merge <remote>/<branch>`}      |                                        |
-| `git rm --cached <file>`                         | To **stop tracking files** which have already been tracked   | `git rm --cached main.3dm.bak`         |
-| `git reset`                                      | remove all the staged changes, green=>red                    |                                        |
-| `git reset --hard <commitGuid>`                  | Destroy any local modification and reset to such commit      | `git reset --hard 0d1d7fc32`           |
-| `git reset HEAD --hard`                          | Reset the modified files back to the HEAD                    |                                        |
-| `git revert <commit_guid>`                       | Reverting undoes a commit by creating a new commit.          |                                        |
-| `git show <guid>`                                | check specific commit by guid                                | `git show 721d6bd`                     |
-| `git stash`                                      | hide current untracked changes                               |                                        |
-| `git stash pop`                                  | pop out the hidden untracked changes                         |                                        |
 
 ### 2.:+1:Goooood resources of Git
 
@@ -423,7 +231,7 @@ In short, a Git *repository*: it is the data `objects` and `references`.
 
 ### 3.Some Regular Procedure
 
-:pushpin: **How to solve conflicts?**
+📌 **How to solve conflicts?**
 
 Suppose you are on `master`, and you want to merge `new_feature` branch, the conflict is on `main.cpp`. Then you can do:
 
@@ -449,7 +257,7 @@ Finally you ask `git` to continue the merging job.
 git merge --continue
 ```
 
-:pushpin: **Setup for recursive clone**
+📌 **Setup for recursive clone**
 
 You want to combine several dependencies into one project when you work on a macro project.
 
@@ -525,13 +333,13 @@ git submodule update --depth 10
 
 ### 0.Basic Concept
 
-**:pushpin: environment variable(PATH)**
+**📌 environment variable(PATH)**
 
 All the commands you run in the shell has already been added to the `environment variable` in your PC. In Windows, you can search `edit the system environment variable` => `environment variable..` => Edit the `PATH`.
 
 
 
-**:pushpin: `/` and `\`**
+**📌 `/` and `\`**
 
 A path on the shell is a **delimited** list of directories; 
 
@@ -549,7 +357,7 @@ on Windows:
 
 
 
-**:pushpin: absolute path and relative path**
+**📌 absolute path and relative path**
 
 > ​	a.**Absolute path** is with full path (literally). e.g.
 
@@ -575,7 +383,7 @@ C:\Users\Xingxin\AppData\Local\Temp
 
 
 
-**:pushpin: `.` , `..` , `~` , `-`   used in path**
+**📌 `.` , `..` , `~` , `-`   used in path**
 
 It is a must to know these 3 symbols for they appear a lot.
 
@@ -589,7 +397,7 @@ It is a must to know these 3 symbols for they appear a lot.
 
 
 
-**:pushpin: `-` , `--`  used in command**
+**📌 `-` , `--`  used in command**
 
 `-` indicates a flag which **modify** their behavior
 
@@ -613,7 +421,7 @@ The `--stat` option indicates the `git` command to show the *statistics* from `g
 
 
 
-**:pushpin: ` ` , `""` , `\` used in file name and folder name**
+**📌 ` ` , `""` , `\` used in file name and folder name**
 
 The space ` ` is used to separate the arguments in the command line. e.g.
 
@@ -630,7 +438,7 @@ mkdir my\ photo
 
 
 
-:pushpin:`' '` and `" "`
+📌`' '` and `" "`
 
 Things inside single quote `' '` are literal string. Meaning what is inside is what is inside.
 
@@ -638,7 +446,7 @@ Things inside double quote `" "` are strings. They can be substituted.
 
 
 
-**:pushpin: `<`, `>` , `>>` in data stream**
+**📌 `<`, `>` , `>>` in data stream**
 
 `<` take the data stream out...
 
@@ -662,7 +470,7 @@ It means stream out content of `hello.txt` and append them at the end of `README
 
 
 
-**:pushpin: `|` pipe**
+**📌 `|` pipe**
 
 It means take the output from the left as the input of the right.          `<A=output>  |  <A'=input>`
 
@@ -678,7 +486,7 @@ ls -l | tail -n3
 
 
 
-**:pushpin: `r`, `w`, `x` file/folder permissions**
+**📌 `r`, `w`, `x` file/folder permissions**
 
 `r` , read
 
@@ -742,7 +550,7 @@ For `desktop.ini` file, `-rwxr-xr-x`
 
 
 
-**:pushpin: `$` ,  `#`, `sudo` in prompt**
+**📌 `$` ,  `#`, `sudo` in prompt**
 
 `$` indicates this is a *normal* user permission to this shell
 
@@ -772,7 +580,7 @@ $ sudo su
 
 
 
-:pushpin:**Wildcards matching by `?` and `*`**
+📌**Wildcards matching by `?` and `*`**
 
  `?` substitute with **1** character.
 
@@ -790,7 +598,7 @@ main.py main1.py main2.py main3.py  #It will match all the characters after *
 
 
 
-:pushpin: **Use `{  }` as a set**
+📌 **Use `{  }` as a set**
 
 :bulb:(It works very similar to the philosophy of list matching in Grasshopper.)
 
@@ -808,7 +616,7 @@ $ touch main{1..28}.py  #It will create main1.py, main2.py ... all the way to ma
 
 
 
-:pushpin:**Use `find` to do recursive search**
+📌**Use `find` to do recursive search**
 
 > ​	1. Find folders in current dir
 
@@ -854,7 +662,7 @@ $ find . -size +500k -size -10M -name '*.tar.gz'  # Find all zip files with size
 
 
 
-:pushpin:**What is shebang?**
+📌**What is shebang?**
 
 > ​	Different names: 
 
@@ -876,7 +684,7 @@ Increase the portability of the script. It will make use of the `PATH` environme
 
 
 
-:pushpin:**Arguments**
+📌**Arguments**
 
 As you see the above case, there are other definitions of arguments in bash.
 
@@ -923,7 +731,7 @@ $ echo foo
 
 
 
-:pushpin::star:**Use `grep` to find codes** 
+📌:star:**Use `grep` to find codes** 
 
 > ​	1. `grep` basic
 
@@ -963,7 +771,7 @@ $ history | grep find
 
 
 
-:pushpin: **rg (R.I.P. grep)**
+📌 **rg (R.I.P. grep)**
 
 
 > ​	Recursive grep by `rg`
@@ -994,7 +802,7 @@ $ rg "import requests" -t py -C 5 --stats ~/dev
 
 
 
-:pushpin:**`    ||    ` and `    &&    `**
+📌**`    ||    ` and `    &&    `**
 
 > ​	`A  ||  B`
 
@@ -1023,7 +831,7 @@ $ false && "This will not be printed"
 
 
 
-:pushpin:**Use `<` to take the output as input**
+📌**Use `<` to take the output as input**
 
 As mentioned before, the `<` means taking the data out. We can take advantage of this syntax.
 
@@ -1072,7 +880,7 @@ The difference between the content of `dev` folder and `main` folder will be pri
 
 :star:Big Picture: What is shell scripting for? Creating command pipelines, saving results into files, and reading from standard input.
 
-:pushpin:**Scripting 101**
+📌**Scripting 101**
 
 ```bash
 foo=bar
@@ -1101,7 +909,7 @@ string word = $"Today is {day}-th days of this month.";
 
 
 
-:pushpin:**Scripting 102**
+📌**Scripting 102**
 
 > ​	The shell script is ended with `.sh`
 
@@ -1135,7 +943,7 @@ $ mcd dev
 
 
 
-:pushpin:**Scripting 103**
+📌**Scripting 103**
 
 Suppose you have `dev.py  main.py  main1.py` 
 
@@ -1199,7 +1007,7 @@ File dev.py does not import numpy package, now adding one
 
 ### 3.Others
 
-**:pushpin: what is `.\xxx`？**
+**📌 what is `.\xxx`？**
 
 Suppose we run `dir` in windows(≈`ls` in Unix).  Then you will see:
 
@@ -1256,7 +1064,7 @@ To conclude, `.\xxx` means execute the `xxx` in current directroy.
 
 
 
-:pushpin:**How to install oh-my-zsh**
+📌**How to install oh-my-zsh**
 
 1. Close VPN and install `Windows Terminal` and `Ubuntu` from Microsoft Store
 2. `sudo apt-get update`
@@ -1311,7 +1119,7 @@ To conclude, `.\xxx` means execute the `xxx` in current directroy.
 
 ### Vectors and Matrix
 
-:pushpin:  **vertical dashed lines inside a matrix**
+📌  **vertical dashed lines inside a matrix**
 
 > ​	The `c` in `{c:c}` represents the column while `:` represents the dashed line.
 >
@@ -1331,7 +1139,7 @@ $\begin{array}{c:c}
 5 & 6 \\ 
 \end{array}$
 
-:pushpin: **Matrix Template**
+📌 **Matrix Template**
 
 ```latex
 \begin{bmatrix}
@@ -1347,7 +1155,7 @@ $\begin{bmatrix}
 0&0&1\\
 \end{bmatrix}$
 
-**:pushpin:Determinant Template**
+**📌Determinant Template**
 
 ```latex
 \begin{vmatrix}
@@ -1369,7 +1177,7 @@ $\begin{vmatrix}
 
 ### Documentation
 
-:pushpin: **Reference equation by tag**
+📌 **Reference equation by tag**
 
 > ​	You create the equation with `label` and `tag`.
 
@@ -1399,7 +1207,7 @@ $ \eqref{a} $
 
 ##### interface
 
-:pushpin:**define an interface and implement it**
+📌**define an interface and implement it**
 
 例如我定义了
 
@@ -1440,7 +1248,7 @@ Vector3d IParam.SafeShift
 }
 ```
 
-:pushpin:**difference between explicit and implicit implementation**
+📌**difference between explicit and implicit implementation**
 
 首先我定义了接口
 
@@ -1523,7 +1331,7 @@ ParamZ pz = new ParamZ();
 
 ##### Access Modifiers
 
-:pushpin:`private` vs `internal`
+📌`private` vs `internal`
 
 > **internal** is for assembly scope (i.e. only accessible from code in the same .exe or .dll)
 >
@@ -1533,7 +1341,7 @@ ParamZ pz = new ParamZ();
 
 **2.2.1.Iteration Statement**
 
-**:pushpin: How to loop backward in `foreach`?**
+**📌 How to loop backward in `foreach`?**
 
 ```c#
 //use `.Reverse()`
@@ -1556,7 +1364,7 @@ foreach(int i in list.ToArray().Reverse())
 
 #### 2.3Method Parameters
 
-:pushpin: **how to use `out`？**
+📌 **how to use `out`？**
 
 ```c#
 public static void Run(out List<Plane> planes, out List<string> commands)
@@ -1595,7 +1403,7 @@ Run(out ps, out ss);
 
 #### 2.9.Queries
 
-:pushpin:**Select没有返回值的item**
+📌**Select没有返回值的item**
 
 > ​	假设你有`List<Curve> crvs`，你想对它们整体偏移。那么你可能会：
 
@@ -1630,7 +1438,7 @@ var shiftCrvs = crvs.Select(crv => {crv.Translate(100,0,0); return crv;}).ToList
 
 
 
-:pushpin:**use `Take` to split a list**
+📌**use `Take` to split a list**
 
 > ​	imagine you have a list of 10 `double`, and you want to split the list into two chunks
 
@@ -1641,7 +1449,7 @@ var firstFour = doubleList.Take(4).ToList();  //now you have the first four item
 
 
 
-:pushpin:**use `Skip` to bypass items** 
+📌**use `Skip` to bypass items** 
 
 > ​	it is sort of dual method of `Take` which bypass certain amount of elements
 
@@ -1652,7 +1460,7 @@ var lastSix = doubleList.Skip(4).ToList();  //now you have the last six item
 
 
 
-:pushpin:**Create a list of booleans like in Python**
+📌**Create a list of booleans like in Python**
 
 ```c#
 using System.Linq;
@@ -1663,7 +1471,7 @@ var allFalse = Enumerable.Repeat(false, Z.Count);
 
 
 
-:pushpin: **Combine two list and return a new list**
+📌 **Combine two list and return a new list**
 
 ```c#
 var z = x.Concat(y).ToList();  //the `concat` would not affect either x or y
@@ -1671,7 +1479,7 @@ var z = x.Concat(y).ToList();  //the `concat` would not affect either x or y
 
 
 
-:pushpin: **Sort a list by list value**
+📌 **Sort a list by list value**
 
 ```c#
 using System.Linq;
@@ -1686,7 +1494,7 @@ myList.Reverse();
 
 
 
-:pushpin: **Set operation**
+📌 **Set operation**
 
 | **Method Name** | **Description**              |
 | --------------- | ---------------------------- |
@@ -1735,7 +1543,7 @@ var plate = PlateDtoList.SingleOrDefault(dto => dto.Id == plateId);
 
 #### Selection statements
 
-:pushpin:  **Multiple condition in ONE `case`**
+📌  **Multiple condition in ONE `case`**
 
 `case [data_type] [data_name] when [condition]`
 
@@ -1754,20 +1562,6 @@ switch (this.diameter)
 ```
 
 
-
-### 5.Special Character
-
-### 6.Attributes
-
-### 7.Unsafe code and pointers
-
-### 8.Preprocessor directives
-
-### 9.Compiler Error
-
-### 10.XML documentations comments
-
-### 11.Specifications
 
 ### 12.<img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/nuget.svg" />C# Nuget Package
 
@@ -1879,7 +1673,7 @@ If you are tired of setting `Property` manually in VS IDE, you can set up a prop
 
 #### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/cmake.svg" />CMake
 
-:pushpin:**Install from Ubuntu**
+📌**Install from Ubuntu**
 
 1. First you have to make sure you have already `gcc` which contains `make` command for C binaries.
 2. Make sure you installed `OpenSSL` package
@@ -1897,7 +1691,7 @@ $ /opt/cmake/bin/cmake -version  #check if installed
 
 
 
-:pushpin:**CMake 101**
+📌**CMake 101**
 
 > ​	Setup⚙
 
@@ -2201,7 +1995,7 @@ $ cmake -B build -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=OFF
 
 #### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/gnu.svg" />GCC
 
-:pushpin:**Install from Ubuntu**
+📌**Install from Ubuntu**
 
 ```bash
 $ sudo apt update
@@ -2212,13 +2006,13 @@ $ gcc --version  #verified you have already installed
 
 
 
-:pushpin:**What is GCC and G++?**
+📌**What is GCC and G++?**
 
 gcc: GNU Compiler Collections(for **compile C and C++**)
 
 g++: GNU c++ compiler(for **compile C++**)
 
-:pushpin:**Simplest Compile**
+📌**Simplest Compile**
 
 `g++ <fileName.cpp>`  . The default build is `a.out` in Linux and `a.exe` in Windows
 
@@ -2228,7 +2022,7 @@ $ ./a.exe
 Hello, world!
 ```
 
-:pushpin:**Use `-o` to specify output name** 
+📌**Use `-o` to specify output name** 
 
 ```bash
 g++ helloworld.cpp -o helloworld
@@ -2236,7 +2030,7 @@ g++ helloworld.cpp -o helloworld
 
 
 
-:pushpin:**Compile in C++11 standard**
+📌**Compile in C++11 standard**
 
 Use `-std=c++11`
 
@@ -2246,7 +2040,7 @@ g++ -g -Wall -std=c++11 main.cpp
 
 
 
-:pushpin:**Frequently Used Commands**
+📌**Frequently Used Commands**
 
 https://www.runoob.com/cplusplus/cpp-environment-setup.html
 
@@ -2256,35 +2050,35 @@ https://www.runoob.com/cplusplus/cpp-environment-setup.html
 |                |                         |
 |                |                         |
 
-:pushpin:****
+📌****
 
 
 
-:pushpin:****
+📌****
 
 
 
-:pushpin:****
+📌****
 
 
 
-:pushpin:****
+📌****
 
 
 
-:pushpin:****
+📌****
 
 
 
-:pushpin:****
+📌****
 
 
 
-:pushpin:****
+📌****
 
 
 
-:pushpin:****
+📌****
 
 
 
@@ -2294,7 +2088,7 @@ https://www.runoob.com/cplusplus/cpp-environment-setup.html
 
 #### <img align="left" height="25" src="https://gitlab.com/libeigen/eigen/-/raw/master/doc/Eigen_Silly_Professor_64x64.png?inline=false" />Eigen
 
-:pushpin: **Initialization before operation is a must**
+📌 **Initialization before operation is a must**
 
 ```c++
 #include <Eigen/Dense>
@@ -2328,17 +2122,17 @@ rhs.setZero();
 
 ##### Matrix Class
 
-**:pushpin: Class Overview**
+**📌 Class Overview**
 
 The concept of `vector` and `matrix` are all in this class since `vector` can be see as a $n\cross 1$ `matrix`.
 
-:pushpin: **Tricks to Know the Type**
+📌 **Tricks to Know the Type**
 
 > ​	`MatrixXd` ,  `X=dynamic` the dimension can be define later, `d=double` this is a double type matrix.   
 
 > ​	`Vector3f` , `3=3rows`, `f=float`.
 
-:pushpin: **Mandatory Variable**
+📌 **Mandatory Variable**
 
 There are **3** mandatory variables in `Matrix` class.
 
@@ -2357,7 +2151,7 @@ typedef Matrix<float, 4, 4> Matrix4f;
 typedef Matrix<double, 3, 1> Vector3d;
 ```
 
-:pushpin: **Vector as a matrix**
+📌 **Vector as a matrix**
 
 In Eigen, `vector` can be seen as a special case of `matrix`, with **either 1 row or 1 column**.
 
@@ -2373,7 +2167,7 @@ typedef Matrix<float, 3, 1> Vector3f;
 typedef Matrix<int, 1, 2> RowVector2i;
 ```
 
-:pushpin: **Dynamic as X**
+📌 **Dynamic as X**
 
 Use `Dynamic` to indicate that **the size is unknown at compile time**.
 
@@ -2390,7 +2184,7 @@ typedef Matrix<double, Dynamic, Dynamic> MatrixXd;
 typedef Matrix<int, Dynamic, 1> VectorXi;
 ```
 
-:pushpin:**Constructor**
+📌**Constructor**
 
 > ​	Matrix Init:heavy_check_mark: , Size Init:heavy_check_mark:, Coefficients Init:x:
 
@@ -2432,7 +2226,7 @@ Matrix<double, 2, 3> b {
 };
 ```
 
-:pushpin:**Coefficient accessors**
+📌**Coefficient accessors**
 
 The accessor and constructor are the same... which is the *overloaded* bracket `( )`.
 
@@ -2459,7 +2253,7 @@ int main()
 
 `m(1,0) = 2.5`  is  $M_{1,0}=2.5$
 
-:pushpin: **Comma-initialization**
+📌 **Comma-initialization**
 
 ```c++
 //Fixed size
@@ -2477,7 +2271,7 @@ M << 1, 0, 0,
 cout << M << endl;
 ```
 
-:pushpin: **Size, Resize, and conservativeResize**
+📌 **Size, Resize, and conservativeResize**
 
 `rows()` gets numbers of rows in this matrix.
 
@@ -2523,7 +2317,7 @@ int main()
  }
  ```
 
-:pushpin: **Assignment are reference type**
+📌 **Assignment are reference type**
 
 ```c++
 MatrixXf a(2,2);
@@ -2532,7 +2326,7 @@ a = b;
 std::cout << "a is now of size " << a.rows() << "x" << a.cols() << std::endl;
 ```
 
-:pushpin: **When should use Fixed or Dynamic?**
+📌 **When should use Fixed or Dynamic?**
 
 |        | Fixed                                  | Dynamic                                   |
 | ------ | -------------------------------------- | ----------------------------------------- |
@@ -2551,7 +2345,7 @@ float *mymatrix = new float[rows*columns];
 
 :bangbang: When you try to use *fixed-size* for an extremely big data like a Mesh(e.g. $V=1500;F=600$), it could result a **stackoverflow**.
 
-:pushpin: **Complete Variables**
+📌 **Complete Variables**
 
 > ​	The first 3 has been discussed above. The following will focus on the last 3.
 
@@ -2613,13 +2407,13 @@ Matrix<float, Dynamic, Dynamic, 0, 3, 4>
 
 ##### Matrix and vector arithmetic
 
-:pushpin: **Addition, subtraction, multiplication, and division**
+📌 **Addition, subtraction, multiplication, and division**
 
 Nothing special, since the `+,-,*,/` have been overloaded by Eigen.
 
 The compound version is also fine: `+=, -=, *=, /=`
 
-:pushpin:**Transposition and conjugation** , (possible aliasing effect)
+📌**Transposition and conjugation** , (possible aliasing effect)
 
 The transpose $A^T$, conjugate $\bar{A}$, and adjoint (i.e., conjugate transpose) $A^*$ of a matrix $A$ or vector $A$ are obtained by the member functions
 
@@ -2649,7 +2443,7 @@ a.transposeInPlace();
 cout << "and after being transposed:\n" << a << endl;
 ```
 
-:pushpin: **Matrix-matrix and matrix-vector multiplication** , (no aliasing effect)
+📌 **Matrix-matrix and matrix-vector multiplication** , (no aliasing effect)
 
 > ​	nothing special, just use `*` and `*=`.
 
@@ -2686,7 +2480,7 @@ std::cout << "column-vector * matrix:\n" << u.transpose()*M << std::endl;
 std::cout << "column-vector * row-vector:\n" << u*v.transpose() << std::endl;
 ```
 
-:pushpin: **dot product and cross product**
+📌 **dot product and cross product**
 
 > ​	just use `.dot()` , `.cross()` , and `.adjoint()`
 
@@ -2708,7 +2502,7 @@ int main()
 }
 ```
 
-:pushpin: **arithmetic reduction operations**
+📌 **arithmetic reduction operations**
 
 `.sum()` , the sum of all coefficients
 
@@ -2774,7 +2568,7 @@ int main()
 
 :star: Big picture before diving in. The design of `Array` class aims to conduct *coefficient-wise*(**element-wise**) operation.
 
-:pushpin: **Array types**
+📌 **Array types**
 
 The types of `Array` class is very similar to `Matrix` in addition to its *element-wise* operation. You can define it in the way of  `Matrix` class.
 
@@ -2791,7 +2585,7 @@ There are also some common types already defined in Eigen.
 | `Array<double,Dynamic,Dynamic> ` | `ArrayXXd ` |
 | `Array<double,3,3> `             | `Array33d`  |
 
-:pushpin: **Accessing values inside an array**
+📌 **Accessing values inside an array**
 
 access and assign values are no difference with `Matrix` class.
 
@@ -2822,7 +2616,7 @@ int main()
 }
 ```
 
-:pushpin: **Element-wise arithmetic operation**
+📌 **Element-wise arithmetic operation**
 
 > ​	Array-scalar operation
 
@@ -2872,7 +2666,7 @@ int main()
 }
 ```
 
-:pushpin: **Other coefficient-wise operations**
+📌 **Other coefficient-wise operations**
 
 `.abs()`
 
@@ -2882,7 +2676,7 @@ int main()
 
 
 
-:pushpin: **Converting between array and matrix expressions**
+📌 **Converting between array and matrix expressions**
 
 `.array()`  , `Matrix` => `Array`
 
@@ -2890,7 +2684,7 @@ int main()
 
 
 
-:pushpin: **Type-safe function in Eigen**
+📌 **Type-safe function in Eigen**
 
 :heavy_check_mark: These are legal. 
 
@@ -2912,7 +2706,7 @@ int main()
 
 
 
-:pushpin: **TWO Example to explain Array-Matrix operation**
+📌 **TWO Example to explain Array-Matrix operation**
 
 There is `const .cwiseProduct(.) ` method for element-wise operation in matrix directly, since the matrix may always require element-wise operation but store its result in matrix. The following two are equivalent.
 
@@ -2973,119 +2767,119 @@ int main()
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
-:pushpin: ****
+📌 ****
 
 
 
@@ -3130,7 +2924,7 @@ Copy "$(TargetPath)" "$(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(Pro
 
 ### Common Tricks
 
-:pushpin:**Info on Lines and Cursor**
+📌**Info on Lines and Cursor**
 
 ![image-20210721164953723](img/image-20210721164953723.png)
 
@@ -3138,13 +2932,13 @@ Copy "$(TargetPath)" "$(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(Pro
 
 
 
-:pushpin:**How to modify output folder of `Build`?**
+📌**How to modify output folder of `Build`?**
 
 在C#里，可以在`Properties`的**Build** tab修改，那C++呢？在 **General** tab.
 
 
 
-:pushpin:**Shortcut of Bookmarks**
+📌**Shortcut of Bookmarks**
 
 `Ctrl`+`K,K`,double click K. Then the bookmark will be opened.
 
@@ -3152,7 +2946,7 @@ Copy "$(TargetPath)" "$(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(Pro
 
 
 
-:pushpin:**Code Snippets**
+📌**Code Snippets**
 
 I think this can be very handy! `Code snippets` is sort of `alias` of the code. Similar to the alias of Grasshopper component. So, how to invoke code snippets?
 
@@ -3177,7 +2971,7 @@ finally
 
 
 
-:pushpin:**Ctrl+`Tab` to change tab**
+📌**Ctrl+`Tab` to change tab**
 
 `Ctrl`+`Tab`  You can loop over the files you opened.
 
@@ -3187,7 +2981,7 @@ finally
 
 
 
-:pushpin:**Close all the tabs**
+📌**Close all the tabs**
 
 Managing many opening tabs is bit distraction for me. Sometimes I want to close all the tabs by:
 
@@ -3195,7 +2989,7 @@ Managing many opening tabs is bit distraction for me. Sometimes I want to close 
 
 
 
-:pushpin: **Ctrl+`,` for quick search** :star:
+📌 **Ctrl+`,` for quick search** :star:
 
 This is very handy!! When I was working, I only left one file opened. And the fastest way to find the method in which file is to 
 
@@ -3207,13 +3001,13 @@ See above animation, I don't have any files opened until I press `Ctrl`+`,` and 
 
 
 
-:pushpin:**Full screen mode**
+📌**Full screen mode**
 
 `Shift`+`Alt`+`Enter`    You can access/quit full screen mode by this shortcut.
 
 
 
-:pushpin:**Collapse code**
+📌**Collapse code**
 
 `Ctrl`+`M,M`
 
@@ -3221,13 +3015,13 @@ See above animation, I don't have any files opened until I press `Ctrl`+`,` and 
 
 
 
-:pushpin:**Separate Windows on a same file**
+📌**Separate Windows on a same file**
 
 If on `Class.cs`, click `Window` > `New Window` to split a file into 2 windows.
 
 
 
-:pushpin:**Relative Path when compile**
+📌**Relative Path when compile**
 
 The syntax is following:
 
@@ -3253,8 +3047,6 @@ public Uri imagePath = new Uri(@"pack://application:,,,/UiVersion_1;component\_U
 |             |                 |       |
 
 
-
-## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/vim.svg" />Vim
 
 
 
@@ -3534,13 +3326,13 @@ AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No intersection is found from
 
 ### 4.:thumbsup: Resources for Rhino/Grasshopper developer
 
-:pushpin: **Template to share a common library with both a C++ and a C# plug-in**
+📌 **Template to share a common library with both a C++ and a C# plug-in**
 
 > ​	https://github.com/dalefugier/Moose
 
 ### 5.Frequent Used Methods
 
-:pushpin: **Get .3dm file path**
+📌 **Get .3dm file path**
 
 ```C#
 string path = Rhino.RhinoDoc.ActiveDoc.Path;
