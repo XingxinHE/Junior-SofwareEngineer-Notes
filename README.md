@@ -1514,24 +1514,6 @@ If you are tired of setting `Property` manually in VS IDE, you can set up a prop
 
 #### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/cmake.svg" />CMake
 
-📌**Install from Ubuntu**
-
-1. First you have to make sure you have already `gcc` which contains `make` command for C binaries.
-2. Make sure you installed `OpenSSL` package
-
-```bash
-$ sudo apt-get install libssl-dev
-$ wget http://www.cmake.org/files/v3.21/cmake-3.21.2.tar.gz
-$ tar xzf cmake-3.21.2.tar.gz
-$ cd cmake-3.21.2
-$ ./configure --prefix=/opt/cmake
-$ make  #for compilation
-$ sudo make install  
-$ /opt/cmake/bin/cmake -version  #check if installed
-```
-
-
-
 📌**CMake 101**
 
 > ​	Setup⚙
@@ -1835,17 +1817,6 @@ $ cmake -B build -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=OFF
 
 
 #### <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/gnu.svg" />GCC
-
-📌**Install from Ubuntu**
-
-```bash
-$ sudo apt update
-$ sudo apt install build-essential
-$ sudo apt-get install manpages-dev
-$ gcc --version  #verified you have already installed
-```
-
-
 
 📌**What is GCC and G++?**
 
@@ -2608,127 +2579,9 @@ int main()
 
 
 
-📌 ****
 
 
 
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-📌 ****
-
-
-
-
-
-
-
-## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/python.svg" />Python
 
 
 
@@ -2764,14 +2617,6 @@ Copy "$(TargetPath)" "$(USERPROFILE)\AppData\Roaming\Grasshopper\Libraries\$(Pro
 ```
 
 ### Common Tricks
-
-📌**Info on Lines and Cursor**
-
-![image-20210721164953723](img/image-20210721164953723.png)
-
-如上图所示，我光标在`2.5;`后面，这里显示`Ln: 697    Ch: 61`代表第697行，第61个字符的位置
-
-
 
 📌**How to modify output folder of `Build`?**
 
