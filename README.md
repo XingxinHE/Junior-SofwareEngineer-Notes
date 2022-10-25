@@ -43,243 +43,6 @@ The topic ranges from programming language like C#, C++, Python, to 3D Software 
 
 # 1.Computer System:desktop_computer:
 
-## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/git.svg" />Git🕷️
-
-### 0.Basic Concepts
-
-📌**VCSs, Git, Github/Gitlab**
-
-VCSs = Version control systems (VCSs)
-
-Git = **Git** is the de facto standard for version control
-
-Github/Gitlab/Gitee = the host of Git Repository
-
-
-
-📌 **Snapshots咔嚓**
-
-Git models the history of a collection of files and folders within some top-level directory as a series of snapshots.
-
-```
-<root> (tree)
-|
-+- foo (tree)
-|  |
-|  + bar.txt (blob, contents = "hello world")
-|
-+- baz.txt (blob, contents = "git is wonderful")
-```
-
-
-
-**📌Modeling history: relating snapshots**
-
-In pro words: a history is a **directed acyclic graph (DAG)** of snapshots
-
- In human words: each snapshot in Git refers to a set of “parents”, the snapshots that preceded it.
-
-```
-      this is a commit
-            ↑
-o <-- o <-- o <-- o
-            ^
-             \
-              --- o <-- o
-```
-
-```
-      new_feature      new_feature + bug_fix
-            ↑               ↗
-o <-- o <-- o <-- o <---- o
-            ^            /
-             \          v
-              --- o <-- o
-                        ↓
-                     bug_fix
-```
-
-
-
-**📌 Fast-forward and three-way merge**
-
-Fast-forward: the commit all points to a same parent commit
-
-```
-o <-- o <-- o <-- o <-- o
-```
-
-Three-way merge:
-
-- master and sub no conflicts:heavy_check_mark:, different file
-- master and sub no conflicts:heavy_check_mark:, different modification in the same file
-- master and sub conflicts:x:
-
-```
-o <-- o <-- o <-- o <---- o
-            ^            /
-             \          v
-              --- o <-- o
-```
-
-
-
-**📌 Data model**
-
-The following mimics the data model in Git in pseudocode.
-
-**File**: it is a bunch of bytes
-
-```
-type blob = array<byte>
-```
-
-**Directory**: It contains named files and directories
-
-```
-type tree = map<string, tree | blob>
-```
-
-**Commit**: It has parents, metadata, and the top-level tree
-
-```
-type commit = struct 
-{
-    parents: array<commit>
-    author: string
-    message: string
-    snapshot: tree
-}
-```
-
-**Object**: It could be a blob, tree, or commit.
-
-```
-type object = blob | tree | commit
-```
-
-**Data Storage**: In Git data store, all objects are **content-addressed** by their [SHA-1 hash](https://en.wikipedia.org/wiki/SHA-1).
-
-```
-objects = map<string, object>
-
-def store(object):
-    id = sha1(object)
-    objects[id] = object
-
-def load(id):
-    return objects[id]
-```
-
-**References**: They are pointers to commits. Convert *SHA-1 hash* to *human-readable names*.
-
-```
-references = map<string, string>
-
-def update_reference(name, id):
-    references[name] = id
-
-def read_reference(name):
-    return references[name]
-
-def load_reference(name_or_id):
-    if name_or_id in references:
-        return load(references[name_or_id])
-    else:
-        return load(name_or_id)
-```
-
-e.g.
-
-`HEAD` is the latest "where we currently are"
-
-`master` refers to a particular snapshot instead of a bunch of hexadecimal string.
-
-
-
-📌 **Repositories**
-
-In short, a Git *repository*: it is the data `objects` and `references`.
-
-
-
-**📌 A diagram for Git**
-
-![image-20210830144146878](img/image-20210830144146878.png)
-
-
-
-
-
-
-
-### 2.:+1:Goooood resources of Git
-
-**`.gitignore` template**
-
-> ​	https://github.com/github/gitignore
-
-**Software for Git**
-
-> ​	`SourceTree` is a free software managing Git while it provides GUI to interact with Git. Highly recommend! You can download:
->
-> ​	https://www.sourcetreeapp.com/
-
-**Book for git**
-
-> ​	https://git-scm.com/book/en/v2
-
-### 3.Some Regular Procedure
-
-**📌Git submodules**
-
-```cmd
-git submodule add --depth 1 git@gitee.com:shanghai-dajie-robot/pocket_raichu.git submodules/pocket_raichu
-git config -f .gitmodules submodule.pocket_raichu.shallow true
-```
-
-
-
-```
-git config -f .gitmodules submodule.submodules/pocket_raichu.shallow false
-```
-
-
-
-
-
-git submodule foreach git pull origin master
-
-
-
-```
-git clone <repo_url>
-git submodule init
-git submodule update --depth 10
-```
-
-
-
-
-
-**📌Setup a Github Access Token**
-
-1. Go to the Github account - Developer Setting - Generate Token
-2. Git clone an arbitrary repo from your page
-3. When the computer request credential, just close it until it appears on the command line for the following info
-   1. `user_name`: the name of your Github account
-   2. `password`: paste your token here
-
-
-
-
-
-
-
-
-
-
-
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/powershell.svg" />Shell:shell:
 
 
@@ -404,23 +167,23 @@ drwxr-xr-x 1 Xingxin 197121      0 Aug  5 01:15  Autodesk/
 
 For `Autodesk/` folder, `drwxr-xr-x`
 
-> ​	`0=d`, this is a directory:heavy_check_mark:, file:x:
+> ​	`0=d`, this is a directory✔, file❌
 >
-> ​	`123=rwx`, *owner* can **read**:heavy_check_mark: , **write**:heavy_check_mark: and **execute**:heavy_check_mark: .
+> ​	`123=rwx`, *owner* can **read**✔ , **write**✔ and **execute**✔ .
 >
-> ​	`456=r-x`, *owner group* can **read**:heavy_check_mark: , **write**:x: and **execute**:heavy_check_mark: .
+> ​	`456=r-x`, *owner group* can **read**✔ , **write**❌ and **execute**✔ .
 >
-> ​	`789=r-x`, *other users* can **read**:heavy_check_mark: , **write**:x: and **execute**:heavy_check_mark: .
+> ​	`789=r-x`, *other users* can **read**✔ , **write**❌ and **execute**✔ .
 
 For `desktop.ini` file, `-rwxr-xr-x`
 
-> ​	`0=-`, this is a directory:x:, file:heavy_check_mark:
+> ​	`0=-`, this is a directory❌, file✔
 >
-> ​	`123=rw-`, *owner* can **read**:heavy_check_mark: , **write**:heavy_check_mark: and **execute**:x: .
+> ​	`123=rw-`, *owner* can **read**✔ , **write**✔ and **execute**❌ .
 >
-> ​	`456=r--`, *owner group* can **read**:heavy_check_mark: , **write**:x: and **execute**:x: .
+> ​	`456=r--`, *owner group* can **read**✔ , **write**❌ and **execute**❌ .
 >
-> ​	`789=r--`, *other users* can **read**:heavy_check_mark: , **write**:x: and **execute**:x: .
+> ​	`789=r--`, *other users* can **read**✔ , **write**❌ and **execute**❌ .
 
 
 
@@ -680,15 +443,15 @@ $ rg "import requests" -t py -C 5 --stats ~/dev
 
 > ​	`A  ||  B`
 
-First check `A=True`:heavy_check_mark: , runs `A` only. 
+First check `A=True`✔ , runs `A` only. 
 
-First check `B=False`:x:, run `B`
+First check `B=False`❌, run `B`
 
 > ​	`A  &&  B`
 
-First check `A=True`:heavy_check_mark:, runs `B`
+First check `A=True`✔, runs `B`
 
-First check `A=False`:x:, does not run anything.
+First check `A=False`❌, does not run anything.
 
 ```bash
 $ true || echo "This will not be printed"
@@ -733,7 +496,7 @@ echo '$foo'
 
 > ​	1.No space should insert when assigning value
 
-`foo=bar` :heavy_check_mark: , `foo = bar`:x: . Because space ` ` acts as delimiter.
+`foo=bar` ✔ , `foo = bar`❌ . Because space ` ` acts as delimiter.
 
 > ​	2.double quote and single quote have been explained.
 
@@ -938,104 +701,6 @@ To conclude, `.\xxx` means execute the `xxx` in current directroy.
 > ​	https://tldr.sh/
 
 
-
-
-
-
-
-## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/latex.svg" />LaTex
-
-### Symbol and Letters
-
-| Appearance                       | Code          |
-| -------------------------------- | ------------- |
-| $\tilde{M}$                      | `\tilde{}`    |
-| $\equiv$ , equivalent to         | `\equiv`      |
-| $\not\equiv$ , not equivalent to | `\not\equiv`  |
-| $\bar{A}$                        | `$\bar{A}$`   |
-| $\hat{A}$                        | `$\hat{A}$`   |
-| $\tilde{A}$                      | `$\tilde{A}$` |
-
-
-
-### Vectors and Matrix
-
-📌  **vertical dashed lines inside a matrix**
-
-> ​	The `c` in `{c:c}` represents the column while `:` represents the dashed line.
->
-> ​	Therefore, `{c:c}` means the dashed line start from *1* column from the left.
-
-```latex
-\begin{array}{c:c}
-1 &  2 \\ 
-3 & 4 \\
-5 & 6 \\ 
-\end{array}
-```
-
-$\begin{array}{c:c}
-1 &  2 \\ 
-3 & 4 \\
-5 & 6 \\ 
-\end{array}$
-
-📌 **Matrix Template**
-
-```latex
-\begin{bmatrix}
-1&0&0\\
-0&1&0\\
-0&0&1\\
-\end{bmatrix}
-```
-
-$\begin{bmatrix}
-1&0&0\\
-0&1&0\\
-0&0&1\\
-\end{bmatrix}$
-
-**📌Determinant Template**
-
-```latex
-\begin{vmatrix}
-1 & 4 & 1 \\ 
-0 & -2 & 1 \\ 
-0 & 2 & 1
-\end{vmatrix}
-```
-
-$\begin{vmatrix}
-1 & 4 & 1 \\ 
-0 & -2 & 1 \\ 
-0 & 2 & 1
-\end{vmatrix}$
-
-
-
-
-
-### Documentation
-
-📌 **Reference equation by tag**
-
-> ​	You create the equation with `label` and `tag`.
-
-```latex
-$ a = b \tag{a}\label{a} $
-```
-
-> ​	Then you can reference the equation:
-
-```latex
-$ \eqref{a} $
-```
-
-
-
-
-
 # 2.Programming Language:speaking_head:
 
 ## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/csharp.svg" />C#
@@ -1071,7 +736,7 @@ public class Param : IParam
 }
 ```
 
-:x: 但是为什么我无法调用World?如下
+❌ 但是为什么我无法调用World?如下
 
 ```c#
 Vector3d IParam.SafeShift
@@ -1464,7 +1129,7 @@ History:
 'fscanf': This function or variable may be unsafe. 
 ```
 
-:heavy_check_mark: 解决方案是：
+✔ 解决方案是：
 
 Select your project and click `Properties` in the context menu.
 
@@ -1486,13 +1151,13 @@ Edit the `Disable Specific Warnings property` to add *`4996`*
 
 ### 2.C2440, cannot convert from `char *` to `LPWSTR`
 
-`Project`=>`Properties`=>`Configuration Properties`=>`Advanced`=>`Character Set`=>`Use Multi-Byte Character Set`:heavy_check_mark:
+`Project`=>`Properties`=>`Configuration Properties`=>`Advanced`=>`Character Set`=>`Use Multi-Byte Character Set`✔
 
 ### 3.E0135 namespace "std" has no member "filesystem"
 
 Because `std::filesystem` is a feature of C++17.
 
-`Project`=>`Properties`=>`Configuration Properties`=>`C/C++`=>`Language`=>`C++ Language Standard`=>`ISO C++17 Standard (/std:c++17)`:heavy_check_mark:
+`Project`=>`Properties`=>`Configuration Properties`=>`C/C++`=>`Language`=>`C++ Language Standard`=>`ISO C++17 Standard (/std:c++17)`✔
 
 ### 4.How do you know Project Property Inheritance?
 
@@ -1998,26 +1663,26 @@ typedef Matrix<int, Dynamic, 1> VectorXi;
 
 📌**Constructor**
 
-> ​	Matrix Init:heavy_check_mark: , Size Init:heavy_check_mark:, Coefficients Init:x:
+> ​	Matrix Init✔ , Size Init✔, Coefficients Init❌
 
 ```c++
 Matrix3f a;
 ```
 
-> ​	Matrix Init:heavy_check_mark: , Size Init:x:, Coefficients Init:x:
+> ​	Matrix Init✔ , Size Init❌, Coefficients Init❌
 
 ```c++
 MatrixXf b;
 ```
 
-> ​	Matrix Init:heavy_check_mark: , Size Init:heavy_check_mark:, Coefficients Init:x:
+> ​	Matrix Init✔ , Size Init✔, Coefficients Init❌
 
 ```c++
 MatrixXf a(10,15);
 VectorXf b(30);
 ```
 
-> ​	Matrix Init:heavy_check_mark: , Size Init:heavy_check_mark:, Coefficients Init:heavy_check_mark:
+> ​	Matrix Init✔ , Size Init✔, Coefficients Init✔
 
 ```c++
 //Vector
@@ -2235,7 +1900,7 @@ The transpose $A^T$, conjugate $\bar{A}$, and adjoint (i.e., conjugate transpose
 
 :warning:WARNING!! `transpose()` and `adjoint()` simply return a **proxy** object without doing the actual transposition. If you want to assign its transpose, you need to use `transposeInPlace()`.
 
-> ​	:x: WRONG EXAMPLE, so called [aliasing effect](https://eigen.tuxfamily.org/dox/group__TopicAliasing.html)
+> ​	❌ WRONG EXAMPLE, so called [aliasing effect](https://eigen.tuxfamily.org/dox/group__TopicAliasing.html)
 
 ```c++
 Matrix2i a; a << 1, 2, 3, 4;
@@ -2245,7 +1910,7 @@ a = a.transpose(); // !!! do NOT do this !!!
 cout << "and the result of the aliasing effect:\n" << a << endl;
 ```
 
-> ​	:heavy_check_mark:CORRECT EXAMPLE
+> ​	✔CORRECT EXAMPLE
 
 ```c++
 MatrixXf a(2,3); a << 1, 2, 3, 4, 5, 6;
@@ -2498,7 +2163,7 @@ int main()
 
 📌 **Type-safe function in Eigen**
 
-:heavy_check_mark: These are legal. 
+✔ These are legal. 
 
 > ​	temporarily *convert to matrix* before *matrix-operation* , store in *matrix*.
 
@@ -2512,7 +2177,7 @@ int main()
 
 `Eigen:Array = Eigen::Matrix.array() * Eigen::Matrix.array()` 
 
-:x: This is illegal.
+❌ This is illegal.
 
 `Eigen::Matrix = Eigen::Matrix * Eigen::Array`
 
@@ -2586,18 +2251,6 @@ int main()
 
 
 # 3.IDE & Text Editor :memo::computer:
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Visual Studio IDE<img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/visualstudio.svg" />
 
@@ -2734,160 +2387,6 @@ public Uri imagePath = new Uri(@"pack://application:,,,/UiVersion_1;component\_U
 
 
 
-
-
-# 4.Database
-
-## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/sqlite.svg" />SQLite
-
-### 📌**SQLite C# 101**
-
-> ​	Solution Overview
-
-Suppose you have 2 projects in Visual Studio.
-
-- `DemoLibrary`, the project with data structure
-- `WinFormUI`, the project with UI
-
-
-
-> ​	Define Data Structure in `DemoLibrary`
-
-The following is a simple data structure for a person.
-
-```c#
-public class PersonModel
-{
-    public int Id { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-
-    public string FullName
-    {
-        get
-        {
-            return $"{ FirstName } { LastName }";
-        }
-    }
-}
-```
-
-
-
-> ​	Setup in DB Browser
-
-1️⃣ Init `.db` file for the project
-
-In DB Browser for SQLite, click <u>File</u> > <u>New Database</u> > {<u>Location of Executable Project</u>} > <u>Name`.db`</u>
-
-Normally, the `.db` file should be in the executable project. e.g. The <u>**root path**</u> of WinForm / WPF / UWP, etc.
-
-2️⃣Include `.db` file in your porject
-
-In Visual Studio > Solution Explorer > Show All Files > Right Click the `.db` File > Include in Project
-
-3️⃣Create table matching data structure
-
-In DB Browser for SQLite, click <u>Database Structure</u> > <u>Create Table</u>
-
-<img src="img/image-20220208115831626.png" alt="image-20220208115831626" style="zoom:80%;" />
-
-The field is the **Property** you defined in C# class. The preceding image is the table matching the data structure you defined.
-
-The options of `Type` are:
-
-- `INTEGER`
-- `TEXT`
-- `BLOB`, files
-- `REAL`, floating number
-- `NUMERICAL`
-
-The flags are:
-
-- `NN` = `Not Null`
-- `PK` = `Primary Key`
-- `AI` = `Auto Increment`
-- `U` = `Unique`
-
-
-
-> ​	Add References
-
-1️⃣Nuget Packages
-
-- `System.Data.SQLite.Core`  , installed in <u>project with data structure</u> and <u>UI executable</u>, e.g. `DemoLibrary`&`WinFormUI`
-- `Dapper` , installed in <u>project with data structure</u>, e.g. `DemoLibrary`
-
-2️⃣Search in Assemblies
-
-- `System.Configuration` , <u>project with data structure</u> installed in `DemoLibrary`
-
-
-
-> ​	Set-up Configuration in UI Executable
-
-In `WinFormUI`, locate at `App.Config`. Add `connectionStrings` tab into the `configuration`.  `Data Source` points to where `.db` locates.
-
-```xaml
-<configuration>
-	<connectionStrings>
-		<add name="Default" 
-			 connectionString="Data Source=./DemoDB.db;Version=3;" 
-			 providerName="System.Data.SqlClient"/>
-	</connectionStrings>
-</configuration>
-```
-
-
-
-> ​	Create methods load and save data
-
-```c#
-public class SqliteDataAccess
-{
-    //this is the method loading data from database
-    public static List<PersonModel> LoadPeople()
-    {
-        using(IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-        {
-            //query database
-            var output = cnn.Query<PersonModel>(
-                "select * from Person",
-                new DynamicParameters());
-            return output.ToList();
-        }
-    }
-
-    //this is the method saving data from database
-    public static void SavePerson(PersonModel person)
-    {
-        using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-        {
-            //match the input with the data structure
-            cnn.Execute(
-                "insert into Person (FirstName, LastName) values (@FirstName, @LastName)", 
-                person);
-        }
-    }
-
-    //private function for init connection to database
-    private static string LoadConnectionString(string id = "Default")//the default here is in `App.Config`
-    {
-        return ConfigurationManager.ConnectionStrings[id].ConnectionString;
-    }
-}
-```
-
-
-
-
-
-
-
-
-
-
-
 # 4.Devops
 
 ## Documentation Tool:books:
@@ -2936,8 +2435,6 @@ public class SqliteDataAccess
 ```
 
 
-
-## <img align="left" height="25" src="https://cdn.jsdelivr.net/npm/simple-icons@5.8.1/icons/docker.svg" />Docker
 
 # 5.Geometry Kernel:triangular_ruler:
 
@@ -3023,50 +2520,6 @@ AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "No intersection is found from
 ```C#
 string path = Rhino.RhinoDoc.ActiveDoc.Path;
 ```
-
-
-
-# 6.Algorithm
-
-## Optimization
-
-### 1.RANSAC？
-
-#### 综述
-
- It can be interpreted as **an outlier detection method**!! Inlier和Outlier很重要，这个算法还有把inlier看作是一个很重要的指标。如下图的Line Fitting问题，如果是用 simple least squares method的话就很容易出问题。因为后者把outlier也当作关键信息，而RANSAC也会process outliers，但是它却会exclude它们。
-
-<img src="img/image-20210423172645420.png" alt="image-20210423172645420" style="zoom: 67%;" />
-
-#### 怎么运作？
-
-大致的思路是
-
-  1. 随机筛选一些subset of data，然后fit model出来
-  2. 找剩余的data来测试这个model，如果能通过，那就称为inlier data
-  3. 不断重复，如果fit的data太少了，这个model就会被reject
-  4. 若良好，那么这个dataset就是consensus set
-  5. 这个model不断完善，这个consensus set越来越大
-
-#### :star:Pros and Cons
-
-这非常重要，一项技术总有trade-off
-
-##### Pros
-
-若含超过50%的inliers，那么RANSAC会非常robust
-
-##### Cons
-
-反之，若只有例如30%的inlier，那么RANSAC没法找出好东西    
-
-RANSAC是model-dataset一一对应的关系，即一个dataset不可能有两个model。比如是一个折线的scatter plot，那就需要两个model，RANSAC不适合这种情况    
-
-no upper bound计算时间，因此需要根据数据集的复杂程度决定iteration大小
-
-:star:RANSAC的threshold是problem-specific thresholds，例如在我找折线的那个电池，是算的threshold是data point的Y值的差异。那么，当我的模型从1mm变成1000mm，threshold就要改变了
-
-
 
 
 
