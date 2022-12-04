@@ -2,12 +2,8 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <functional>
 using namespace std;
-
-class lambda32xzj
-{
-
-};
 
 template<typename T>
 void printFunc(const T &elems)
@@ -17,6 +13,12 @@ void printFunc(const T &elems)
         cout << elem << " ";
     }
     cout << endl;
+}
+
+template<typename T>
+void call(std::function<void(vector<T>)> func, const vector<T> &vec)
+{
+    func(vec);
 }
 
 int main()
