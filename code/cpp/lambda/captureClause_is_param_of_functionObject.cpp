@@ -14,7 +14,7 @@ public:
         :m_min{min}, m_max{max}
         {}
 
-    bool operator() (int num) const
+    bool operator() (int num) const noexcept
     {
         return (m_min <= num) && (num <= m_max);
     }
@@ -25,7 +25,7 @@ int main()
     constexpr int MIN = 0;
     constexpr int MAX = 10;
     // using lambda expression
-    auto inRange = [MIN, MAX] (int num)
+    auto inRange = [MIN, MAX] (int num) noexcept -> bool
     {
         return (MIN <= num) && (num <= MAX);
     };
