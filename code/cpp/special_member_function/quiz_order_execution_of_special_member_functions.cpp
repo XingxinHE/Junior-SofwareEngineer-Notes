@@ -77,6 +77,9 @@ struct XX
     X b;
 };
 
+// Take a guess of the following codes to
+// verify you understand the concept of 
+// special member functions.
 int main()
 {
     cout << "Experiment 1-------------------------" << endl;

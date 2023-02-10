@@ -11,8 +11,8 @@ public:
 int main()
 {
     Point3d pt;
-    pt.getX();
-    pt.getY();
+    pt.getX();  //✅OK
+    pt.getY();  //❌Warning!
 
     return 0;
 }
